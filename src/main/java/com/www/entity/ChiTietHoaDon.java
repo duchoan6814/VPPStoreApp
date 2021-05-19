@@ -20,10 +20,6 @@ public class ChiTietHoaDon implements Serializable {
     @JoinColumn(name = "hoa_don_id", nullable = true)
     private HoaDon hoaDon;
 
-    @Id
-    @ManyToOne
-    @JoinColumn(name = "gio_hang_id", nullable = true)
-    private Cart cart;
 
     @Column(name = "gia_ban", nullable = false)
     public double tinhGiaBan() {
@@ -38,15 +34,7 @@ public class ChiTietHoaDon implements Serializable {
     public ChiTietHoaDon() {
     }
 
-    @Override
-    public String toString() {
-        return "ChiTietHoaDon{" +
-                "soLuong=" + soLuong +
-                ", sanPham=" + sanPham +
-                ", hoaDon=" + hoaDon +
-                ", cart=" + cart +
-                '}';
-    }
+
 
     public int getSoLuong() {
         return soLuong;

@@ -9,7 +9,7 @@ import java.util.Date;
 @Table(name = "HOA_DON")
 public class HoaDon implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private String id;
 

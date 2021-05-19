@@ -1,9 +1,9 @@
 package com.www.authentication;
 
-import com.www.dao.RoleDao;
-import com.www.dao.UserDao;
 import com.www.entity.Role;
 import com.www.entity.User;
+import com.www.repository.RoleRepository;
+import com.www.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -19,25 +19,23 @@ import java.util.List;
 public class MyDBAuthenticationService implements UserDetailsService {
 
     @Autowired
-    UserDao userDao;
+    UserRepository userRepository;
     @Autowired
-    RoleDao roleDao;
+    RoleRepository roleRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userDao.findByEmail(username);
+        User user = userRepository.findByEmail(username);
 
         if (user == null) {
             throw new UsernameNotFoundException("User " //
                     + username + " was not found in the database");
         }
 
-        List<Role> roleList = roleDao.findByUserID(user.getId());
-
         List<GrantedAuthority> grantList = new ArrayList<GrantedAuthority>();
 
-        for (Role role: roleList) {
-            grantList.add(new SimpleGrantedAuthority("ROLE_"+role.getName()));
+        for (Role role: user.getRoles()) {
+            grantList.add(new SimpleGrantedAuthority(role.getName()));
         }
 
         boolean enabled = true;

@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: hoantruong
@@ -10,118 +11,132 @@
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<%--    <c:url var="cssUrl" value="/css/header_footer_style.css" />--%>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/header_footer_style.css">
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light header">
+
+    <c:url var="urlLogo" value="/images/logo.png"/>
+
     <div class="container">
-        <div sec:authorize="isAnonymous()" class="row justify-content-between">
-            <div class="col-7 header__wrap-left-site">
-                <a class="navbar-brand" th:href="@{/}">
-                    <img th:src="@{/img/logo.png}" alt="logo"/>
-                </a>
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
-                    <button class="btn my-2 my-sm-0" type="submit">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                             class="bi bi-search"
-                             viewBox="0 0 16 16">
-                            <path
-                                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                        </svg>
-                    </button>
-                </form>
-            </div>
-            <div class="col-4 header__wrap-right-site">
-                <div class="header__wrap-right-site__user">
-                    <div class="user__left-site mr-3">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
-                             class="bi bi-person-circle" viewBox="0 0 16 16">
-                            <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
-                            <path fill-rule="evenodd"
-                                  d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
-                        </svg>
-                    </div>
-                    <div class="user__right-site">
-                        <a href="#">
-                            <h5>Tài khoản</h5>
-                        </a>
-                        <a th:href="@{/login}">
-                            <h6>Đăng nhập</h6>
-                        </a>
-                    </div>
-                </div>
 
-                <div class="header__wrap-right-site__gio-hang">
-                    <button class="gio-hang__wrap-gio-hang">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
-                             class="bi bi-bag-check-fill" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd"
-                                  d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5v-.5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0zm-.646 5.354a.5.5 0 0 0-.708-.708L7.5 10.793 6.354 9.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z"/>
-                        </svg>
-                        <p class="mx-3">Giỏ hàng</p>
-                        <div class="gio-hang__wrap-gio-hang__bage">
-                            <p>1</p>
-                        </div>
-                    </button>
+        <c:if test="${pageContext.request.userPrincipal.name == null}">
+            <div class="row justify-content-between">
+                <div class="col-7 header__wrap-left-site">
+                    <a class="navbar-brand" th:href="@{/}">
+                        <img src="${urlLogo}" alt="logo"/>
+                    </a>
+                    <form class="form-inline my-2 my-lg-0">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
+                        <button class="btn my-2 my-sm-0" type="submit">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-search"
+                                 viewBox="0 0 16 16">
+                                <path
+                                        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                            </svg>
+                        </button>
+                    </form>
                 </div>
-            </div>
-        </div>
-        <div sec:authorize="isAuthenticated()" class="row justify-content-between">
-            <div class="col-7 header__wrap-left-site">
-                <a class="navbar-brand" th:href="@{/}">
-                    <img th:src="@{/img/logo.png}" alt="logo"/>
-                </a>
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
-                    <button class="btn my-2 my-sm-0" type="submit">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                             class="bi bi-search"
-                             viewBox="0 0 16 16">
-                            <path
-                                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
-                        </svg>
-                    </button>
-                </form>
-            </div>
-            <div class="col-5 header__wrap-right-site">
-
-                <div class="dropdown show">
-                    <a class="header__wrap-right-site__user is-authen dropdown-toggle" href="#" role="button"
-                       id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <div class="col-4 header__wrap-right-site">
+                    <div class="header__wrap-right-site__user">
                         <div class="user__left-site mr-3">
-                            <img th:if="${nguoiDung.getAvatar() == null}"
-                                 src="https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png"
-                                 alt="avatar"/>
-                            <img th:if="${nguoiDung.getAvatar() != null}" src="${nguoiDung.getAvatar()}" alt="avatar"/>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                                 class="bi bi-person-circle" viewBox="0 0 16 16">
+                                <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/>
+                                <path fill-rule="evenodd"
+                                      d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8zm8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1z"/>
+                            </svg>
                         </div>
                         <div class="user__right-site">
-                            <h5 th:text="${nguoiDung.getHoTenDem() + ' ' + nguoiDung.getTen()}">first name</h5>
+                            <a href="#">
+                                <h5>Tài khoản</h5>
+                            </a>
+                            <a th:href="@{/login}">
+                                <h6>Đăng nhập</h6>
+                            </a>
                         </div>
-                    </a>
+                    </div>
 
-                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                        <a class="dropdown-item" href="#">Thông tin</a>
-                        <form class="dropdown-item" th:action="@{/perform_logout}" method="post">
-                            <input type="submit" value="Đăng xuất"/>
-                        </form>
+                    <div class="header__wrap-right-site__gio-hang">
+                        <button class="gio-hang__wrap-gio-hang">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                                 class="bi bi-bag-check-fill" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                      d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5v-.5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0zm-.646 5.354a.5.5 0 0 0-.708-.708L7.5 10.793 6.354 9.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z"/>
+                            </svg>
+                            <p class="mx-3">Giỏ hàng</p>
+                            <div class="gio-hang__wrap-gio-hang__bage">
+                                <p>1</p>
+                            </div>
+                        </button>
                     </div>
                 </div>
+            </div>
+        </c:if>
 
-                <div class="header__wrap-right-site__gio-hang">
-                    <button class="gio-hang__wrap-gio-hang">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
-                             class="bi bi-bag-check-fill" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd"
-                                  d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5v-.5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0zm-.646 5.354a.5.5 0 0 0-.708-.708L7.5 10.793 6.354 9.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z"/>
-                        </svg>
-                        <p class="mx-3">Giỏ hàng</p>
-                        <div class="gio-hang__wrap-gio-hang__bage">
-                            <p>1</p>
+
+        <%--<c:if test="${pageContext.request.userPrincipal.name != null}">
+            <div sec:authorize="isAuthenticated()" class="row justify-content-between">
+                <div class="col-7 header__wrap-left-site">
+                    <a class="navbar-brand" th:href="@{/}">
+                        <img th:src="@{/img/logo.png}" alt="logo"/>
+                    </a>
+                    <form class="form-inline my-2 my-lg-0">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
+                        <button class="btn my-2 my-sm-0" type="submit">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-search"
+                                 viewBox="0 0 16 16">
+                                <path
+                                        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+                <div class="col-5 header__wrap-right-site">
+
+                    <div class="dropdown show">
+                        <a class="header__wrap-right-site__user is-authen dropdown-toggle" href="#" role="button"
+                           id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <div class="user__left-site mr-3">
+                                <img th:if="${nguoiDung.getAvatar() == null}"
+                                     src="https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png"
+                                     alt="avatar"/>
+                                <img th:if="${nguoiDung.getAvatar() != null}" src="${nguoiDung.getAvatar()}" alt="avatar"/>
+                            </div>
+                            <div class="user__right-site">
+                                <h5 th:text="${nguoiDung.getHoTenDem() + ' ' + nguoiDung.getTen()}">first name</h5>
+                            </div>
+                        </a>
+
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            <a class="dropdown-item" href="#">Thông tin</a>
+                            <form class="dropdown-item" th:action="@{/perform_logout}" method="post">
+                                <input type="submit" value="Đăng xuất"/>
+                            </form>
                         </div>
-                    </button>
+                    </div>
+
+                    <div class="header__wrap-right-site__gio-hang">
+                        <button class="gio-hang__wrap-gio-hang">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+                                 class="bi bi-bag-check-fill" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                      d="M10.5 3.5a2.5 2.5 0 0 0-5 0V4h5v-.5zm1 0V4H15v10a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V4h3.5v-.5a3.5 3.5 0 1 1 7 0zm-.646 5.354a.5.5 0 0 0-.708-.708L7.5 10.793 6.354 9.646a.5.5 0 1 0-.708.708l1.5 1.5a.5.5 0 0 0 .708 0l3-3z"/>
+                            </svg>
+                            <p class="mx-3">Giỏ hàng</p>
+                            <div class="gio-hang__wrap-gio-hang__bage">
+                                <p>1</p>
+                            </div>
+                        </button>
+                    </div>
                 </div>
             </div>
-        </div>
+        </c:if>
+--%>
+
     </div>
 </nav>
 

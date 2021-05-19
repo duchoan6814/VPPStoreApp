@@ -8,7 +8,7 @@ import java.util.List;
 @Table(name = "the_loai")
 public class TheLoai implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private String id;
 

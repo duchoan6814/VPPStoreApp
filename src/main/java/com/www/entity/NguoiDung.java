@@ -15,7 +15,7 @@ public class NguoiDung implements Serializable {
     private static final long serialVersionUID = 1835758663980843147L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
 

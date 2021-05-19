@@ -1,14 +1,6 @@
 package com.www.config;
 
 
-import com.www.dao.NguoiDungDao;
-import com.www.dao.RoleDao;
-import com.www.dao.UserDao;
-import com.www.entity.NguoiDung;
-import com.www.entity.Role;
-import com.www.entity.User;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;

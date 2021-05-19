@@ -1,11 +1,11 @@
 package com.www.config;
 
-import com.www.dao.NguoiDungDao;
-import com.www.dao.RoleDao;
-import com.www.dao.UserDao;
 import com.www.entity.NguoiDung;
 import com.www.entity.Role;
 import com.www.entity.User;
+import com.www.repository.NguoiDungRepository;
+import com.www.repository.RoleRepository;
+import com.www.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEvent;
 import org.springframework.context.ApplicationListener;
@@ -19,39 +19,40 @@ import java.util.Set;
 public class DataSeendingListener implements ApplicationListener {
 
     @Autowired
-    private UserDao userDao;
+    private UserRepository userRepository;
     @Autowired
-    private RoleDao roleDao;
+    private RoleRepository roleRepository;
     @Autowired
-    private NguoiDungDao nguoiDungDao;
+    private NguoiDungRepository nguoiDungRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Override
     public void onApplicationEvent(ApplicationEvent applicationEvent) {
+        System.out.println("hello");
         /*create user admin and member*/
-        if (roleDao.findByName("ROLE_ADMIN") == null) {
+        if (roleRepository.findByName("ROLE_ADMIN") == null) {
             Role role = new Role();
             role.setName("ROLE_ADMIN");
-            roleDao.saveRole(role);
+            roleRepository.save(role);
         }
 
-        if (roleDao.findByName("ROLE_MEMBER") == null) {
+        if (roleRepository.findByName("ROLE_MEMBER") == null) {
             Role role = new Role();
             role.setName("ROLE_MEMBER");
-            roleDao.saveRole(role);
+            roleRepository.save(role);
         }
 
-        if (userDao.findByEmail("admin@gamil.com") == null) {
+        if (userRepository.findByEmail("admin@gamil.com") == null) {
             User user = new User();
             user.setEmail("admin@gamil.com");
             user.setPassword(passwordEncoder.encode("123456"));
             Set<Role> roles = new HashSet<>();
-            roles.add(roleDao.findByName("ROLE_ADMIN"));
-            roles.add(roleDao.findByName("ROLE_MEMBER"));
+            roles.add(roleRepository.findByName("ROLE_ADMIN"));
+            roles.add(roleRepository.findByName("ROLE_MEMBER"));
             user.setRoles(roles);
-            userDao.saveUser(user);
+            userRepository.save(user);
 
             NguoiDung nguoiDung = new NguoiDung();
             nguoiDung.setHoTenDem("Truong Duc");
@@ -59,16 +60,16 @@ public class DataSeendingListener implements ApplicationListener {
             nguoiDung.setSoDienThoai("0349380770");
             nguoiDung.setUser(user);
 
-            nguoiDungDao.saveNguoiDung(nguoiDung);
+            nguoiDungRepository.save(nguoiDung);
         }
-        if (userDao.findByEmail("member@gamil.com") == null) {
+        if (userRepository.findByEmail("member@gamil.com") == null) {
             User user = new User();
             user.setEmail("member@gamil.com");
             user.setPassword(passwordEncoder.encode("123456"));
             Set<Role> roles = new HashSet<>();
-            roles.add(roleDao.findByName("ROLE_MEMBER"));
+            roles.add(roleRepository.findByName("ROLE_MEMBER"));
             user.setRoles(roles);
-            userDao.saveUser(user);
+            userRepository.save(user);
 
             NguoiDung nguoiDung = new NguoiDung();
             nguoiDung.setHoTenDem("Truong Duc");
@@ -76,7 +77,7 @@ public class DataSeendingListener implements ApplicationListener {
             nguoiDung.setSoDienThoai("0349380770");
             nguoiDung.setUser(user);
 
-            nguoiDungDao.saveNguoiDung(nguoiDung);
+            nguoiDungRepository.save(nguoiDung);
         }
     }
 }
