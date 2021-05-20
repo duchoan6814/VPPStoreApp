@@ -150,9 +150,10 @@ body {
     &__dropdown-button {
       display: flex;
 
-      a.dropdown-item.dropdown-toggle {
+      a#navbarDropdown1 {
         display: flex;
         align-items: center;
+        justify-content: space-between;
       }
 
       .drop-item-wrap {
