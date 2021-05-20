@@ -11,20 +11,20 @@
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<%--    <c:url var="cssUrl" value="/css/header_footer_style.css" />--%>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/header_footer_style.css">
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light header">
 
     <c:url var="urlLogo" value="/images/logo.png"/>
+    <c:url var="homePageUrl" value="/" />
 
     <div class="container">
 
         <c:if test="${pageContext.request.userPrincipal.name == null}">
             <div class="row justify-content-between">
                 <div class="col-7 header__wrap-left-site">
-                    <a class="navbar-brand" th:href="@{/}">
+                    <a class="navbar-brand" href="${homePageUrl}">
                         <img src="${urlLogo}" alt="logo"/>
                     </a>
                     <form class="form-inline my-2 my-lg-0">

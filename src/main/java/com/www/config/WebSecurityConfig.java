@@ -2,11 +2,14 @@ package com.www.config;
 
 import com.www.authentication.MyDBAuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 // @EnableWebSecurity = @EnableWebMVCSecurity + Extra features
@@ -16,11 +19,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     MyDBAuthenticationService myDBAauthenticationService;
 
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 
         // For User in database.
-        auth.userDetailsService(myDBAauthenticationService);
+        auth.userDetailsService(myDBAauthenticationService).passwordEncoder(passwordEncoder());
 
     }
 
@@ -32,10 +40,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // The pages requires login as EMPLOYEE or MANAGER.
         // If no login, it will redirect to /login page.
         http.authorizeRequests().antMatchers("/orderList","/order", "/accountInfo")//
-                .access("hasAnyRole('ROLE_EMPLOYEE', 'ROLE_MANAGER')");
+                .access("hasAnyRole('ROLE_ADMIN', 'ROLE_MEMBER')");
 
         // For MANAGER only.
-        http.authorizeRequests().antMatchers("/product").access("hasRole('ROLE_MANAGER')");
+        http.authorizeRequests().antMatchers("/product").access("hasRole('ROLE_ADMIN')");
 
         http.authorizeRequests().anyRequest().permitAll();
 
