@@ -11,20 +11,20 @@
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-<%--    <c:url var="cssUrl" value="/css/header_footer_style.css" />--%>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/header_footer_style.css">
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light header">
 
     <c:url var="urlLogo" value="/images/logo.png"/>
+    <c:url var="homePageUrl" value="/"/>
 
     <div class="container">
 
         <c:if test="${pageContext.request.userPrincipal.name == null}">
             <div class="row justify-content-between">
                 <div class="col-7 header__wrap-left-site">
-                    <a class="navbar-brand" th:href="@{/}">
+                    <a class="navbar-brand" href="${homePageUrl}">
                         <img src="${urlLogo}" alt="logo"/>
                     </a>
                     <form class="form-inline my-2 my-lg-0">
@@ -53,7 +53,8 @@
                             <a href="#">
                                 <h5>Tài khoản</h5>
                             </a>
-                            <a th:href="@{/login}">
+                            <c:url value="/user/login" var="loginUrl"/>
+                            <a href="${loginUrl}">
                                 <h6>Đăng nhập</h6>
                             </a>
                         </div>
@@ -77,11 +78,11 @@
         </c:if>
 
 
-        <%--<c:if test="${pageContext.request.userPrincipal.name != null}">
-            <div sec:authorize="isAuthenticated()" class="row justify-content-between">
+        <c:if test="${pageContext.request.userPrincipal.name != null}">
+            <div class="row justify-content-between">
                 <div class="col-7 header__wrap-left-site">
-                    <a class="navbar-brand" th:href="@{/}">
-                        <img th:src="@{/img/logo.png}" alt="logo"/>
+                    <a class="navbar-brand" href="${homePageUrl}">
+                        <img src="${pageContext.request.contextPath}/images/logo.png" alt="logo"/>
                     </a>
                     <form class="form-inline my-2 my-lg-0">
                         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search"/>
@@ -101,19 +102,26 @@
                         <a class="header__wrap-right-site__user is-authen dropdown-toggle" href="#" role="button"
                            id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <div class="user__left-site mr-3">
-                                <img th:if="${nguoiDung.getAvatar() == null}"
-                                     src="https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png"
-                                     alt="avatar"/>
-                                <img th:if="${nguoiDung.getAvatar() != null}" src="${nguoiDung.getAvatar()}" alt="avatar"/>
+                                <c:if test="${nguoiDung.getAvatar() == null}">
+                                    <img
+                                            src="https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png"
+                                            alt="avatar"/>
+                                </c:if>
+                                <c:if test="${nguoiDung.getAvatar() != null}">
+                                    <img  src="${nguoiDung.getAvatar()}"
+                                         alt="avatar"/>
+                                </c:if>
                             </div>
                             <div class="user__right-site">
-                                <h5 th:text="${nguoiDung.getHoTenDem() + ' ' + nguoiDung.getTen()}">first name</h5>
+                                <h5><c:out value="${nguoiDung.getHoTenDem()}"/> <c:out
+                                        value="${nguoiDung.getTen()}"/></h5>
                             </div>
                         </a>
 
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
                             <a class="dropdown-item" href="#">Thông tin</a>
-                            <form class="dropdown-item" th:action="@{/perform_logout}" method="post">
+                            <form class="dropdown-item" action="${pageContext.request.contextPath}/perform_logout"
+                                  method="post">
                                 <input type="submit" value="Đăng xuất"/>
                             </form>
                         </div>
@@ -135,7 +143,6 @@
                 </div>
             </div>
         </c:if>
---%>
 
     </div>
 </nav>

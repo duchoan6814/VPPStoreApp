@@ -36,7 +36,7 @@ public class NguoiDung implements Serializable {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @OneToMany(mappedBy = "nguoiDung")
+    @OneToMany(mappedBy = "nguoiDung", fetch = FetchType.EAGER)
     private Set<DiaChi> diaChis;
 
     @OneToMany(mappedBy = "nguoiDung")
@@ -56,8 +56,6 @@ public class NguoiDung implements Serializable {
                 ", gioiTinh=" + gioiTinh +
                 ", avatar='" + avatar + '\'' +
                 ", user=" + user +
-                ", diaChis=" + diaChis +
-                ", hoaDons=" + hoaDons +
                 ", cart=" + cart +
                 '}';
     }
