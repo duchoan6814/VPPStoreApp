@@ -62,6 +62,7 @@ public class ApplicationContextConfig {
 
         // Set Max Size...
         // commonsMultipartResolver.setMaxUploadSize(...);
+        commonsMultipartResolver.setMaxUploadSize(1 * 1024 * 1024);
 
         return commonsMultipartResolver;
     }
@@ -71,60 +72,6 @@ public class ApplicationContextConfig {
         return new BCryptPasswordEncoder();
     }
 
-//    @Bean(name = "dataSource")
-//    public DataSource getDataSource() {
-//        DriverManagerDataSource dataSource = new DriverManagerDataSource();
-//
-//        // See: ds-hibernate-cfg.properties
-//        dataSource.setDriverClassName(env.getProperty("ds.database-driver"));
-//        dataSource.setUrl(env.getProperty("ds.url"));
-//        dataSource.setUsername(env.getProperty("ds.username"));
-//        dataSource.setPassword(env.getProperty("ds.password"));
-//        System.out.println("## getDataSource: " + dataSource);
-//
-//        return dataSource;
-//    }
-//
-//    @Autowired
-//    @Bean(name = "sessionFactory")
-//    public SessionFactory getSessionFactory(DataSource dataSource) throws Exception {
-//        Properties properties = new Properties();
-//
-//        // See: ds-hibernate-cfg.properties
-//        properties.put("hibernate.dialect", env.getProperty("hibernate.dialect"));
-//        properties.put("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
-//        properties.put("current_session_context_class", env.getProperty("current_session_context_class"));
-//        properties.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
-//
-//        LocalSessionFactoryBean factoryBean = new LocalSessionFactoryBean();
-//
-//        // Package contain entity classes
-//        factoryBean.setPackagesToScan(new String[]{"com.www.entity"});
-//        factoryBean.setDataSource(dataSource);
-//        factoryBean.setHibernateProperties(properties);
-//        factoryBean.afterPropertiesSet();
-//        //
-//        SessionFactory sf = factoryBean.getObject();
-//        System.out.println("## getSessionFactory: " + sf);
-//        return sf;
-//    }
-
-
-
-//    @Bean(name = "userDao")
-//    public UserDao getUserDao() {
-//        return new UserDaoImpl();
-//    }
-//
-//    @Bean(name = "roleDao")
-//    public RoleDao getRoleDao() {
-//        return new RoleDaoImpl();
-//    }
-//
-//    @Bean(name = "nguoiDungDao")
-//    public NguoiDungDao getNguoiDungDao() {
-//        return new NguoiDungDaoImpl();
-//    }
 
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
@@ -163,14 +110,6 @@ public class ApplicationContextConfig {
 
         return dataSource;
     }
-
-//    @Autowired
-//    @Bean(name = "transactionManager")
-//    public HibernateTransactionManager getTransactionManager(SessionFactory sessionFactory) {
-//        HibernateTransactionManager transactionManager = new HibernateTransactionManager(sessionFactory);
-//
-//        return transactionManager;
-//    }
 
     @Bean
     public PlatformTransactionManager transactionManager(final EntityManagerFactory emf) {

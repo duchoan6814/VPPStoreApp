@@ -11,7 +11,7 @@
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/header_footer_style.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/header_footer_style.css?v=1">
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-light bg-light header">
@@ -119,7 +119,7 @@
                         </a>
 
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <a class="dropdown-item" href="#">Thông tin</a>
+                            <a class="dropdown-item" href="${pageContext.request.contextPath}/user/information">Thông tin</a>
                             <form class="dropdown-item" action="${pageContext.request.contextPath}/perform_logout"
                                   method="post">
                                 <input type="submit" value="Đăng xuất"/>

@@ -2,6 +2,7 @@ package com.www.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
+import org.springframework.http.CacheControl;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
@@ -11,10 +12,13 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.HandlerMethodReturnValueHandler;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.config.annotation.*;
+import org.springframework.web.servlet.resource.CssLinkResourceTransformer;
+import org.springframework.web.servlet.resource.VersionResourceResolver;
 
 import java.nio.charset.Charset;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Configuration
 @EnableWebMvc
@@ -101,9 +105,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
     // equivalents for <mvc:resources/> tags
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/css/**").addResourceLocations("/css/").setCachePeriod(31556926);
-        registry.addResourceHandler("/img/**").addResourceLocations("/img/").setCachePeriod(31556926);
-        registry.addResourceHandler("/js/**").addResourceLocations("/js/").setCachePeriod(31556926);
+        registry.addResourceHandler("/css/**").addResourceLocations("/css/");
+        registry.addResourceHandler("/img/**").addResourceLocations("/img/");
+        registry.addResourceHandler("/js/**").addResourceLocations("/js/");
     }
 
     // equivalent for <mvc:default-servlet-handler/> tag

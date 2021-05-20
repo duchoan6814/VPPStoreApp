@@ -9,12 +9,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <c:url var="cssLoginUrl" value="/css/login_style.css" />
+    <c:url var="cssLoginUrl" value="/css/login_style.css?v=1" />
     <title>Đăng nhập</title>
     <link rel="stylesheet" href="${cssLoginUrl}">
 </head>
 <body>
-<jsp:include page="layout/header.jsp"/>
+<jsp:include page="../layout/header.jsp"/>
 <div layout:fragment="content" class="login container">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
@@ -79,6 +79,6 @@
         </div>
     </div>
 </div>
-<jsp:include page="layout/footer.jsp"/>
+<jsp:include page="../layout/footer.jsp"/>
 </body>
 </html>

@@ -36,12 +36,12 @@ public class UserController {
 
     @GetMapping("/login")
     public String getLogin() {
-        return "login";
+        return "user/login";
     }
 
     @GetMapping("/register")
     public String getRegister() {
-        return "register";
+        return "user/register";
     }
 
     @PostMapping(value = "/register", consumes = "application/x-www-form-urlencoded")
@@ -75,6 +75,11 @@ public class UserController {
             return new RedirectView(request.getContextPath()+"/user/register?failure");
         }
 
+    }
+
+    @RequestMapping("/information")
+    public String getInformation() {
+        return "user/information";
     }
 
 }

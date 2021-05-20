@@ -2,6 +2,7 @@ package com.www.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Base64;
 import java.util.Date;
 import java.util.Set;
 
@@ -30,7 +31,7 @@ public class NguoiDung implements Serializable {
     @Column(name = "gioi_tinh")
     private boolean gioiTinh;
     @Column(name = "avatar")
-    private String avatar;
+    private byte[] avatar;
 
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false)
@@ -60,7 +61,7 @@ public class NguoiDung implements Serializable {
                 '}';
     }
 
-    public NguoiDung(int id, String hoTenDem, String ten, Date ngaySinh, String soDienThoai, boolean gioiTinh, String avatar, User user, Set<DiaChi> diaChis, Set<HoaDon> hoaDons, Cart cart) {
+    public NguoiDung(int id, String hoTenDem, String ten, Date ngaySinh, String soDienThoai, boolean gioiTinh, byte[] avatar, User user, Set<DiaChi> diaChis, Set<HoaDon> hoaDons, Cart cart) {
         this.id = id;
         this.hoTenDem = hoTenDem;
         this.ten = ten;
@@ -125,11 +126,15 @@ public class NguoiDung implements Serializable {
         this.gioiTinh = gioiTinh;
     }
 
-    public String getAvatar() {
+    public byte[] getAvatar() {
         return avatar;
     }
 
-    public void setAvatar(String avatar) {
+    public String getAvatarBase64() {
+        return Base64.getEncoder().encodeToString(this.avatar);
+    }
+
+    public void setAvatar(byte[] avatar) {
         this.avatar = avatar;
     }
 
