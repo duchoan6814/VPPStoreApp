@@ -44,9 +44,9 @@ public class DataSeendingListener implements ApplicationListener {
             roleRepository.save(role);
         }
 
-        if (userRepository.findByEmail("admin@gamil.com") == null) {
+        if (userRepository.findByEmail("admin@gmail.com") == null) {
             User user = new User();
-            user.setEmail("admin@gamil.com");
+            user.setEmail("admin@gmail.com");
             user.setPassword(passwordEncoder.encode("123456"));
             Set<Role> roles = new HashSet<>();
             roles.add(roleRepository.findByName("ROLE_ADMIN"));
@@ -62,9 +62,9 @@ public class DataSeendingListener implements ApplicationListener {
 
             nguoiDungRepository.save(nguoiDung);
         }
-        if (userRepository.findByEmail("member@gamil.com") == null) {
+        if (userRepository.findByEmail("member@gmail.com") == null) {
             User user = new User();
-            user.setEmail("member@gamil.com");
+            user.setEmail("member@gmail.com");
             user.setPassword(passwordEncoder.encode("123456"));
             Set<Role> roles = new HashSet<>();
             roles.add(roleRepository.findByName("ROLE_MEMBER"));

@@ -28,7 +28,7 @@
     <div class="login__form my-5">
         <h5>Đăng nhập tài khoản</h5>
         <p>
-            <c:url var="registerPageUrl" value="/register" />
+            <c:url var="registerPageUrl" value="/user/register" />
             Bạn chưa có tài khoản <a href="${registerPageUrl}">Đăng ký tại đây</a>
         </p>
         <div class="main-content login__form__wrap-form pt-3">
