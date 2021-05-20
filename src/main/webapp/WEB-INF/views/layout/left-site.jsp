@@ -31,10 +31,10 @@
                             khoản của tôi</a>
                         <ul class="collapse list-unstyled" id="homeSubmenu">
                             <li>
-                                <a href="#">Hồ sơ</a>
+                                <a href="${pageContext.request.contextPath}/user">Hồ sơ</a>
                             </li>
                             <li>
-                                <a href="#">Địa chỉ</a>
+                                <a href="${pageContext.request.contextPath}/user/address">Địa chỉ</a>
                             </li>
                             <li>
                                 <a href="#">Giỏ hàng</a>

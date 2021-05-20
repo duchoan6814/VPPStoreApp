@@ -77,9 +77,14 @@ public class UserController {
 
     }
 
-    @RequestMapping("/information")
+    @RequestMapping(value = {"/information", "/", ""})
     public String getInformation() {
         return "user/information";
+    }
+
+    @RequestMapping("/address")
+    public String getAddress() {
+        return "user/address-page";
     }
 
 }

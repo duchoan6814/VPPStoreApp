@@ -14,6 +14,16 @@ public class DiaChi implements Serializable {
     @Column(name = "tinh_thanhpho", nullable = false)
     private String tinhThanhPho;
 
+    @Column(name = "chi_tiet")
+    private String chiTiet;
+
+    @Column(name = "ten_nguoi_nhan")
+    private String tenNguoiNhan;
+
+    @Column(name = "label")
+    @Enumerated(EnumType.STRING)
+    private LableAddress lableAddress;
+
     @Id
     @ManyToOne
     @JoinColumn(name = "nguoi_dung_id", nullable = false)
