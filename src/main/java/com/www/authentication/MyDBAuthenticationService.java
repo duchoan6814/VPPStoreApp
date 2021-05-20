@@ -20,8 +20,6 @@ public class MyDBAuthenticationService implements UserDetailsService {
 
     @Autowired
     UserRepository userRepository;
-    @Autowired
-    RoleRepository roleRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

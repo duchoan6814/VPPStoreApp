@@ -172,6 +172,15 @@ body {
   display: flex;
 }
 
+.under-navbar__tab-dropdown__dropdown-button a.dropdown-item.dropdown-toggle {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
 .under-navbar__tab-dropdown__dropdown-button .drop-item-wrap {
   display: -webkit-box;
   display: -ms-flexbox;
