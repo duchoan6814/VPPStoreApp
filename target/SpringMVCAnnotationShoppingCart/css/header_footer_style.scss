@@ -24,6 +24,7 @@ body {
       background-color: #c40019;
       border-radius: 0 5px 5px 0;
       color: #f0f0f0;
+      height: 36px;
     }
   }
 
@@ -149,12 +150,6 @@ body {
   &__tab-dropdown {
     &__dropdown-button {
       display: flex;
-
-      a#navbarDropdown1 {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-      }
 
       .drop-item-wrap {
         display: flex;
