@@ -53,7 +53,8 @@
                             <a href="#">
                                 <h5>Tài khoản</h5>
                             </a>
-                            <a th:href="@{/login}">
+                            <c:url value="/login" var="loginUrl" />
+                            <a href="${loginUrl}">
                                 <h6>Đăng nhập</h6>
                             </a>
                         </div>

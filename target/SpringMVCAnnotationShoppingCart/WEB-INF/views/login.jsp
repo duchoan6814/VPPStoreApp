@@ -18,27 +18,31 @@
 <div layout:fragment="content" class="login container">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a th:href="@{/}">Trang chủ</a></li>
-            <li class="breadcrumb-item"><a href="@{/user}">Tài khoản</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Đăng
-                nhập
-            </li>
+            <c:url var="homePageUrl" value="/" />
+            <li class="breadcrumb-item"><a href="${homePageUrl}">Trang chủ</a></li>
+            <c:url var="userPageUrl" value="/user" />
+            <li class="breadcrumb-item"><a href="${userPageUrl}">Tài khoản</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Đăng nhập</li>
         </ol>
     </nav>
     <div class="login__form my-5">
         <h5>Đăng nhập tài khoản</h5>
         <p>
-            Bạn chưa có tài khoản <a th:href="@{/register}">Đăng ký tại đây</a>
+            <c:url var="registerPageUrl" value="/register" />
+            Bạn chưa có tài khoản <a href="${registerPageUrl}">Đăng ký tại đây</a>
         </p>
         <div class="main-content login__form__wrap-form pt-3">
 
-            <form class="m-auto" th:action="@{/perform_login}" method="POST">
+            <c:url var="actionLoginFormUrl" value="/j_spring_security_check" />
+            <form class="m-auto"  action="${actionLoginFormUrl}" method="POST">
                 <div class="form-group row">
+
                     <div class="col">
-                        <p th:if="${param.error}" class="error">Email hoặc mật khẩu
-                            không chính xác!</p>
-                        <p th:if="${param.logout}" class="success">Bạn đã đăng xuất.</p>
-                        <p th:if="${param.success}" class="success">Bạn đã đăng ký thành công tài khoản.</p>
+                        <c:choose>
+                            <c:when test="${param.error}"><p class="error">Email hoặc mật khẩu không chính xác!</p></c:when>
+                            <c:when test="${param.logout}"><p class="success">Bạn đã đăng xuất.</p></c:when>
+                            <c:when test="${param.susscess}"><p class="success">Bạn đã đăng ký thành công tài khoản.</p></c:when>
+                        </c:choose>
                     </div>
                 </div>
                 <div class="form-group row">
@@ -58,7 +62,8 @@
                 <div class="form-group row">
                     <div class="col">
                         <p>
-                            Quên mật khẩu? ấn vào <a th:href="@{/forgotpassword}">đây</a>
+                            <c:url var="forgotPasswordUrl" value="/forgotpassword" />
+                            Quên mật khẩu? ấn vào <a href="${forgotPasswordUrl}">đây</a>
                         </p>
                     </div>
 

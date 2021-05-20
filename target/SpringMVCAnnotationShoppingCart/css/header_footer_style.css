@@ -30,6 +30,7 @@ body {
   background-color: #c40019;
   border-radius: 0 5px 5px 0;
   color: #f0f0f0;
+  height: 36px;
 }
 
 .header__wrap-right-site {
@@ -170,18 +171,6 @@ body {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-}
-
-.under-navbar__tab-dropdown__dropdown-button a#navbarDropdown1 {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
 }
 
 .under-navbar__tab-dropdown__dropdown-button .drop-item-wrap {
