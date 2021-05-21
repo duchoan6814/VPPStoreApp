@@ -37,7 +37,7 @@ public class NguoiDung implements Serializable {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @OneToMany(mappedBy = "nguoiDung", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "nguoiDung", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Set<DiaChi> diaChis;
 
     @OneToMany(mappedBy = "nguoiDung")
@@ -61,7 +61,7 @@ public class NguoiDung implements Serializable {
                 '}';
     }
 
-    public NguoiDung(int id, String hoTenDem, String ten, Date ngaySinh, String soDienThoai, boolean gioiTinh, byte[] avatar, User user, Set<DiaChi> diaChis, Set<HoaDon> hoaDons, Cart cart) {
+    public NguoiDung(int id, String hoTenDem, String ten, Date ngaySinh, String soDienThoai, boolean gioiTinh, byte[] avatar, User user, Set<HoaDon> hoaDons, Cart cart) {
         this.id = id;
         this.hoTenDem = hoTenDem;
         this.ten = ten;
@@ -70,12 +70,19 @@ public class NguoiDung implements Serializable {
         this.gioiTinh = gioiTinh;
         this.avatar = avatar;
         this.user = user;
-        this.diaChis = diaChis;
         this.hoaDons = hoaDons;
         this.cart = cart;
     }
 
     public NguoiDung() {
+    }
+
+    public Set<DiaChi> getDiaChis() {
+        return diaChis;
+    }
+
+    public void setDiaChis(Set<DiaChi> diaChis) {
+        this.diaChis = diaChis;
     }
 
     public int getId() {
@@ -146,13 +153,6 @@ public class NguoiDung implements Serializable {
         this.user = user;
     }
 
-    public Set<DiaChi> getDiaChis() {
-        return diaChis;
-    }
-
-    public void setDiaChis(Set<DiaChi> diaChis) {
-        this.diaChis = diaChis;
-    }
 
     public Set<HoaDon> getHoaDons() {
         return hoaDons;

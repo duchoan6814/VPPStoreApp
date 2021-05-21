@@ -11,7 +11,7 @@ public class SanPham implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private String id;
+    private long id;
 
     @Column(name = "ten", nullable = false)
     private String ten;
@@ -45,7 +45,7 @@ public class SanPham implements Serializable {
     @OneToMany(mappedBy = "sanPham")
     private Set<ChiTietHoaDon> chiTietHoaDons;
 
-    public SanPham(String id, String ten, String thuongHieu, double gia, String moTa, Set<String> listHinh, Set<ChiTiet> chiTiets, Set<MauSac> mauSacs, TheLoai theLoai, int soLuongTon) {
+    public SanPham(long id, String ten, String thuongHieu, double gia, String moTa, Set<String> listHinh, Set<ChiTiet> chiTiets, Set<MauSac> mauSacs, TheLoai theLoai, int soLuongTon) {
         this.id = id;
         this.ten = ten;
         this.thuongHieu = thuongHieu;
@@ -61,11 +61,11 @@ public class SanPham implements Serializable {
     public SanPham() {
     }
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 

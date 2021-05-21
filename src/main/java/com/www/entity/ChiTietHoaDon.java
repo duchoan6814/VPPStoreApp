@@ -7,19 +7,21 @@ import java.io.Serializable;
 @Table(name = "chi_tiet_hoa_don")
 public class ChiTietHoaDon implements Serializable {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id")
+    private long id;
+
     @Column(name = "so_luong", nullable = false)
     private int soLuong;
 
-    @Id
     @ManyToOne
     @JoinColumn(name = "san_pham_id")
     private SanPham sanPham;
 
-    @Id
     @ManyToOne
     @JoinColumn(name = "hoa_don_id", nullable = true)
     private HoaDon hoaDon;
-
 
     @Column(name = "gia_ban", nullable = false)
     public double tinhGiaBan() {

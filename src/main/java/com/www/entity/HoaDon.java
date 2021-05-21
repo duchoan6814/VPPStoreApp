@@ -11,7 +11,7 @@ public class HoaDon implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private String id;
+    private long id;
 
     @Column(name = "thoi_gian_lap", nullable = false)
     private Calendar thoiGianLap;
@@ -38,11 +38,11 @@ public class HoaDon implements Serializable {
                 '}';
     }
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -81,7 +81,7 @@ public class HoaDon implements Serializable {
     public HoaDon() {
     }
 
-    public HoaDon(String id, Calendar thoiGianLap, TrangThai trangThai, Date date, NguoiDung nguoiDung) {
+    public HoaDon(long id, Calendar thoiGianLap, TrangThai trangThai, Date date, NguoiDung nguoiDung) {
         this.id = id;
         this.thoiGianLap = thoiGianLap;
         this.trangThai = trangThai;

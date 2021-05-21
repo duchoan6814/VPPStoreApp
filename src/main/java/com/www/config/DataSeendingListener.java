@@ -1,5 +1,6 @@
 package com.www.config;
 
+import com.www.entity.DiaChi;
 import com.www.entity.NguoiDung;
 import com.www.entity.Role;
 import com.www.entity.User;
@@ -72,11 +73,29 @@ public class DataSeendingListener implements ApplicationListener {
             user.setRoles(roles);
             userRepository.save(user);
 
+            Set<DiaChi> diaChis = new HashSet<>();
+            DiaChi diaChi = new DiaChi();
+            diaChi.setPhuongXa("");
+            diaChi.setQuanHuyen("go vap");
+            diaChi.setTinhThanhPho("tp.HCM");
+            diaChi.setChiTiet("qb6 nguyen thai son");
+            diaChi.setTenNguoiNhan("truong duc hoan");
+            DiaChi diaChi1 = new DiaChi();
+            diaChi1.setPhuongXa("33");
+            diaChi1.setQuanHuyen("go vap");
+            diaChi1.setTinhThanhPho("tp.HCM");
+            diaChi1.setChiTiet("qb6 nguyen thai son");
+            diaChi1.setTenNguoiNhan("truong duc hoan");
+
+            diaChis.add(diaChi);
+            diaChis.add(diaChi1);
+
             NguoiDung nguoiDung = new NguoiDung();
             nguoiDung.setHoTenDem("Truong Duc");
             nguoiDung.setTen("Hoan");
             nguoiDung.setSoDienThoai("0349380770");
             nguoiDung.setUser(user);
+            nguoiDung.setDiaChis(diaChis);
 
             nguoiDungRepository.save(nguoiDung);
         }

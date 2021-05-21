@@ -4,39 +4,45 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "DIA_CHI")
+@Table(name = "dia_chi")
 public class DiaChi implements Serializable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false)
+    private long id;
 
     @Column(name = "phuong_xa", nullable = false)
     private String phuongXa;
+
     @Column(name = "quan_huyen", nullable = false)
     private String quanHuyen;
-    @Column(name = "tinh_thanhpho", nullable = false)
+
+    @Column(name = "tinh_thanh_pho", nullable = false)
     private String tinhThanhPho;
 
-    @Column(name = "chi_tiet")
+    @Column(name = "chi_tiet", nullable = false)
     private String chiTiet;
 
-    @Column(name = "ten_nguoi_nhan")
+    @Column(name = "ten_nguoi_nhan", nullable = false)
     private String tenNguoiNhan;
 
-    @Column(name = "label")
     @Enumerated(EnumType.STRING)
+    @Column(name = "label")
     private LableAddress lableAddress;
 
-    @Id
     @ManyToOne
-    @JoinColumn(name = "nguoi_dung_id", nullable = false)
+    @JoinColumn(name = "nguoi_dung_id")
     private NguoiDung nguoiDung;
 
-    @Override
-    public String toString() {
-        return "DiaChi{" +
-                "phuongXa='" + phuongXa + '\'' +
-                ", quanHuyen='" + quanHuyen + '\'' +
-                ", tinhThanhPho='" + tinhThanhPho + '\'' +
-                ", nguoiDung=" + nguoiDung +
-                '}';
+    public DiaChi() {
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getPhuongXa() {
@@ -63,21 +69,35 @@ public class DiaChi implements Serializable {
         this.tinhThanhPho = tinhThanhPho;
     }
 
+    public String getChiTiet() {
+        return chiTiet;
+    }
+
+    public void setChiTiet(String chiTiet) {
+        this.chiTiet = chiTiet;
+    }
+
+    public String getTenNguoiNhan() {
+        return tenNguoiNhan;
+    }
+
+    public void setTenNguoiNhan(String tenNguoiNhan) {
+        this.tenNguoiNhan = tenNguoiNhan;
+    }
+
+    public LableAddress getLableAddress() {
+        return lableAddress;
+    }
+
+    public void setLableAddress(LableAddress lableAddress) {
+        this.lableAddress = lableAddress;
+    }
+
     public NguoiDung getNguoiDung() {
         return nguoiDung;
     }
 
     public void setNguoiDung(NguoiDung nguoiDung) {
-        this.nguoiDung = nguoiDung;
-    }
-
-    public DiaChi() {
-    }
-
-    public DiaChi(String phuongXa, String quanHuyen, String tinhThanhPho, NguoiDung nguoiDung) {
-        this.phuongXa = phuongXa;
-        this.quanHuyen = quanHuyen;
-        this.tinhThanhPho = tinhThanhPho;
         this.nguoiDung = nguoiDung;
     }
 }
