@@ -21,7 +21,7 @@
     <title>Thông tin</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/information_origin.css?v=1">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/address_style.css?v=1">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/user_order.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/user_order.css?v=1">
 </head>
 
 <body>
@@ -44,12 +44,17 @@
                 <div class="row main-content__title ">
                     <div class="col-12 main-content__title__top">
                         <nav class="col-12 nav nav-pills nav-justified">
-                            <a class="nav-item nav-link active" href="#">Tất cả</a>
-                            <a class="nav-item nav-link" href="#">Chờ xác nhận</a>
-                            <a class="nav-item nav-link" href="#">Đang lấy hàng</a>
-                            <a class="nav-item nav-link" href="#">Đang giao hàng</a>
-                            <a class="nav-item nav-link" href="#">Đã nhận hàng</a>
-                            <a class="nav-item nav-link" href="#">Đã hủy</a>
+                            <a class="nav-item nav-link ${param.state == 'all' || param.state == null || (param.state != 'choxacnhan' && param.state != 'danglayhang' && param.state != 'danggiaohang' && param.state != 'danhanhang' && param.state != 'dahuy') ? 'active' : '' }"
+                               href="${pageContext.request.contextPath}/user/order">Tất cả</a>
+                            <a class="nav-item nav-link ${param.state == 'choxacnhan' ? 'active' : '' }" href="${pageContext.request.contextPath}/user/order?state=choxacnhan">Chờ
+                                xác nhận</a>
+                            <a class="nav-item nav-link ${param.state == 'danglayhang' ? 'active' : '' }" href="${pageContext.request.contextPath}/user/order?state=danglayhang">Đang
+                                lấy hàng</a>
+                            <a class="nav-item nav-link ${param.state == 'danggiaohang' ? 'active' : '' }" href="${pageContext.request.contextPath}/user/order?state=danggiaohang">Đang
+                                giao hàng</a>
+                            <a class="nav-item nav-link ${param.state == 'danhanhang' ? 'active' : '' }" href="${pageContext.request.contextPath}/user/order?state=danhanhang">Đã
+                                nhận hàng</a>
+                            <a class="nav-item nav-link ${param.state == 'dahuy' ? 'active' : '' }" href="${pageContext.request.contextPath}/user/order?state=dahuy">Đã hủy</a>
 
                         </nav>
                     </div>

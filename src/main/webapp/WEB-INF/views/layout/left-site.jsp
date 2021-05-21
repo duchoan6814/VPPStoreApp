@@ -42,7 +42,7 @@
                         </ul>
                     </li>
                     <li class="not-active">
-                        <a href="#">Đơn hàng</a>
+                        <a href="${pageContext.request.contextPath}/user/order">Đơn hàng</a>
                     </li>
 
                 </ul>

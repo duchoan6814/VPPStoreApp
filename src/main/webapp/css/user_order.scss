@@ -57,6 +57,14 @@
     .button-view-detai {
       display: flex;
       flex-direction: row-reverse;
+
+      p {
+        span {
+          font-size: 30px;
+          margin-left: 15px;
+          color: #ec1c24;
+        }
+      }
     }
   }
 }

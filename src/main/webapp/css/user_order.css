@@ -68,4 +68,10 @@
       -ms-flex-direction: row-reverse;
           flex-direction: row-reverse;
 }
+
+.list-item .order-item .button-view-detai p span {
+  font-size: 30px;
+  margin-left: 15px;
+  color: #ec1c24;
+}
 /*# sourceMappingURL=user_order.css.map */

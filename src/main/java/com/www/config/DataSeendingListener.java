@@ -30,6 +30,7 @@ public class DataSeendingListener implements ApplicationListener {
 
     @Override
     public void onApplicationEvent(ApplicationEvent applicationEvent) {
+
         System.out.println("hello");
         /*create user admin and member*/
         if (roleRepository.findByName("ROLE_ADMIN") == null) {

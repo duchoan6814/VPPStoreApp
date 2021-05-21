@@ -16,4 +16,8 @@ public class MainController {
         return "index";
     }
 
+    @RequestMapping("/cart")
+    public String getCart() {
+        return "cart";
+    }
 }
