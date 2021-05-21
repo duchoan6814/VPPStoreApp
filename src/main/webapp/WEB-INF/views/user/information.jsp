@@ -17,7 +17,7 @@
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/">Trang chủ</a></li>
         <li class="breadcrumb-item"><a href="${pageContext.request.contextPath}/user">Tài khoản</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Địa chỉ</li>
+        <li class="breadcrumb-item active" aria-current="page">Hồ sơ</li>
     </ol>
     <!-- Sidebar -->
     <div class="row main">
