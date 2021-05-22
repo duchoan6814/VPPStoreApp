@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 @Table(name = "HOA_DON")
@@ -26,6 +27,9 @@ public class HoaDon implements Serializable {
     @ManyToOne
     @JoinColumn(name = "nguoi_dung_id", nullable = false)
     private NguoiDung nguoiDung;
+
+    @OneToMany(mappedBy = "hoaDon")
+    private Set<ChiTietHoaDon> chiTietHoaDons;
 
     @Override
     public String toString() {

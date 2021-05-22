@@ -2,6 +2,7 @@ package com.www.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -12,6 +13,9 @@ public class Cart implements Serializable {
     @OneToOne
     @JoinColumn(name = "nguoi_dung_id", nullable = false)
     private NguoiDung nguoiDung;
+
+    @OneToMany(mappedBy = "cart")
+    private Set<ChiTietHoaDon> chiTietHoaDons = new HashSet<>();
 
 
     public Cart() {
