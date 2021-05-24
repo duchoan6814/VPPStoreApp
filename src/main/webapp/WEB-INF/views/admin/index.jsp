@@ -31,6 +31,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
     <!-- Material Kit CSS -->
     <link href="${pageContext.request.contextPath}/css/assets/css/material-dashboard.css?v=2.1.2" rel="stylesheet"/>
+    <rapid:block name="header"></rapid:block>
 </head>
 
 <body>
