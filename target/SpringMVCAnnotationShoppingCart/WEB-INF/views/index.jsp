@@ -12,7 +12,7 @@
 <title>Trang chủ</title>
 </head>
 <body>
-<c:url var="addProduct" value="/showFormAddProduct"/>
+<c:url var="addProduct" value="sp/showFormAddProduct"/>
 <a href="${addProduct}" > Them sp</a>
 	<jsp:include page="layout/header.jsp"/>
 	<jsp:include page="components/iten-home.jsp" />       
