@@ -8,6 +8,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "dia_chi")
 public class DiaChi implements Serializable {
+    private static final long serialVersionUID = -5694643530826830252L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)

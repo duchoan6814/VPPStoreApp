@@ -37,7 +37,7 @@ public class NguoiDung implements Serializable {
     @Column(name = "avatar")
     private byte[] avatar;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 

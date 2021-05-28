@@ -7,11 +7,12 @@ import java.io.Serializable;
 @Table(name = "chi_tiet_hoa_don")
 public class ChiTietHoaDon implements Serializable {
 
+    private static final long serialVersionUID = -7151134584452098982L;
     @Column(name = "so_luong", nullable = false)
     private int soLuong;
 
     @Id
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "san_pham_id")
     private SanPham sanPham;
 

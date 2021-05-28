@@ -124,7 +124,7 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
-            <version>5.2.10.Final</version>
+            <version>5.4.30.Final</version>
         </dependency>
 
         <!-- http://mvnrepository.com/artifact/org.hibernate/hibernate-entitymanager -->
@@ -139,7 +139,7 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-c3p0</artifactId>
-            <version>5.2.10.Final</version>
+            <version>5.2.12.Final</version>
         </dependency>
 
 

@@ -8,6 +8,7 @@ import java.io.Serializable;
 @Embeddable
 public class MauSac implements Serializable {
 
+    private static final long serialVersionUID = 5333255286088237532L;
     @Column(name = "ten", nullable = false)
     @Nationalized
     private String ten;

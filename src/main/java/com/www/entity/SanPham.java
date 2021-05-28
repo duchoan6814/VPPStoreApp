@@ -5,6 +5,7 @@ import org.hibernate.annotations.Nationalized;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.Set;
 
 @Entity
@@ -12,6 +13,7 @@ import java.util.Set;
 @Cacheable
 public class SanPham implements Serializable {
 
+    private static final long serialVersionUID = 4659917672555361897L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -36,7 +38,7 @@ public class SanPham implements Serializable {
     @Column(name = "anhDaiDien")
     private byte[] anhDaiDien;
 
-    @Lob
+//    @Lob
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "hinh_anh", joinColumns = @JoinColumn(name = "id"))
     private Set<byte[]> listHinh;
@@ -49,14 +51,14 @@ public class SanPham implements Serializable {
     @CollectionTable(name = "mau_sac", joinColumns = @JoinColumn(name = "san_pham_id"))
     private Set<MauSac> mauSacs;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "the_loai_id", nullable = false)
     private TheLoai theLoai;
 
     @Column(name = "so_luong_ton", nullable = false)
     private int soLuongTon;
 
-    @OneToMany(mappedBy = "sanPham")
+    @OneToMany(mappedBy = "sanPham", fetch = FetchType.LAZY)
     private Set<ChiTietHoaDon> chiTietHoaDons;
 
     public SanPham() {
@@ -119,6 +121,10 @@ public class SanPham implements Serializable {
 
     public byte[] getAnhDaiDien() {
         return anhDaiDien;
+    }
+
+    public String getAnhDaiDienBase64() {
+        return Base64.getEncoder().encodeToString(this.anhDaiDien);
     }
 
     public void setAnhDaiDien(byte[] anhDaiDien) {
@@ -187,7 +193,6 @@ public class SanPham implements Serializable {
                 ", mauSacs=" + mauSacs +
                 ", theLoai=" + theLoai +
                 ", soLuongTon=" + soLuongTon +
-                ", chiTietHoaDons=" + chiTietHoaDons +
                 '}';
     }
 }

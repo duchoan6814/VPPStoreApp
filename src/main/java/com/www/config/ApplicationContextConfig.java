@@ -1,5 +1,6 @@
 package com.www.config;
 
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -91,11 +92,11 @@ public class ApplicationContextConfig {
         hibernateProperties.setProperty("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
         hibernateProperties.setProperty("hibernate.dialect", env.getProperty("hibernate.dialect"));
         hibernateProperties.setProperty("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
-//        hibernateProperties.setProperty("hibernate.cache.use_second_level_cache",
-//                env.getProperty("hibernate.cache.use_second_level_cache"));
-//        hibernateProperties.setProperty("hibernate.cache.use_query_cache",
-//                env.getProperty("hibernate.cache.use_query_cache"));
-//        hibernateProperties.setProperty("hibernate.id.new_generator_mappings", env.getProperty("hibernate.id.new_generator_mappings"));
+        hibernateProperties.setProperty("hibernate.cache.use_second_level_cache",
+                env.getProperty("hibernate.cache.use_second_level_cache"));
+        hibernateProperties.setProperty("hibernate.cache.use_query_cache",
+                env.getProperty("hibernate.cache.use_query_cache"));
+        hibernateProperties.setProperty("hibernate.id.new_generator_mappings", env.getProperty("hibernate.id.new_generator_mappings"));
 
         return hibernateProperties;
     }
@@ -122,4 +123,6 @@ public class ApplicationContextConfig {
     public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
         return new PersistenceExceptionTranslationPostProcessor();
     }
+
+
 }

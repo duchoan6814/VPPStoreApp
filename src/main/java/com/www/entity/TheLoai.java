@@ -3,15 +3,16 @@ package com.www.entity;
 import org.hibernate.annotations.Nationalized;
 
 import javax.persistence.*;
-import javax.validation.Valid;
 import java.io.Serializable;
 import java.util.List;
 
 @Entity
 @Table(name = "the_loai")
 public class TheLoai implements Serializable {
+
+    private static final long serialVersionUID = -5499954539471555074L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private long id;
 
@@ -19,7 +20,7 @@ public class TheLoai implements Serializable {
     @Nationalized
     private String ten;
 
-    @OneToMany(mappedBy = "theLoai", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "theLoai", fetch = FetchType.LAZY)
     private List<SanPham> sanPhams;
 
     public TheLoai() {
@@ -60,7 +61,6 @@ public class TheLoai implements Serializable {
         return "TheLoai{" +
                 "id=" + id +
                 ", ten='" + ten + '\'' +
-                ", sanPhams=" + sanPhams +
                 '}';
     }
 }

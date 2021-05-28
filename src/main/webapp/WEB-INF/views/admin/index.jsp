@@ -7,6 +7,8 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://www.rapid-framework.org.cn/rapid" prefix="rapid" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <html lang="en">
 
 <head>
@@ -44,8 +46,8 @@
     <!-- partial:partials/_sidebar.html -->
     <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
-            <a class="sidebar-brand brand-logo" href="index.html"><img src="../assets/images/logo.svg" alt="logo"/></a>
-            <a class="sidebar-brand brand-logo-mini" href="index.html"><img src="../assets/images/logo-mini.svg"
+            <a class="sidebar-brand brand-logo" href="index.html"><img src="${pageContext.request.contextPath}/images/logo.png" alt="logo"/></a>
+            <a class="sidebar-brand brand-logo-mini" href="index.html"><img src="${pageContext.request.contextPath}/images/logo.png"
                                                                             alt="logo"/></a>
         </div>
         <ul class="nav">
@@ -53,11 +55,19 @@
                 <div class="profile-desc">
                     <div class="profile-pic">
                         <div class="count-indicator">
-                            <img class="img-xs rounded-circle " src="../assets/images/faces/face15.jpg" alt="">
-                            <span class="count bg-success"></span>
+                            <c:choose>
+                                <c:when test="${nguoiDung.getAvatar() == null}">
+                                    <img class="img-xs rounded-circle " src="https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png" alt="">
+                                    <span class="count bg-success"></span>
+                                </c:when>
+                                <c:otherwise>
+                                    <img class="img-xs rounded-circle " src="${nguoiDung.getAvatar()}" alt="">
+                                    <span class="count bg-success"></span>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                         <div class="profile-name">
-                            <h5 class="mb-0 font-weight-normal">Henry Klein</h5>
+                            <h5 class="mb-0 font-weight-normal">${nguoiDung.getHoTenDem()} ${nguoiDung.getTen()}</h5>
                             <span>Gold Member</span>
                         </div>
                     </div>
@@ -305,8 +315,15 @@
                     <li class="nav-item dropdown">
                         <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown">
                             <div class="navbar-profile">
-                                <img class="img-xs rounded-circle" src="../assets/images/faces/face15.jpg" alt="">
-                                <p class="mb-0 d-none d-sm-block navbar-profile-name">Henry Klein</p>
+                                <c:choose>
+                                    <c:when test="${nguoiDung.getAvatar() == null}">
+                                        <img class="img-xs rounded-circle" src="https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png" alt="">
+                                    </c:when>
+                                    <c:otherwise>
+                                        <img class="img-xs rounded-circle" src="${nguoiDung.getAvartar()}" alt="">
+                                    </c:otherwise>
+                                </c:choose>
+                                <p class="mb-0 d-none d-sm-block navbar-profile-name">${nguoiDung.getHoTenDem()} ${nguoiDung.getTen()}</p>
                                 <i class="mdi mdi-menu-down d-none d-sm-block"></i>
                             </div>
                         </a>

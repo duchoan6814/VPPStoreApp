@@ -7,9 +7,11 @@ import com.www.entity.TheLoai;
 import com.www.form.AddSanPhamForm;
 import com.www.repository.SanPhamRepository;
 import com.www.repository.TheLoaiRepository;
+import com.www.service.TheLoaiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.view.RedirectView;
@@ -26,12 +28,21 @@ public class ProductController {
     private TheLoaiRepository theLoaiRepository;
     @Autowired
     private SanPhamRepository sanPhamRepository;
+    @Autowired
+    private TheLoaiService theLoaiService;
 
     ObjectMapper objectMapper = new ObjectMapper();
 
 
     @GetMapping(value = {"", "/"})
-    public String getProduct() {
+    public String getProduct(Model model) {
+//        List<TheLoai> theLoais = theLoaiService.getAllTheLoai();
+        List<TheLoai> theLoais = theLoaiRepository.findAll();
+
+        List<SanPham> sanPhams = sanPhamRepository.findAll();
+
+        model.addAttribute("listTheLoai", theLoais);
+        model.addAttribute("listSanPham", sanPhams);
         return "admin/product";
     }
 
@@ -50,7 +61,7 @@ public class ProductController {
         }
         AddSanPhamForm addSanPhamForm = objectMapper.readValue(jsonData, AddSanPhamForm.class);
 
-        System.out.println("log add san pham "+ addSanPhamForm);
+        System.out.println("log add san pham " + addSanPhamForm);
 
         SanPham sanPham = new SanPham();
         sanPham.setTen(addSanPhamForm.getTenSanPham());
@@ -103,7 +114,7 @@ public class ProductController {
 
         sanPhamRepository.save(sanPham);
 
-        return new RedirectView(request.getContextPath()+"/product");
+        return new RedirectView(request.getContextPath() + "/product");
     }
 
 }

@@ -8,6 +8,7 @@ import java.io.Serializable;
 @Embeddable
 public class ChiTiet implements Serializable {
 
+    private static final long serialVersionUID = 3248338246618803196L;
     @Column(name = "thuoc_tinh", nullable = false)
     @Nationalized
     private String key;

@@ -11,6 +11,7 @@ import java.util.Set;
 @Entity
 @Table(name = "HOA_DON")
 public class HoaDon implements Serializable {
+    private static final long serialVersionUID = -7529811922026778788L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
