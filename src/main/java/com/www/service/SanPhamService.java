@@ -44,7 +44,6 @@ public class SanPhamService {
 		sanPhamRepository.deleteById(id);	
 		System.out.println("Update thanh cong "+ id);
 	}
-<<<<<<< HEAD
 //	public Optional<SanPham> findOneSP(long id) {
 //		Optional<SanPham> sp = null;
 //		sp = sanPhamRepository.findById(id);
@@ -53,7 +52,6 @@ public class SanPhamService {
 //	
 	
 
-=======
 	public Optional<SanPham> findOneSP(long id) {
 		Optional<SanPham> sp = null;
 		sp = sanPhamRepository.findById(id);
@@ -64,5 +62,4 @@ public class SanPhamService {
 //		sp = sanPhamRepository.findListNameSP(name);
 //		return sp;
 //	}
->>>>>>> trang chu
 }
