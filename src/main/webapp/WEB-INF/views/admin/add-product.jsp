@@ -16,41 +16,45 @@
                         <rapid:override name="content">
                             <div class="row">
                                 <div class="col-12">
-                                    <form class="forms-sample">
-                                        <div class="form-group">
-                                            <label for="tenSanPhamId">Tên sản phẩm</label>
-                                            <input type="text" class="form-control" id="tenSanPhamId"
-                                                placeholder="tên sản phẩm...">
-                                        </div>
+                                    <div class="form-group">
+                                        <label for="tenSanPhamId">Tên sản phẩm</label>
+                                        <input type="text" name="tenSanPham" class="form-control" id="tenSanPhamId"
+                                            placeholder="tên sản phẩm...">
+                                    </div>
 
-                                        <div class="form-group">
-                                            <label for="tenThuongHieuId">Tên thương hiệu</label>
-                                            <input type="text" class="form-control" id="tenThuongHieuId"
-                                                placeholder="tên thương hiệu...">
-                                        </div>
+                                    <div class="form-group">
+                                        <label for="tenThuongHieuId">Tên thương hiệu</label>
+                                        <input type="text" name="tenThuongHieu" class="form-control"
+                                            id="tenThuongHieuId" placeholder="tên thương hiệu...">
+                                    </div>
 
-                                        <div class="form-group">
-                                            <label for="theLoaiId">Thể loại</label>
-                                            <select class="form-control" id="theLoaiId">
-                                                <option>Male</option>
-                                                <option>Female</option>
-                                            </select>
-                                        </div>
+                                    <div class="form-group">
+                                        <label for="theLoaiId">Thể loại</label>
+                                        <select name="theLoai" class="form-control" id="theLoaiId">
+                                            <option>Bút viết</option>
+                                            <option>Văn phòng phẩm</option>
+                                            <option>Dụng cụ học tập</option>
+                                            <option>Vẽ, học vẽ, to màu</option>
+                                            <option>Đồ chơi</option>
+                                        </select>
+                                    </div>
 
-                                        <div class="form-group">
-                                            <label for="giaId">Giá</label>
-                                            <input type="number" class="form-control" id="giaId" placeholder="Giá...">
-                                        </div>
+                                    <div class="form-group">
+                                        <label for="giaId">Giá</label>
+                                        <input name="gia" type="number" class="form-control" id="giaId"
+                                            placeholder="Giá...">
+                                    </div>
 
-                                        <div class="form-group">
-                                            <label for="moTaId">Mô tả</label>
-                                            <textarea class="form-control" id="moTaId" rows="4"></textarea>
-                                        </div>
+                                    <div class="form-group">
+                                        <label for="moTaId">Mô tả</label>
+                                        <textarea name="moTa" class="form-control" id="moTaId" rows="4"></textarea>
+                                    </div>
 
 
+                                    <form id="myForm" method="post" enctype="multipart/form-data" class="forms-sample">
                                         <div class="form-group">
                                             <label>Ảnh đại diện</label>
-                                            <input type="file" name="anhDaiDien[]" class="file-upload-default">
+                                            <input type="file" name="anhDaiDien" class="file-upload-default">
                                             <div class="input-group col-xs-12">
                                                 <input type="text" class="form-control file-upload-info" disabled
                                                     placeholder="Upload Image">
@@ -74,45 +78,118 @@
                                                 </span>
                                             </div>
                                         </div>
-
-                                        <div class="form-group">
-                                            <label>Màu sắc</label>
-                                            <div class="row" id="listMauSacId">
-                                                <div class="col-3 mt-2">
-                                                    <select name="mauSacs[]" class="form-control" id="theLoaiId">
-                                                        <option>Male</option>
-                                                        <option>Female</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            <button class="btn btn-success mt-2">add</button>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label>Thuộc tính riêng</label>
-                                            <div class="row" id="listThuocTinhId">
-                                                <div class="col-6">
-                                                    <label for="tenThuongHieuId">Thuộc tính</label>
-                                                    <input name="thuocTinhs[][thuocTinh]" type="text" class="form-control" id="tenThuongHieuId"
-                                                        placeholder="tên thương hiệu...">
-                                                </div>
-                                                <div class="col-6">
-                                                    <label for="tenThuongHieuId">Giá trị</label>
-                                                    <input name="thuocTinhs[][giaTri]" type="text" class="form-control" id="tenThuongHieuId"
-                                                        placeholder="tên thương hiệu...">
-                                                </div>
-                                            </div>
-                                            <button class="btn btn-success mt-2">add</button>
-                                        </div>
-
-                                        <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                                        <button class="btn btn-dark">Cancel</button>
                                     </form>
+
+
+                                    <div class="form-group">
+                                        <label>Màu sắc</label>
+                                        <div class="row" id="listMauSacId">
+                                            <div class="col-3 mt-2">
+                                                <select class="form-control mauSacInput">
+                                                    <option >WHITE</option>
+                                                    <option >BLACK</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-3 mt-2">
+                                                <select class="form-control mauSacInput">
+                                                    <option >WHITE</option>
+                                                    <option >BLACK</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <button id="btnAddColors" class="btn btn-success mt-2">add</button>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label>Thuộc tính riêng</label>
+                                        <div class="row" id="listThuocTinhId">
+                                            <div class="col-6">
+                                                <label for="tenThuongHieuId">Thuộc tính</label>
+                                                <input name="thuocTinhs[][thuocTinh]" type="text" class="form-control"
+                                                    id="thuocTinhId" placeholder="tên thương hiệu...">
+                                            </div>
+                                            <div class="col-6">
+                                                <label for="tenThuongHieuId">Giá trị</label>
+                                                <input name="thuocTinhs[][giaTri]" type="text" class="form-control"
+                                                    id="giaTriId" placeholder="tên thương hiệu...">
+                                            </div>
+                                        </div>
+                                        <button class="btn btn-success mt-2">add</button>
+                                    </div>
+
+                                    <button id="submit" class="btn btn-primary mr-2">Submit</button>
+                                    <button class="btn btn-dark">Cancel</button>
                                 </div>
                             </div>
                         </rapid:override>
 
                         <rapid:override name="scripPath">
                             <script src="${pageContext.request.contextPath}/css/assets/js/file-upload.js"></script>
+                            <script>
+                                $(document).ready(function () {
+                                    $('#submit').click(function (e) {
+                                        console.log("click data form")
+
+                                        let form = $('#myForm')[0];
+                                        let data = new FormData(form);
+
+                                        // const listGiaTri = $("input[name='thuocTinhs[][giaTri]'").map((i) => {
+                                        //     return i.val()
+                                        // }).get();
+
+                                        let listMauSac = [];
+
+                                        $(".mauSacInput").each(function () {
+                                            listMauSac = [...listMauSac, $(this).val()];
+                                        });
+
+                                        let listThuocTinh = [];
+
+                                        $('input[name="thuocTinhs[][thuocTinh]"]').each(function () {
+                                            listThuocTinh = [...listThuocTinh, $(this).val()];
+                                        });
+
+                                        let listChiTiet = [];
+
+                                        $('input[name="thuocTinhs[][giaTri]"]').each(function (i) {
+                                            const giaTri = $(this).val();
+                                            const temp = { key: listThuocTinh[i], value: giaTri }
+                                            listChiTiet = [...listChiTiet, temp];
+                                        });
+
+                                        let jsonDataObject = {
+                                            "tenSanPham": $('#tenSanPhamId').val(),
+                                            "tenThuongHieu": $('#tenThuongHieuId').val(),
+                                            "theLoai": $('#theLoaiId').val(),
+                                            "gia": $('#giaId').val(),
+                                            "moTa": $("#moTaId").val(),
+                                            "mauSacs": listMauSac,
+                                            "chiTiets": listChiTiet
+                                        }
+
+                                        console.log('data', JSON.stringify(jsonDataObject));
+
+                                        data.append("jsondata", JSON.stringify(jsonDataObject));
+                                        
+
+                                        $.ajax({
+                                            type: "POST",
+                                            url: "${pageContext.request.contextPath}/product/add",
+                                            data: data,
+                                            enctype: "multipart/form-data",
+                                            processData: false,
+                                            contentType: false,
+                                            cache: false,
+                                            timeout: 600000,
+                                            success: function (response) {
+                                                console.log('SUCCESS', response);
+                                            }
+                                        });
+
+                                    });
+                                });
+
+
+                            </script>
                         </rapid:override>
                         <%@include file="index.jsp" %>

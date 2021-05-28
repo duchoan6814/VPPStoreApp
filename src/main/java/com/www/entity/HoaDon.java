@@ -1,5 +1,7 @@
 package com.www.entity;
 
+import org.hibernate.annotations.Nationalized;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Calendar;
@@ -19,6 +21,7 @@ public class HoaDon implements Serializable {
 
     @Column(name = "trang_thai", nullable = false)
     @Enumerated(EnumType.STRING)
+    @Nationalized
     private TrangThai trangThai;
 
     @Column(name = "thoi_gian_giao")

@@ -13,10 +13,4 @@ public class AdminController {
     public String getDashboard() {
         return "admin/index";
     }
-
-    @GetMapping("/product")
-    public String getProduct() {
-        return "admin/product";
-    }
-
 }

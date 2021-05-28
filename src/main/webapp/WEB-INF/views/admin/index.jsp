@@ -121,7 +121,11 @@
                 </a>
                 <div class="collapse" id="ui-basic">
                     <ul class="nav flex-column sub-menu">
-                        <li class="nav-item"><a class="nav-link" href="pages/ui-features/buttons.html">Quản lý Sản phẩm</a></li>
+                        <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/product">Quản
+                            lý Sản phẩm</a></li>
+                        <li class="nav-item"><a class="nav-link" href="${pageContext.request.contextPath}/product/add">Thêm
+                            sản phẩm</a></li>
+                    </ul>
                 </div>
             </li>
             <li class="nav-item menu-items">
@@ -364,6 +368,13 @@
     <!-- page-body-wrapper ends -->
 </div>
 
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+        crossorigin="anonymous"></script>
 <!-- container-scroller -->
 <!-- plugins:js -->
 <script src="${pageContext.request.contextPath}/css/assets/vendors/js/vendor.bundle.base.js"></script>

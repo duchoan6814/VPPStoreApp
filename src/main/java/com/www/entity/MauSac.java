@@ -1,37 +1,25 @@
 package com.www.entity;
 
+import org.hibernate.annotations.Nationalized;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Entity
-@Table(name = "mau_sac")
+@Embeddable
 public class MauSac implements Serializable {
 
-    @Id
-    @ManyToOne
-    @JoinColumn(name = "id", nullable = false)
-    private SanPham sanPham;
-
     @Column(name = "ten", nullable = false)
+    @Nationalized
     private String ten;
     @Column(name = "ma_mau", nullable = false)
     private String maMau;
 
-    @Override
-    public String toString() {
-        return "MauSac{" +
-                "sanPham=" + sanPham +
-                ", ten='" + ten + '\'' +
-                ", maMau='" + maMau + '\'' +
-                '}';
+    public MauSac() {
     }
 
-    public SanPham getSanPham() {
-        return sanPham;
-    }
-
-    public void setSanPham(SanPham sanPham) {
-        this.sanPham = sanPham;
+    public MauSac(String ten, String maMau) {
+        this.ten = ten;
+        this.maMau = maMau;
     }
 
     public String getTen() {
@@ -50,12 +38,11 @@ public class MauSac implements Serializable {
         this.maMau = maMau;
     }
 
-    public MauSac() {
-    }
-
-    public MauSac(SanPham sanPham, String ten, String maMau) {
-        this.sanPham = sanPham;
-        this.ten = ten;
-        this.maMau = maMau;
+    @Override
+    public String toString() {
+        return "MauSac{" +
+                "ten='" + ten + '\'' +
+                ", maMau='" + maMau + '\'' +
+                '}';
     }
 }
