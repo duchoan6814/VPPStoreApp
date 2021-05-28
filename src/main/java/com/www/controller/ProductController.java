@@ -76,10 +76,20 @@ public class ProductController {
         addSanPhamForm.getMauSacs().forEach(s -> {
             MauSac mauSac = new MauSac();
             mauSac.setTen(s);
-            if (s == "WHITE")
+            if (s.equalsIgnoreCase("Trắng"))
                 mauSac.setMaMau("#FFFFFF");
-            else if (s == "BLACK")
+            else if (s.equalsIgnoreCase("Đen"))
                 mauSac.setMaMau("#000000");
+            else if (s.equalsIgnoreCase("Xanh"))
+                mauSac.setMaMau("#0000FF");
+            else if (s.equalsIgnoreCase("Đỏ"))
+                mauSac.setMaMau("#FF0000");
+            else if (s.equalsIgnoreCase("Tím"))
+                mauSac.setMaMau("#800080");
+            else if (s.equalsIgnoreCase("Vàng"))
+                mauSac.setMaMau("#FFFF00");
+            else if (s.equalsIgnoreCase("Nâu"))
+                mauSac.setMaMau("#660000");
             else
                 mauSac.setMaMau("#F4F4F4");
             mauSacs.add(mauSac);

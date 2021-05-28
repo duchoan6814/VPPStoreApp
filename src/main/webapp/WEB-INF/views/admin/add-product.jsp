@@ -86,14 +86,13 @@
                                         <div class="row" id="listMauSacId">
                                             <div class="col-3 mt-2">
                                                 <select class="form-control mauSacInput">
-                                                    <option >WHITE</option>
-                                                    <option >BLACK</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-3 mt-2">
-                                                <select class="form-control mauSacInput">
-                                                    <option >WHITE</option>
-                                                    <option >BLACK</option>
+                                                    <option>Trắng</option>
+                                                    <option>Đen</option>
+                                                    <option>Xanh</option>
+                                                    <option>Đỏ</option>
+                                                    <option>Tím</option>
+                                                    <option>Vàng</option>
+                                                    <option>Nâu</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -127,15 +126,11 @@
                             <script src="${pageContext.request.contextPath}/css/assets/js/file-upload.js"></script>
                             <script>
                                 $(document).ready(function () {
+        
                                     $('#submit').click(function (e) {
-                                        console.log("click data form")
-
+                            
                                         let form = $('#myForm')[0];
                                         let data = new FormData(form);
-
-                                        // const listGiaTri = $("input[name='thuocTinhs[][giaTri]'").map((i) => {
-                                        //     return i.val()
-                                        // }).get();
 
                                         let listMauSac = [];
 
@@ -167,10 +162,9 @@
                                             "chiTiets": listChiTiet
                                         }
 
-                                        console.log('data', JSON.stringify(jsonDataObject));
 
                                         data.append("jsondata", JSON.stringify(jsonDataObject));
-                                        
+
 
                                         $.ajax({
                                             type: "POST",
@@ -183,12 +177,18 @@
                                             timeout: 600000,
                                             success: function (response) {
                                                 console.log('SUCCESS', response);
+                                                window.location = "${pageContext.request.contextPath}/product"
                                             }
                                         });
 
                                     });
+                                
+                                    $('#btnAddColors').click(function (e) { 
+                                        e.preventDefault();
+                                        console.log('btn add  is running');
+                                        $( "#listMauSacId" ).append( '<div class="col-3 mt-2"><select class="form-control mauSacInput"><option>Trắng</option><option>Đen</option> <option>Xanh</option> <option>Đỏ</option> <option>Tím</option> <option>Vàng</option> <option>Nâu</option></select></div>' );
+                                    });
                                 });
-
 
                             </script>
                         </rapid:override>

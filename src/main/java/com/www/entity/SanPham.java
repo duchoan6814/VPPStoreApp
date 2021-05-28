@@ -9,6 +9,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "san_pham")
+@Cacheable
 public class SanPham implements Serializable {
 
     @Id
@@ -39,7 +40,6 @@ public class SanPham implements Serializable {
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "hinh_anh", joinColumns = @JoinColumn(name = "id"))
     private Set<byte[]> listHinh;
-
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "chi_tiet", joinColumns = @JoinColumn(name = "san_pham_id"))
