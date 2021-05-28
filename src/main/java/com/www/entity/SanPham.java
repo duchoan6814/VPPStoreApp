@@ -1,11 +1,15 @@
 package com.www.entity;
 
+import org.hibernate.annotations.Nationalized;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.Set;
 
 @Entity
 @Table(name = "san_pham")
+@Cacheable
 public class SanPham implements Serializable {
 
     @Id
@@ -14,25 +18,35 @@ public class SanPham implements Serializable {
     private long id;
 
     @Column(name = "ten", nullable = false)
+    @Nationalized
     private String ten;
 
     @Column(name = "thuong_hieu", nullable = true)
+    @Nationalized
     private String thuongHieu;
 
     @Column(name = "gia", nullable = false)
     private double gia;
 
     @Column(name = "mo_ta")
+    @Nationalized
     private String moTa;
 
-    @ElementCollection
-    @CollectionTable(name = "hinh_anh", joinColumns = @JoinColumn(name = "id"))
-    private Set<String> listHinh;
+    @Lob
+    @Column(name = "anhDaiDien")
+    private byte[] anhDaiDien;
 
-    @OneToMany(mappedBy = "sanPham")
+    @Lob
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "hinh_anh", joinColumns = @JoinColumn(name = "id"))
+    private Set<byte[]> listHinh;
+
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "chi_tiet", joinColumns = @JoinColumn(name = "san_pham_id"))
     private Set<ChiTiet> chiTiets;
 
-    @OneToMany(mappedBy = "sanPham")
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "mau_sac", joinColumns = @JoinColumn(name = "san_pham_id"))
     private Set<MauSac> mauSacs;
 
     @ManyToOne
@@ -45,20 +59,22 @@ public class SanPham implements Serializable {
     @OneToMany(mappedBy = "sanPham")
     private Set<ChiTietHoaDon> chiTietHoaDons;
 
-    public SanPham(long id, String ten, String thuongHieu, double gia, String moTa, Set<String> listHinh, Set<ChiTiet> chiTiets, Set<MauSac> mauSacs, TheLoai theLoai, int soLuongTon) {
+    public SanPham() {
+    }
+
+    public SanPham(long id, String ten, String thuongHieu, double gia, String moTa, byte[] anhDaiDien, Set<byte[]> listHinh, Set<ChiTiet> chiTiets, Set<MauSac> mauSacs, TheLoai theLoai, int soLuongTon, Set<ChiTietHoaDon> chiTietHoaDons) {
         this.id = id;
         this.ten = ten;
         this.thuongHieu = thuongHieu;
         this.gia = gia;
         this.moTa = moTa;
+        this.anhDaiDien = anhDaiDien;
         this.listHinh = listHinh;
         this.chiTiets = chiTiets;
         this.mauSacs = mauSacs;
         this.theLoai = theLoai;
         this.soLuongTon = soLuongTon;
-    }
-
-    public SanPham() {
+        this.chiTietHoaDons = chiTietHoaDons;
     }
 
     public long getId() {
@@ -101,11 +117,19 @@ public class SanPham implements Serializable {
         this.moTa = moTa;
     }
 
-    public Set<String> getListHinh() {
+    public byte[] getAnhDaiDien() {
+        return anhDaiDien;
+    }
+
+    public void setAnhDaiDien(byte[] anhDaiDien) {
+        this.anhDaiDien = anhDaiDien;
+    }
+
+    public Set<byte[]> getListHinh() {
         return listHinh;
     }
 
-    public void setListHinh(Set<String> listHinh) {
+    public void setListHinh(Set<byte[]> listHinh) {
         this.listHinh = listHinh;
     }
 
@@ -141,19 +165,29 @@ public class SanPham implements Serializable {
         this.soLuongTon = soLuongTon;
     }
 
+    public Set<ChiTietHoaDon> getChiTietHoaDons() {
+        return chiTietHoaDons;
+    }
+
+    public void setChiTietHoaDons(Set<ChiTietHoaDon> chiTietHoaDons) {
+        this.chiTietHoaDons = chiTietHoaDons;
+    }
+
     @Override
     public String toString() {
         return "SanPham{" +
-                "id='" + id + '\'' +
+                "id=" + id +
                 ", ten='" + ten + '\'' +
                 ", thuongHieu='" + thuongHieu + '\'' +
                 ", gia=" + gia +
                 ", moTa='" + moTa + '\'' +
+                ", anhDaiDien=" + Arrays.toString(anhDaiDien) +
                 ", listHinh=" + listHinh +
                 ", chiTiets=" + chiTiets +
                 ", mauSacs=" + mauSacs +
                 ", theLoai=" + theLoai +
                 ", soLuongTon=" + soLuongTon +
+                ", chiTietHoaDons=" + chiTietHoaDons +
                 '}';
     }
 }

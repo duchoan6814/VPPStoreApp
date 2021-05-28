@@ -1,5 +1,7 @@
 package com.www.entity;
 
+import org.hibernate.annotations.Nationalized;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -12,22 +14,28 @@ public class DiaChi implements Serializable {
     private long id;
 
     @Column(name = "phuong_xa", nullable = false)
+    @Nationalized
     private String phuongXa;
 
     @Column(name = "quan_huyen", nullable = false)
+    @Nationalized
     private String quanHuyen;
 
     @Column(name = "tinh_thanh_pho", nullable = false)
+    @Nationalized
     private String tinhThanhPho;
 
     @Column(name = "chi_tiet", nullable = false)
+    @Nationalized
     private String chiTiet;
 
     @Column(name = "ten_nguoi_nhan", nullable = false)
+    @Nationalized
     private String tenNguoiNhan;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "label")
+    @Nationalized
     private LableAddress lableAddress;
 
     @ManyToOne

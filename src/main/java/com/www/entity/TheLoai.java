@@ -1,6 +1,9 @@
 package com.www.entity;
 
+import org.hibernate.annotations.Nationalized;
+
 import javax.persistence.*;
+import javax.validation.Valid;
 import java.io.Serializable;
 import java.util.List;
 
@@ -8,29 +11,31 @@ import java.util.List;
 @Table(name = "the_loai")
 public class TheLoai implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false)
-    private String id;
+    private long id;
 
     @Column(name = "ten", nullable = false)
+    @Nationalized
     private String ten;
 
-    @OneToMany(mappedBy = "theLoai")
+    @OneToMany(mappedBy = "theLoai", fetch = FetchType.EAGER)
     private List<SanPham> sanPhams;
 
     public TheLoai() {
     }
 
-    public TheLoai(String id, String ten) {
+    public TheLoai(long id, String ten, List<SanPham> sanPhams) {
         this.id = id;
         this.ten = ten;
+        this.sanPhams = sanPhams;
     }
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -42,11 +47,20 @@ public class TheLoai implements Serializable {
         this.ten = ten;
     }
 
+    public List<SanPham> getSanPhams() {
+        return sanPhams;
+    }
+
+    public void setSanPhams(List<SanPham> sanPhams) {
+        this.sanPhams = sanPhams;
+    }
+
     @Override
     public String toString() {
         return "TheLoai{" +
-                "id='" + id + '\'' +
+                "id=" + id +
                 ", ten='" + ten + '\'' +
+                ", sanPhams=" + sanPhams +
                 '}';
     }
 }

@@ -1,21 +1,19 @@
 package com.www.entity;
 
+import org.hibernate.annotations.Nationalized;
+
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Entity
-@Table(name = "chi_tiet")
+@Embeddable
 public class ChiTiet implements Serializable {
 
-    @Id
-    @ManyToOne
-    @JoinColumn(name = "id", nullable = false)
-    private SanPham sanPham;
-
     @Column(name = "thuoc_tinh", nullable = false)
+    @Nationalized
     private String key;
 
     @Column(name = "gia_tri", nullable = false)
+    @Nationalized
     private String value;
 
     @Override

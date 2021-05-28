@@ -1,5 +1,7 @@
 package com.www.entity;
 
+import org.hibernate.annotations.Nationalized;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Base64;
@@ -21,8 +23,10 @@ public class NguoiDung implements Serializable {
     private int id;
 
     @Column(name = "ho_ten_dem", nullable = false)
+    @Nationalized
     private String hoTenDem;
     @Column(name = "ten", nullable = false)
+    @Nationalized
     private String ten;
     @Column(name = "ngay_sinh")
     private Date ngaySinh;
