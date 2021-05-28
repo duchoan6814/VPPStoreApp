@@ -11,6 +11,10 @@ import java.util.List;
 public interface NguoiDungRepository extends CrudRepository<NguoiDung, String> {
     NguoiDung findByUser(User user);
     List<NguoiDung> findByHoTenDem(String hoTenDem);
+<<<<<<< HEAD
     List<NguoiDung> findAll();
     NguoiDung findById(int id);
+=======
+    
+>>>>>>> trang chu
 }
