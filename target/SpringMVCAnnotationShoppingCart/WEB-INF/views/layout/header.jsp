@@ -7,6 +7,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <html>
 <head>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
@@ -108,7 +109,7 @@
                                             alt="avatar"/>
                                 </c:if>
                                 <c:if test="${nguoiDung.getAvatar() != null}">
-                                    <img  src="${nguoiDung.getAvatar()}"
+                                    <img src="${nguoiDung.getAvatar()}"
                                          alt="avatar"/>
                                 </c:if>
                             </div>
@@ -119,7 +120,12 @@
                         </a>
 
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-                            <a class="dropdown-item" href="${pageContext.request.contextPath}/user/information">Thông tin</a>
+                            <a class="dropdown-item" href="${pageContext.request.contextPath}/user/information">Thông
+                                tin</a>
+                            <sec:authorize access="hasRole('ROLE_ADMIN') and isAuthenticated()">
+                                <a class="dropdown-item" href="${pageContext.request.contextPath}/admin">Trang
+                                    admin</a>
+                            </sec:authorize>
                             <form class="dropdown-item" action="${pageContext.request.contextPath}/perform_logout"
                                   method="post">
                                 <input type="submit" value="Đăng xuất"/>

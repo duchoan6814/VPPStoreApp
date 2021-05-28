@@ -101,19 +101,22 @@
 
                                     <div class="form-group">
                                         <label>Thuộc tính riêng</label>
-                                        <div class="row" id="listThuocTinhId">
-                                            <div class="col-6">
-                                                <label for="tenThuongHieuId">Thuộc tính</label>
-                                                <input name="thuocTinhs[][thuocTinh]" type="text" class="form-control"
-                                                    id="thuocTinhId" placeholder="tên thương hiệu...">
-                                            </div>
-                                            <div class="col-6">
-                                                <label for="tenThuongHieuId">Giá trị</label>
-                                                <input name="thuocTinhs[][giaTri]" type="text" class="form-control"
-                                                    id="giaTriId" placeholder="tên thương hiệu...">
+                                        <div id="listThuocTinhId">
+                                            <div class="row">
+                                                <div class="col-6">
+                                                    <label for="tenThuongHieuId">Thuộc tính</label>
+                                                    <input name="thuocTinhs[][thuocTinh]" type="text" class="form-control"
+                                                        id="thuocTinhId" placeholder="tên thương hiệu...">
+                                                </div>
+                                                <div class="col-6">
+                                                    <label for="tenThuongHieuId">Giá trị</label>
+                                                    <input name="thuocTinhs[][giaTri]" type="text" class="form-control"
+                                                        id="giaTriId" placeholder="tên thương hiệu...">
+                                                </div>
                                             </div>
                                         </div>
-                                        <button class="btn btn-success mt-2">add</button>
+                                        
+                                        <button id="btnAddThuocTinhs" class="btn btn-success mt-2">add</button>
                                     </div>
 
                                     <button id="submit" class="btn btn-primary mr-2">Submit</button>
@@ -187,6 +190,24 @@
                                         e.preventDefault();
                                         console.log('btn add  is running');
                                         $( "#listMauSacId" ).append( '<div class="col-3 mt-2"><select class="form-control mauSacInput"><option>Trắng</option><option>Đen</option> <option>Xanh</option> <option>Đỏ</option> <option>Tím</option> <option>Vàng</option> <option>Nâu</option></select></div>' );
+                                    });
+
+                                    $("#btnAddThuocTinhs").click(function (e) { 
+                                        e.preventDefault();
+                                        $("#listThuocTinhId").append(''+
+                                        '<div class="row">'+
+                                                '<div class="col-6">'+
+                                                    '<label for="tenThuongHieuId">Thuộc tính</label>'+
+                                                    '<input name="thuocTinhs[][thuocTinh]" type="text" class="form-control"'+
+                                                        'id="thuocTinhId" placeholder="tên thương hiệu...">'+
+                                                '</div>'+
+                                                '<div class="col-6">'+
+                                                    '<label for="tenThuongHieuId">Giá trị</label>'+
+                                                    '<input name="thuocTinhs[][giaTri]" type="text" class="form-control"'+
+                                                        'id="giaTriId" placeholder="tên thương hiệu...">'+
+                                                '</div>'+
+                                            '</div>'+
+                                        '');
                                     });
                                 });
 
