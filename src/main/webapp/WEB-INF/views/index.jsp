@@ -5,14 +5,17 @@
   Time: 02:48
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html>
 <head>
-    <title>Trang chủ</title>
+<title>Trang chủ</title>
 </head>
 <body>
-<jsp:include page="layout/header.jsp"/>
-<h1>Content Of home pafe</h1>
-<jsp:include page="layout/footer.jsp"/>
+<c:url var="addProduct" value="sp/showFormAddProduct"/>
+<a href="${addProduct}" > Them sp</a>
+	<jsp:include page="layout/header.jsp"/>
+	<jsp:include page="components/iten-home.jsp" />       
+	<jsp:include page="layout/footer.jsp"/>
 </body>
 </html>
