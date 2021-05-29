@@ -51,12 +51,12 @@ public class SanPhamService {
 //	}
 //	
 	
-
-	public Optional<SanPham> findOneSP(long id) {
-		Optional<SanPham> sp = null;
-		sp = sanPhamRepository.findById(id);
-		return sp;
-	}
+//
+//	public Optional<SanPham> findOneSP(long id) {
+//		Optional<SanPham> sp = null;
+//		sp = sanPhamRepository.findById(id);
+//		return sp;
+//	}
 //	public List<SanPham> findAllSP(String name) {
 //		List<SanPham> sp = null;
 //		sp = sanPhamRepository.findListNameSP(name);

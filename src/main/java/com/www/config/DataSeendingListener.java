@@ -1,9 +1,6 @@
 package com.www.config;
 
-import com.www.entity.DiaChi;
-import com.www.entity.NguoiDung;
-import com.www.entity.Role;
-import com.www.entity.User;
+import com.www.entity.*;
 import com.www.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEvent;
@@ -11,10 +8,7 @@ import org.springframework.context.ApplicationListener;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Component
 public class DataSeendingListener implements ApplicationListener {
@@ -106,6 +100,10 @@ public class DataSeendingListener implements ApplicationListener {
 
 //        System.out.println("hello world"+sanPhamRepository.findAll());
 //        	System.out.println("aaaa"+sanPhamRepository.findById(8));
+
+//        Optional<SanPham> sanpham = sanPhamRepository.findById((1L));
+//        List<SanPham> sanPhams = sanPhamRepository.findByTheLoai(sanpham.getTheLoai());
+//        System.out.println(sanpham.get().getChiTiets()+"aaaa");
 
     }
 }

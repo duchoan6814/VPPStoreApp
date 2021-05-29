@@ -2,6 +2,7 @@ package com.www.controller;
 
 
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,22 +40,17 @@ public class MainController {
 	
 
 	 @RequestMapping(value="/showFormItemProduct",method = RequestMethod.GET)
-	public String getItemProduct(Model model,@RequestParam("sanpham") int theID) {
-		SanPham sanpham = sanPhamRepository.findById((long) theID);
-		System.out.println("aaa"+sanpham);
-		List<SanPham> sanPhams = sanPhamRepository.findByTheLoai(sanpham.getTheLoai());
-	
-		
-		if (sanpham != null) {
-			// item sp
-			model.addAttribute("sp",sanpham);
-//			list sp
-			model.addAttribute("sp1", sanPhams);
-		}else {
+	public String getItemProduct(Model model, @RequestParam("sanpham") long theID) {
+		 SanPham sanpham = sanPhamRepository.findById(theID);
+		if (sanpham == null) {
+			System.out.println("aaaaa");
 			model.addAttribute("sp", new SanPham());
-			model.addAttribute("sp1", sanPhams);
+			model.addAttribute("listSanPham", new ArrayList<>());
+		}else {
+			System.out.println(sanpham+"bbb");
+			model.addAttribute("sp", sanpham);
+			model.addAttribute("listSanPham", sanPhamRepository.findByTheLoai(sanpham.getTheLoai()));
 		}
-        
 		return "item-product";
 	}
 	

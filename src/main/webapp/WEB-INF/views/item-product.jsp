@@ -136,8 +136,8 @@
 	function _extends(){return(_extends=Object.assign||function(t){for(var e=1;e<arguments.length;e++){var n=arguments[e];for(var o in n)Object.prototype.hasOwnProperty.call(n,o)&&(t[o]=n[o])}return t}).apply(this,arguments)}function _typeof(t){return(_typeof="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t})(t)}!function(t,e){"object"===("undefined"==typeof exports?"undefined":_typeof(exports))&&"undefined"!=typeof module?module.exports=e():"function"==typeof define&&define.amd?define(e):t.LazyLoad=e()}(this,function(){"use strict";var t="undefined"!=typeof window,e=t&&!("onscroll"in window)||"undefined"!=typeof navigator&&/(gle|ing|ro)bot|crawl|spider/i.test(navigator.userAgent),n=t&&"IntersectionObserver"in window,o=t&&"classList"in document.createElement("p"),r={elements_selector:"img",container:e||t?document:null,threshold:300,thresholds:null,data_src:"src",data_srcset:"srcset",data_sizes:"sizes",data_bg:"bg",class_loading:"loading",class_loaded:"loaded",class_error:"error",load_delay:0,auto_unobserve:!0,callback_enter:null,callback_exit:null,callback_reveal:null,callback_loaded:null,callback_error:null,callback_finish:null,use_native:!1},a=function(t,e){var n,o=new t(e);try{n=new CustomEvent("LazyLoad::Initialized",{detail:{instance:o}})}catch(t){(n=document.createEvent("CustomEvent")).initCustomEvent("LazyLoad::Initialized",!1,!1,{instance:o})}window.dispatchEvent(n)};var i=function(t,e){return t.getAttribute("data-"+e)},s=function(t,e,n){var o="data-"+e;null!==n?t.setAttribute(o,n):t.removeAttribute(o)},c=function(t){return"true"===i(t,"was-processed")},l=function(t,e){return s(t,"ll-timeout",e)},u=function(t){return i(t,"ll-timeout")},d=function(t,e){t&&t(e)},f=function(t,e){t._loadingCount+=e,0===t._elements.length&&0===t._loadingCount&&d(t._settings.callback_finish)},_=function(t){for(var e,n=[],o=0;e=t.children[o];o+=1)"SOURCE"===e.tagName&&n.push(e);return n},v=function(t,e,n){n&&t.setAttribute(e,n)},g=function(t,e){v(t,"sizes",i(t,e.data_sizes)),v(t,"srcset",i(t,e.data_srcset)),v(t,"src",i(t,e.data_src))},m={IMG:function(t,e){var n=t.parentNode;n&&"PICTURE"===n.tagName&&_(n).forEach(function(t){g(t,e)});g(t,e)},IFRAME:function(t,e){v(t,"src",i(t,e.data_src))},VIDEO:function(t,e){_(t).forEach(function(t){v(t,"src",i(t,e.data_src))}),v(t,"src",i(t,e.data_src)),t.load()}},b=function(t,e){var n,o,r=e._settings,a=t.tagName,s=m[a];if(s)return s(t,r),f(e,1),void(e._elements=(n=e._elements,o=t,n.filter(function(t){return t!==o})));!function(t,e){var n=i(t,e.data_src),o=i(t,e.data_bg);n&&(t.style.backgroundImage='url("'.concat(n,'")')),o&&(t.style.backgroundImage=o)}(t,r)},h=function(t,e){o?t.classList.add(e):t.className+=(t.className?" ":"")+e},p=function(t,e,n){t.addEventListener(e,n)},y=function(t,e,n){t.removeEventListener(e,n)},E=function(t,e,n){y(t,"load",e),y(t,"loadeddata",e),y(t,"error",n)},w=function(t,e,n){var r=n._settings,a=e?r.class_loaded:r.class_error,i=e?r.callback_loaded:r.callback_error,s=t.target;!function(t,e){o?t.classList.remove(e):t.className=t.className.replace(new RegExp("(^|\\s+)"+e+"(\\s+|$)")," ").replace(/^\s+/,"").replace(/\s+$/,"")}(s,r.class_loading),h(s,a),d(i,s),f(n,-1)},I=function(t,e){var n=function n(r){w(r,!0,e),E(t,n,o)},o=function o(r){w(r,!1,e),E(t,n,o)};!function(t,e,n){p(t,"load",e),p(t,"loadeddata",e),p(t,"error",n)}(t,n,o)},k=["IMG","IFRAME","VIDEO"],A=function(t,e){var n=e._observer;z(t,e),n&&e._settings.auto_unobserve&&n.unobserve(t)},L=function(t){var e=u(t);e&&(clearTimeout(e),l(t,null))},x=function(t,e){var n=e._settings.load_delay,o=u(t);o||(o=setTimeout(function(){A(t,e),L(t)},n),l(t,o))},z=function(t,e,n){var o=e._settings;!n&&c(t)||(k.indexOf(t.tagName)>-1&&(I(t,e),h(t,o.class_loading)),b(t,e),function(t){s(t,"was-processed","true")}(t),d(o.callback_reveal,t),d(o.callback_set,t))},O=function(t){return!!n&&(t._observer=new IntersectionObserver(function(e){e.forEach(function(e){return function(t){return t.isIntersecting||t.intersectionRatio>0}(e)?function(t,e){var n=e._settings;d(n.callback_enter,t),n.load_delay?x(t,e):A(t,e)}(e.target,t):function(t,e){var n=e._settings;d(n.callback_exit,t),n.load_delay&&L(t)}(e.target,t)})},{root:(e=t._settings).container===document?null:e.container,rootMargin:e.thresholds||e.threshold+"px"}),!0);var e},N=["IMG","IFRAME"],C=function(t,e){return function(t){return t.filter(function(t){return!c(t)})}((n=t||function(t){return t.container.querySelectorAll(t.elements_selector)}(e),Array.prototype.slice.call(n)));var n},M=function(t,e){this._settings=function(t){return _extends({},r,t)}(t),this._loadingCount=0,O(this),this.update(e)};return M.prototype={update:function(t){var n,o=this,r=this._settings;(this._elements=C(t,r),!e&&this._observer)?(function(t){return t.use_native&&"loading"in HTMLImageElement.prototype}(r)&&((n=this)._elements.forEach(function(t){-1!==N.indexOf(t.tagName)&&(t.setAttribute("loading","lazy"),z(t,n))}),this._elements=C(t,r)),this._elements.forEach(function(t){o._observer.observe(t)})):this.loadAll()},destroy:function(){var t=this;this._observer&&(this._elements.forEach(function(e){t._observer.unobserve(e)}),this._observer=null),this._elements=null,this._settings=null},load:function(t,e){z(t,this,e)},loadAll:function(){var t=this;this._elements.forEach(function(e){A(e,t)})}},t&&function(t,e){if(e)if(e.length)for(var n,o=0;n=e[o];o+=1)a(t,n);else a(t,e)}(M,window.lazyLoadOptions),M});
 	!function(i){"use strict";"function"==typeof define&&define.amd?define(["jquery"],i):"undefined"!=typeof exports?module.exports=i(require("jquery")):i(jQuery)}(function(i){"use strict";var e=window.Slick||{};(e=function(){var e=0;return function(t,o){var s,n=this;n.defaults={accessibility:!0,adaptiveHeight:!1,appendArrows:i(t),appendDots:i(t),arrows:!0,asNavFor:null,prevArrow:'<button type="button" data-role="none" class="slick-prev" aria-label="Previous" tabindex="0" role="button">Previous</button>',nextArrow:'<button type="button" data-role="none" class="slick-next" aria-label="Next" tabindex="0" role="button">Next</button>',autoplay:!1,autoplaySpeed:3e3,centerMode:!1,centerPadding:"50px",cssEase:"ease",customPaging:function(e,t){return i('<button type="button" data-role="none" role="button" tabindex="0" />').text(t+1)},dots:!1,dotsClass:"slick-dots",draggable:!0,easing:"linear",edgeFriction:.35,fade:!1,focusOnSelect:!1,infinite:!0,initialSlide:0,lazyLoad:"ondemand",mobileFirst:!1,pauseOnHover:!0,pauseOnFocus:!0,pauseOnDotsHover:!1,respondTo:"window",responsive:null,rows:1,rtl:!1,slide:"",slidesPerRow:1,slidesToShow:1,slidesToScroll:1,speed:500,swipe:!0,swipeToSlide:!1,touchMove:!0,touchThreshold:5,useCSS:!0,useTransform:!0,variableWidth:!1,vertical:!1,verticalSwiping:!1,waitForAnimate:!0,zIndex:1e3},n.initials={animating:!1,dragging:!1,autoPlayTimer:null,currentDirection:0,currentLeft:null,currentSlide:0,direction:1,$dots:null,listWidth:null,listHeight:null,loadIndex:0,$nextArrow:null,$prevArrow:null,slideCount:null,slideWidth:null,$slideTrack:null,$slides:null,sliding:!1,slideOffset:0,swipeLeft:null,$list:null,touchObject:{},transformsEnabled:!1,unslicked:!1},i.extend(n,n.initials),n.activeBreakpoint=null,n.animType=null,n.animProp=null,n.breakpoints=[],n.breakpointSettings=[],n.cssTransitions=!1,n.focussed=!1,n.interrupted=!1,n.hidden="hidden",n.paused=!0,n.positionProp=null,n.respondTo=null,n.rowCount=1,n.shouldClick=!0,n.$slider=i(t),n.$slidesCache=null,n.transformType=null,n.transitionType=null,n.visibilityChange="visibilitychange",n.windowWidth=0,n.windowTimer=null,s=i(t).data("slick")||{},n.options=i.extend({},n.defaults,o,s),n.currentSlide=n.options.initialSlide,n.originalSettings=n.options,void 0!==document.mozHidden?(n.hidden="mozHidden",n.visibilityChange="mozvisibilitychange"):void 0!==document.webkitHidden&&(n.hidden="webkitHidden",n.visibilityChange="webkitvisibilitychange"),n.autoPlay=i.proxy(n.autoPlay,n),n.autoPlayClear=i.proxy(n.autoPlayClear,n),n.autoPlayIterator=i.proxy(n.autoPlayIterator,n),n.changeSlide=i.proxy(n.changeSlide,n),n.clickHandler=i.proxy(n.clickHandler,n),n.selectHandler=i.proxy(n.selectHandler,n),n.setPosition=i.proxy(n.setPosition,n),n.swipeHandler=i.proxy(n.swipeHandler,n),n.dragHandler=i.proxy(n.dragHandler,n),n.keyHandler=i.proxy(n.keyHandler,n),n.instanceUid=e++,n.htmlExpr=/^(?:\s*(<[\w\W]+>)[^>]*)$/,n.registerBreakpoints(),n.init(!0)}}()).prototype.activateADA=function(){this.$slideTrack.find(".slick-active").attr({"aria-hidden":"false"}).find("a, input, button, select").attr({tabindex:"0"})},e.prototype.addSlide=e.prototype.slickAdd=function(e,t,o){var s=this;if("boolean"==typeof t)o=t,t=null;else if(t<0||t>=s.slideCount)return!1;s.unload(),"number"==typeof t?0===t&&0===s.$slides.length?i(e).appendTo(s.$slideTrack):o?i(e).insertBefore(s.$slides.eq(t)):i(e).insertAfter(s.$slides.eq(t)):!0===o?i(e).prependTo(s.$slideTrack):i(e).appendTo(s.$slideTrack),s.$slides=s.$slideTrack.children(this.options.slide),s.$slideTrack.children(this.options.slide).detach(),s.$slideTrack.append(s.$slides),s.$slides.each(function(e,t){i(t).attr("data-slick-index",e)}),s.$slidesCache=s.$slides,s.reinit()},e.prototype.animateHeight=function(){var i=this;if(1===i.options.slidesToShow&&!0===i.options.adaptiveHeight&&!1===i.options.vertical){var e=i.$slides.eq(i.currentSlide).outerHeight(!0);i.$list.animate({height:e},i.options.speed)}},e.prototype.animateSlide=function(e,t){var o={},s=this;s.animateHeight(),!0===s.options.rtl&&!1===s.options.vertical&&(e=-e),!1===s.transformsEnabled?!1===s.options.vertical?s.$slideTrack.animate({left:e},s.options.speed,s.options.easing,t):s.$slideTrack.animate({top:e},s.options.speed,s.options.easing,t):!1===s.cssTransitions?(!0===s.options.rtl&&(s.currentLeft=-s.currentLeft),i({animStart:s.currentLeft}).animate({animStart:e},{duration:s.options.speed,easing:s.options.easing,step:function(i){i=Math.ceil(i),!1===s.options.vertical?(o[s.animType]="translate("+i+"px, 0px)",s.$slideTrack.css(o)):(o[s.animType]="translate(0px,"+i+"px)",s.$slideTrack.css(o))},complete:function(){t&&t.call()}})):(s.applyTransition(),e=Math.ceil(e),!1===s.options.vertical?o[s.animType]="translate3d("+e+"px, 0px, 0px)":o[s.animType]="translate3d(0px,"+e+"px, 0px)",s.$slideTrack.css(o),t&&setTimeout(function(){s.disableTransition(),t.call()},s.options.speed))},e.prototype.getNavTarget=function(){var e=this.options.asNavFor;return e&&null!==e&&(e=i(e).not(this.$slider)),e},e.prototype.asNavFor=function(e){var t=this.getNavTarget();null!==t&&"object"==typeof t&&t.each(function(){var t=i(this).slick("getSlick");t.unslicked||t.slideHandler(e,!0)})},e.prototype.applyTransition=function(i){var e=this,t={};!1===e.options.fade?t[e.transitionType]=e.transformType+" "+e.options.speed+"ms "+e.options.cssEase:t[e.transitionType]="opacity "+e.options.speed+"ms "+e.options.cssEase,!1===e.options.fade?e.$slideTrack.css(t):e.$slides.eq(i).css(t)},e.prototype.autoPlay=function(){var i=this;i.autoPlayClear(),i.slideCount>i.options.slidesToShow&&(i.autoPlayTimer=setInterval(i.autoPlayIterator,i.options.autoplaySpeed))},e.prototype.autoPlayClear=function(){this.autoPlayTimer&&clearInterval(this.autoPlayTimer)},e.prototype.autoPlayIterator=function(){var i=this,e=i.currentSlide+i.options.slidesToScroll;i.paused||i.interrupted||i.focussed||(!1===i.options.infinite&&(1===i.direction&&i.currentSlide+1===i.slideCount-1?i.direction=0:0===i.direction&&(e=i.currentSlide-i.options.slidesToScroll,i.currentSlide-1==0&&(i.direction=1))),i.slideHandler(e))},e.prototype.buildArrows=function(){var e=this;!0===e.options.arrows&&(e.$prevArrow=i(e.options.prevArrow).addClass("slick-arrow"),e.$nextArrow=i(e.options.nextArrow).addClass("slick-arrow"),e.slideCount>e.options.slidesToShow?(e.$prevArrow.removeClass("slick-hidden").removeAttr("aria-hidden tabindex"),e.$nextArrow.removeClass("slick-hidden").removeAttr("aria-hidden tabindex"),e.htmlExpr.test(e.options.prevArrow)&&e.$prevArrow.prependTo(e.options.appendArrows),e.htmlExpr.test(e.options.nextArrow)&&e.$nextArrow.appendTo(e.options.appendArrows),!0!==e.options.infinite&&e.$prevArrow.addClass("slick-disabled").attr("aria-disabled","true")):e.$prevArrow.add(e.$nextArrow).addClass("slick-hidden").attr({"aria-disabled":"true",tabindex:"-1"}))},e.prototype.buildDots=function(){var e,t,o=this;if(!0===o.options.dots&&o.slideCount>o.options.slidesToShow){for(o.$slider.addClass("slick-dotted"),t=i("<ul />").addClass(o.options.dotsClass),e=0;e<=o.getDotCount();e+=1)t.append(i("<li />").append(o.options.customPaging.call(this,o,e)));o.$dots=t.appendTo(o.options.appendDots),o.$dots.find("li").first().addClass("slick-active").attr("aria-hidden","false")}},e.prototype.buildOut=function(){var e=this;e.$slides=e.$slider.children(e.options.slide+":not(.slick-cloned)").addClass("slick-slide"),e.slideCount=e.$slides.length,e.$slides.each(function(e,t){i(t).attr("data-slick-index",e).data("originalStyling",i(t).attr("style")||"")}),e.$slider.addClass("slick-slider"),e.$slideTrack=0===e.slideCount?i('<div class="slick-track"/>').appendTo(e.$slider):e.$slides.wrapAll('<div class="slick-track"/>').parent(),e.$list=e.$slideTrack.wrap('<div aria-live="polite" class="slick-list"/>').parent(),e.$slideTrack.css("opacity",0),!0!==e.options.centerMode&&!0!==e.options.swipeToSlide||(e.options.slidesToScroll=1),i("img[data-lazy]",e.$slider).not("[src]").addClass("slick-loading"),e.setupInfinite(),e.buildArrows(),e.buildDots(),e.updateDots(),e.setSlideClasses("number"==typeof e.currentSlide?e.currentSlide:0),!0===e.options.draggable&&e.$list.addClass("draggable")},e.prototype.buildRows=function(){var i,e,t,o,s,n,r,l=this;if(o=document.createDocumentFragment(),n=l.$slider.children(),l.options.rows>1){for(r=l.options.slidesPerRow*l.options.rows,s=Math.ceil(n.length/r),i=0;i<s;i++){var d=document.createElement("div");for(e=0;e<l.options.rows;e++){var a=document.createElement("div");for(t=0;t<l.options.slidesPerRow;t++){var c=i*r+(e*l.options.slidesPerRow+t);n.get(c)&&a.appendChild(n.get(c))}d.appendChild(a)}o.appendChild(d)}l.$slider.empty().append(o),l.$slider.children().children().children().css({width:100/l.options.slidesPerRow+"%",display:"inline-block"})}},e.prototype.checkResponsive=function(e,t){var o,s,n,r=this,l=!1,d=r.$slider.width(),a=window.innerWidth||i(window).width();if("window"===r.respondTo?n=a:"slider"===r.respondTo?n=d:"min"===r.respondTo&&(n=Math.min(a,d)),r.options.responsive&&r.options.responsive.length&&null!==r.options.responsive){for(o in s=null,r.breakpoints)r.breakpoints.hasOwnProperty(o)&&(!1===r.originalSettings.mobileFirst?n<r.breakpoints[o]&&(s=r.breakpoints[o]):n>r.breakpoints[o]&&(s=r.breakpoints[o]));null!==s?null!==r.activeBreakpoint?(s!==r.activeBreakpoint||t)&&(r.activeBreakpoint=s,"unslick"===r.breakpointSettings[s]?r.unslick(s):(r.options=i.extend({},r.originalSettings,r.breakpointSettings[s]),!0===e&&(r.currentSlide=r.options.initialSlide),r.refresh(e)),l=s):(r.activeBreakpoint=s,"unslick"===r.breakpointSettings[s]?r.unslick(s):(r.options=i.extend({},r.originalSettings,r.breakpointSettings[s]),!0===e&&(r.currentSlide=r.options.initialSlide),r.refresh(e)),l=s):null!==r.activeBreakpoint&&(r.activeBreakpoint=null,r.options=r.originalSettings,!0===e&&(r.currentSlide=r.options.initialSlide),r.refresh(e),l=s),e||!1===l||r.$slider.trigger("breakpoint",[r,l])}},e.prototype.changeSlide=function(e,t){var o,s,n=this,r=i(e.currentTarget);switch(r.is("a")&&e.preventDefault(),r.is("li")||(r=r.closest("li")),o=n.slideCount%n.options.slidesToScroll!=0?0:(n.slideCount-n.currentSlide)%n.options.slidesToScroll,e.data.message){case"previous":s=0===o?n.options.slidesToScroll:n.options.slidesToShow-o,n.slideCount>n.options.slidesToShow&&n.slideHandler(n.currentSlide-s,!1,t);break;case"next":s=0===o?n.options.slidesToScroll:o,n.slideCount>n.options.slidesToShow&&n.slideHandler(n.currentSlide+s,!1,t);break;case"index":var l=0===e.data.index?0:e.data.index||r.index()*n.options.slidesToScroll;n.slideHandler(n.checkNavigable(l),!1,t),r.children().trigger("focus");break;default:return}},e.prototype.checkNavigable=function(i){var e,t;if(t=0,i>(e=this.getNavigableIndexes())[e.length-1])i=e[e.length-1];else for(var o in e){if(i<e[o]){i=t;break}t=e[o]}return i},e.prototype.cleanUpEvents=function(){var e=this;e.options.dots&&null!==e.$dots&&i("li",e.$dots).off("click.slick",e.changeSlide).off("mouseenter.slick",i.proxy(e.interrupt,e,!0)).off("mouseleave.slick",i.proxy(e.interrupt,e,!1)),e.$slider.off("focus.slick blur.slick"),!0===e.options.arrows&&e.slideCount>e.options.slidesToShow&&(e.$prevArrow&&e.$prevArrow.off("click.slick",e.changeSlide),e.$nextArrow&&e.$nextArrow.off("click.slick",e.changeSlide)),e.$list.off("touchstart.slick mousedown.slick",e.swipeHandler),e.$list.off("touchmove.slick mousemove.slick",e.swipeHandler),e.$list.off("touchend.slick mouseup.slick",e.swipeHandler),e.$list.off("touchcancel.slick mouseleave.slick",e.swipeHandler),e.$list.off("click.slick",e.clickHandler),i(document).off(e.visibilityChange,e.visibility),e.cleanUpSlideEvents(),!0===e.options.accessibility&&e.$list.off("keydown.slick",e.keyHandler),!0===e.options.focusOnSelect&&i(e.$slideTrack).children().off("click.slick",e.selectHandler),i(window).off("orientationchange.slick.slick-"+e.instanceUid,e.orientationChange),i(window).off("resize.slick.slick-"+e.instanceUid,e.resize),i("[draggable!=true]",e.$slideTrack).off("dragstart",e.preventDefault),i(window).off("load.slick.slick-"+e.instanceUid,e.setPosition),i(document).off("ready.slick.slick-"+e.instanceUid,e.setPosition)},e.prototype.cleanUpSlideEvents=function(){var e=this;e.$list.off("mouseenter.slick",i.proxy(e.interrupt,e,!0)),e.$list.off("mouseleave.slick",i.proxy(e.interrupt,e,!1))},e.prototype.cleanUpRows=function(){var i,e=this;e.options.rows>1&&((i=e.$slides.children().children()).removeAttr("style"),e.$slider.empty().append(i))},e.prototype.clickHandler=function(i){!1===this.shouldClick&&(i.stopImmediatePropagation(),i.stopPropagation(),i.preventDefault())},e.prototype.destroy=function(e){var t=this;t.autoPlayClear(),t.touchObject={},t.cleanUpEvents(),i(".slick-cloned",t.$slider).detach(),t.$dots&&t.$dots.remove(),t.$prevArrow&&t.$prevArrow.length&&(t.$prevArrow.removeClass("slick-disabled slick-arrow slick-hidden").removeAttr("aria-hidden aria-disabled tabindex").css("display",""),t.htmlExpr.test(t.options.prevArrow)&&t.$prevArrow.remove()),t.$nextArrow&&t.$nextArrow.length&&(t.$nextArrow.removeClass("slick-disabled slick-arrow slick-hidden").removeAttr("aria-hidden aria-disabled tabindex").css("display",""),t.htmlExpr.test(t.options.nextArrow)&&t.$nextArrow.remove()),t.$slides&&(t.$slides.removeClass("slick-slide slick-active slick-center slick-visible slick-current").removeAttr("aria-hidden").removeAttr("data-slick-index").each(function(){i(this).attr("style",i(this).data("originalStyling"))}),t.$slideTrack.children(this.options.slide).detach(),t.$slideTrack.detach(),t.$list.detach(),t.$slider.append(t.$slides)),t.cleanUpRows(),t.$slider.removeClass("slick-slider"),t.$slider.removeClass("slick-initialized"),t.$slider.removeClass("slick-dotted"),t.unslicked=!0,e||t.$slider.trigger("destroy",[t])},e.prototype.disableTransition=function(i){var e=this,t={};t[e.transitionType]="",!1===e.options.fade?e.$slideTrack.css(t):e.$slides.eq(i).css(t)},e.prototype.fadeSlide=function(i,e){var t=this;!1===t.cssTransitions?(t.$slides.eq(i).css({zIndex:t.options.zIndex}),t.$slides.eq(i).animate({opacity:1},t.options.speed,t.options.easing,e)):(t.applyTransition(i),t.$slides.eq(i).css({opacity:1,zIndex:t.options.zIndex}),e&&setTimeout(function(){t.disableTransition(i),e.call()},t.options.speed))},e.prototype.fadeSlideOut=function(i){var e=this;!1===e.cssTransitions?e.$slides.eq(i).animate({opacity:0,zIndex:e.options.zIndex-2},e.options.speed,e.options.easing):(e.applyTransition(i),e.$slides.eq(i).css({opacity:0,zIndex:e.options.zIndex-2}))},e.prototype.filterSlides=e.prototype.slickFilter=function(i){var e=this;null!==i&&(e.$slidesCache=e.$slides,e.unload(),e.$slideTrack.children(this.options.slide).detach(),e.$slidesCache.filter(i).appendTo(e.$slideTrack),e.reinit())},e.prototype.focusHandler=function(){var e=this;e.$slider.off("focus.slick blur.slick").on("focus.slick blur.slick","*:not(.slick-arrow)",function(t){t.stopImmediatePropagation();var o=i(this);setTimeout(function(){e.options.pauseOnFocus&&(e.focussed=o.is(":focus"),e.autoPlay())},0)})},e.prototype.getCurrent=e.prototype.slickCurrentSlide=function(){return this.currentSlide},e.prototype.getDotCount=function(){var i=this,e=0,t=0,o=0;if(!0===i.options.infinite)for(;e<i.slideCount;)++o,e=t+i.options.slidesToScroll,t+=i.options.slidesToScroll<=i.options.slidesToShow?i.options.slidesToScroll:i.options.slidesToShow;else if(!0===i.options.centerMode)o=i.slideCount;else if(i.options.asNavFor)for(;e<i.slideCount;)++o,e=t+i.options.slidesToScroll,t+=i.options.slidesToScroll<=i.options.slidesToShow?i.options.slidesToScroll:i.options.slidesToShow;else o=1+Math.ceil((i.slideCount-i.options.slidesToShow)/i.options.slidesToScroll);return o-1},e.prototype.getLeft=function(i){var e,t,o,s=this,n=0;return s.slideOffset=0,t=s.$slides.first().outerHeight(!0),!0===s.options.infinite?(s.slideCount>s.options.slidesToShow&&(s.slideOffset=s.slideWidth*s.options.slidesToShow*-1,n=t*s.options.slidesToShow*-1),s.slideCount%s.options.slidesToScroll!=0&&i+s.options.slidesToScroll>s.slideCount&&s.slideCount>s.options.slidesToShow&&(i>s.slideCount?(s.slideOffset=(s.options.slidesToShow-(i-s.slideCount))*s.slideWidth*-1,n=(s.options.slidesToShow-(i-s.slideCount))*t*-1):(s.slideOffset=s.slideCount%s.options.slidesToScroll*s.slideWidth*-1,n=s.slideCount%s.options.slidesToScroll*t*-1))):i+s.options.slidesToShow>s.slideCount&&(s.slideOffset=(i+s.options.slidesToShow-s.slideCount)*s.slideWidth,n=(i+s.options.slidesToShow-s.slideCount)*t),s.slideCount<=s.options.slidesToShow&&(s.slideOffset=0,n=0),!0===s.options.centerMode&&!0===s.options.infinite?s.slideOffset+=s.slideWidth*Math.floor(s.options.slidesToShow/2)-s.slideWidth:!0===s.options.centerMode&&(s.slideOffset=0,s.slideOffset+=s.slideWidth*Math.floor(s.options.slidesToShow/2)),e=!1===s.options.vertical?i*s.slideWidth*-1+s.slideOffset:i*t*-1+n,!0===s.options.variableWidth&&(o=s.slideCount<=s.options.slidesToShow||!1===s.options.infinite?s.$slideTrack.children(".slick-slide").eq(i):s.$slideTrack.children(".slick-slide").eq(i+s.options.slidesToShow),e=!0===s.options.rtl?o[0]?-1*(s.$slideTrack.width()-o[0].offsetLeft-o.width()):0:o[0]?-1*o[0].offsetLeft:0,!0===s.options.centerMode&&(o=s.slideCount<=s.options.slidesToShow||!1===s.options.infinite?s.$slideTrack.children(".slick-slide").eq(i):s.$slideTrack.children(".slick-slide").eq(i+s.options.slidesToShow+1),e=!0===s.options.rtl?o[0]?-1*(s.$slideTrack.width()-o[0].offsetLeft-o.width()):0:o[0]?-1*o[0].offsetLeft:0,e+=(s.$list.width()-o.outerWidth())/2)),e},e.prototype.getOption=e.prototype.slickGetOption=function(i){return this.options[i]},e.prototype.getNavigableIndexes=function(){var i,e=this,t=0,o=0,s=[];for(!1===e.options.infinite?i=e.slideCount:(t=-1*e.options.slidesToScroll,o=-1*e.options.slidesToScroll,i=2*e.slideCount);t<i;)s.push(t),t=o+e.options.slidesToScroll,o+=e.options.slidesToScroll<=e.options.slidesToShow?e.options.slidesToScroll:e.options.slidesToShow;return s},e.prototype.getSlick=function(){return this},e.prototype.getSlideCount=function(){var e,t,o=this;return t=!0===o.options.centerMode?o.slideWidth*Math.floor(o.options.slidesToShow/2):0,!0===o.options.swipeToSlide?(o.$slideTrack.find(".slick-slide").each(function(s,n){if(n.offsetLeft-t+i(n).outerWidth()/2>-1*o.swipeLeft)return e=n,!1}),Math.abs(i(e).attr("data-slick-index")-o.currentSlide)||1):o.options.slidesToScroll},e.prototype.goTo=e.prototype.slickGoTo=function(i,e){this.changeSlide({data:{message:"index",index:parseInt(i)}},e)},e.prototype.init=function(e){var t=this;i(t.$slider).hasClass("slick-initialized")||(i(t.$slider).addClass("slick-initialized"),t.buildRows(),t.buildOut(),t.setProps(),t.startLoad(),t.loadSlider(),t.initializeEvents(),t.updateArrows(),t.updateDots(),t.checkResponsive(!0),t.focusHandler()),e&&t.$slider.trigger("init",[t]),!0===t.options.accessibility&&t.initADA(),t.options.autoplay&&(t.paused=!1,t.autoPlay())},e.prototype.initADA=function(){var e=this;e.$slides.add(e.$slideTrack.find(".slick-cloned")).attr({"aria-hidden":"true",tabindex:"-1"}).find("a, input, button, select").attr({tabindex:"-1"}),e.$slideTrack.attr("role","listbox"),e.$slides.not(e.$slideTrack.find(".slick-cloned")).each(function(t){i(this).attr({role:"option","aria-describedby":"slick-slide"+e.instanceUid+t})}),null!==e.$dots&&e.$dots.attr("role","tablist").find("li").each(function(t){i(this).attr({role:"presentation","aria-selected":"false","aria-controls":"navigation"+e.instanceUid+t,id:"slick-slide"+e.instanceUid+t})}).first().attr("aria-selected","true").end().find("button").attr("role","button").end().closest("div").attr("role","toolbar"),e.activateADA()},e.prototype.initArrowEvents=function(){var i=this;!0===i.options.arrows&&i.slideCount>i.options.slidesToShow&&(i.$prevArrow.off("click.slick").on("click.slick",{message:"previous"},i.changeSlide),i.$nextArrow.off("click.slick").on("click.slick",{message:"next"},i.changeSlide))},e.prototype.initDotEvents=function(){var e=this;!0===e.options.dots&&e.slideCount>e.options.slidesToShow&&i("li",e.$dots).on("click.slick",{message:"index"},e.changeSlide),!0===e.options.dots&&!0===e.options.pauseOnDotsHover&&i("li",e.$dots).on("mouseenter.slick",i.proxy(e.interrupt,e,!0)).on("mouseleave.slick",i.proxy(e.interrupt,e,!1))},e.prototype.initSlideEvents=function(){var e=this;e.options.pauseOnHover&&(e.$list.on("mouseenter.slick",i.proxy(e.interrupt,e,!0)),e.$list.on("mouseleave.slick",i.proxy(e.interrupt,e,!1)))},e.prototype.initializeEvents=function(){var e=this;e.initArrowEvents(),e.initDotEvents(),e.initSlideEvents(),e.$list.on("touchstart.slick mousedown.slick",{action:"start"},e.swipeHandler),e.$list.on("touchmove.slick mousemove.slick",{action:"move"},e.swipeHandler),e.$list.on("touchend.slick mouseup.slick",{action:"end"},e.swipeHandler),e.$list.on("touchcancel.slick mouseleave.slick",{action:"end"},e.swipeHandler),e.$list.on("click.slick",e.clickHandler),i(document).on(e.visibilityChange,i.proxy(e.visibility,e)),!0===e.options.accessibility&&e.$list.on("keydown.slick",e.keyHandler),!0===e.options.focusOnSelect&&i(e.$slideTrack).children().on("click.slick",e.selectHandler),i(window).on("orientationchange.slick.slick-"+e.instanceUid,i.proxy(e.orientationChange,e)),i(window).on("resize.slick.slick-"+e.instanceUid,i.proxy(e.resize,e)),i("[draggable!=true]",e.$slideTrack).on("dragstart",e.preventDefault),i(window).on("load.slick.slick-"+e.instanceUid,e.setPosition),i(document).on("ready.slick.slick-"+e.instanceUid,e.setPosition)},e.prototype.initUI=function(){var i=this;!0===i.options.arrows&&i.slideCount>i.options.slidesToShow&&(i.$prevArrow.show(),i.$nextArrow.show()),!0===i.options.dots&&i.slideCount>i.options.slidesToShow&&i.$dots.show()},e.prototype.keyHandler=function(i){var e=this;i.target.tagName.match("TEXTAREA|INPUT|SELECT")||(37===i.keyCode&&!0===e.options.accessibility?e.changeSlide({data:{message:!0===e.options.rtl?"next":"previous"}}):39===i.keyCode&&!0===e.options.accessibility&&e.changeSlide({data:{message:!0===e.options.rtl?"previous":"next"}}))},e.prototype.lazyLoad=function(){var e,t,o=this;function s(e){i("img[data-lazy]",e).each(function(){var e=i(this),t=i(this).attr("data-lazy"),s=document.createElement("img");s.onload=function(){e.animate({opacity:0},100,function(){e.attr("src",t).animate({opacity:1},200,function(){e.removeAttr("data-lazy").removeClass("slick-loading")}),o.$slider.trigger("lazyLoaded",[o,e,t])})},s.onerror=function(){e.removeAttr("data-lazy").removeClass("slick-loading").addClass("slick-lazyload-error"),o.$slider.trigger("lazyLoadError",[o,e,t])},s.src=t})}!0===o.options.centerMode?!0===o.options.infinite?t=(e=o.currentSlide+(o.options.slidesToShow/2+1))+o.options.slidesToShow+2:(e=Math.max(0,o.currentSlide-(o.options.slidesToShow/2+1)),t=o.options.slidesToShow/2+1+2+o.currentSlide):(e=o.options.infinite?o.options.slidesToShow+o.currentSlide:o.currentSlide,t=Math.ceil(e+o.options.slidesToShow),!0===o.options.fade&&(e>0&&e--,t<=o.slideCount&&t++)),s(o.$slider.find(".slick-slide").slice(e,t)),o.slideCount<=o.options.slidesToShow?s(o.$slider.find(".slick-slide")):o.currentSlide>=o.slideCount-o.options.slidesToShow?s(o.$slider.find(".slick-cloned").slice(0,o.options.slidesToShow)):0===o.currentSlide&&s(o.$slider.find(".slick-cloned").slice(-1*o.options.slidesToShow))},e.prototype.loadSlider=function(){var i=this;i.setPosition(),i.$slideTrack.css({opacity:1}),i.$slider.removeClass("slick-loading"),i.initUI(),"progressive"===i.options.lazyLoad&&i.progressiveLazyLoad()},e.prototype.next=e.prototype.slickNext=function(){this.changeSlide({data:{message:"next"}})},e.prototype.orientationChange=function(){this.checkResponsive(),this.setPosition()},e.prototype.pause=e.prototype.slickPause=function(){this.autoPlayClear(),this.paused=!0},e.prototype.play=e.prototype.slickPlay=function(){var i=this;i.autoPlay(),i.options.autoplay=!0,i.paused=!1,i.focussed=!1,i.interrupted=!1},e.prototype.postSlide=function(i){var e=this;e.unslicked||(e.$slider.trigger("afterChange",[e,i]),e.animating=!1,e.setPosition(),e.swipeLeft=null,e.options.autoplay&&e.autoPlay(),!0===e.options.accessibility&&e.initADA())},e.prototype.prev=e.prototype.slickPrev=function(){this.changeSlide({data:{message:"previous"}})},e.prototype.preventDefault=function(i){i.preventDefault()},e.prototype.progressiveLazyLoad=function(e){e=e||1;var t,o,s,n=this,r=i("img[data-lazy]",n.$slider);r.length?(t=r.first(),o=t.attr("data-lazy"),(s=document.createElement("img")).onload=function(){t.attr("src",o).removeAttr("data-lazy").removeClass("slick-loading"),!0===n.options.adaptiveHeight&&n.setPosition(),n.$slider.trigger("lazyLoaded",[n,t,o]),n.progressiveLazyLoad()},s.onerror=function(){e<3?setTimeout(function(){n.progressiveLazyLoad(e+1)},500):(t.removeAttr("data-lazy").removeClass("slick-loading").addClass("slick-lazyload-error"),n.$slider.trigger("lazyLoadError",[n,t,o]),n.progressiveLazyLoad())},s.src=o):n.$slider.trigger("allImagesLoaded",[n])},e.prototype.refresh=function(e){var t,o,s=this;o=s.slideCount-s.options.slidesToShow,!s.options.infinite&&s.currentSlide>o&&(s.currentSlide=o),s.slideCount<=s.options.slidesToShow&&(s.currentSlide=0),t=s.currentSlide,s.destroy(!0),i.extend(s,s.initials,{currentSlide:t}),s.init(),e||s.changeSlide({data:{message:"index",index:t}},!1)},e.prototype.registerBreakpoints=function(){var e,t,o,s=this,n=s.options.responsive||null;if("array"===i.type(n)&&n.length){for(e in s.respondTo=s.options.respondTo||"window",n)if(o=s.breakpoints.length-1,t=n[e].breakpoint,n.hasOwnProperty(e)){for(;o>=0;)s.breakpoints[o]&&s.breakpoints[o]===t&&s.breakpoints.splice(o,1),o--;s.breakpoints.push(t),s.breakpointSettings[t]=n[e].settings}s.breakpoints.sort(function(i,e){return s.options.mobileFirst?i-e:e-i})}},e.prototype.reinit=function(){var e=this;e.$slides=e.$slideTrack.children(e.options.slide).addClass("slick-slide"),e.slideCount=e.$slides.length,e.currentSlide>=e.slideCount&&0!==e.currentSlide&&(e.currentSlide=e.currentSlide-e.options.slidesToScroll),e.slideCount<=e.options.slidesToShow&&(e.currentSlide=0),e.registerBreakpoints(),e.setProps(),e.setupInfinite(),e.buildArrows(),e.updateArrows(),e.initArrowEvents(),e.buildDots(),e.updateDots(),e.initDotEvents(),e.cleanUpSlideEvents(),e.initSlideEvents(),e.checkResponsive(!1,!0),!0===e.options.focusOnSelect&&i(e.$slideTrack).children().on("click.slick",e.selectHandler),e.setSlideClasses("number"==typeof e.currentSlide?e.currentSlide:0),e.setPosition(),e.focusHandler(),e.paused=!e.options.autoplay,e.autoPlay(),e.$slider.trigger("reInit",[e])},e.prototype.resize=function(){var e=this;i(window).width()!==e.windowWidth&&(clearTimeout(e.windowDelay),e.windowDelay=window.setTimeout(function(){e.windowWidth=i(window).width(),e.checkResponsive(),e.unslicked||e.setPosition()},50))},e.prototype.removeSlide=e.prototype.slickRemove=function(i,e,t){var o=this;if(i="boolean"==typeof i?!0===(e=i)?0:o.slideCount-1:!0===e?--i:i,o.slideCount<1||i<0||i>o.slideCount-1)return!1;o.unload(),!0===t?o.$slideTrack.children().remove():o.$slideTrack.children(this.options.slide).eq(i).remove(),o.$slides=o.$slideTrack.children(this.options.slide),o.$slideTrack.children(this.options.slide).detach(),o.$slideTrack.append(o.$slides),o.$slidesCache=o.$slides,o.reinit()},e.prototype.setCSS=function(i){var e,t,o=this,s={};!0===o.options.rtl&&(i=-i),e="left"==o.positionProp?Math.ceil(i)+"px":"0px",t="top"==o.positionProp?Math.ceil(i)+"px":"0px",s[o.positionProp]=i,!1===o.transformsEnabled?o.$slideTrack.css(s):(s={},!1===o.cssTransitions?(s[o.animType]="translate("+e+", "+t+")",o.$slideTrack.css(s)):(s[o.animType]="translate3d("+e+", "+t+", 0px)",o.$slideTrack.css(s)))},e.prototype.setDimensions=function(){var i=this;!1===i.options.vertical?!0===i.options.centerMode&&i.$list.css({padding:"0px "+i.options.centerPadding}):(i.$list.height(i.$slides.first().outerHeight(!0)*i.options.slidesToShow),!0===i.options.centerMode&&i.$list.css({padding:i.options.centerPadding+" 0px"})),i.listWidth=i.$list.width(),i.listHeight=i.$list.height(),!1===i.options.vertical&&!1===i.options.variableWidth?(i.slideWidth=Math.ceil(i.listWidth/i.options.slidesToShow),i.$slideTrack.width(Math.ceil(i.slideWidth*i.$slideTrack.children(".slick-slide").length))):!0===i.options.variableWidth?i.$slideTrack.width(5e3*i.slideCount):(i.slideWidth=Math.ceil(i.listWidth),i.$slideTrack.height(Math.ceil(i.$slides.first().outerHeight(!0)*i.$slideTrack.children(".slick-slide").length)));var e=i.$slides.first().outerWidth(!0)-i.$slides.first().width();!1===i.options.variableWidth&&i.$slideTrack.children(".slick-slide").width(i.slideWidth-e)},e.prototype.setFade=function(){var e,t=this;t.$slides.each(function(o,s){e=t.slideWidth*o*-1,!0===t.options.rtl?i(s).css({position:"relative",right:e,top:0,zIndex:t.options.zIndex-2,opacity:0}):i(s).css({position:"relative",left:e,top:0,zIndex:t.options.zIndex-2,opacity:0})}),t.$slides.eq(t.currentSlide).css({zIndex:t.options.zIndex-1,opacity:1})},e.prototype.setHeight=function(){var i=this;if(1===i.options.slidesToShow&&!0===i.options.adaptiveHeight&&!1===i.options.vertical){var e=i.$slides.eq(i.currentSlide).outerHeight(!0);i.$list.css("height",e)}},e.prototype.setOption=e.prototype.slickSetOption=function(){var e,t,o,s,n,r=this,l=!1;if("object"===i.type(arguments[0])?(o=arguments[0],l=arguments[1],n="multiple"):"string"===i.type(arguments[0])&&(o=arguments[0],s=arguments[1],l=arguments[2],"responsive"===arguments[0]&&"array"===i.type(arguments[1])?n="responsive":void 0!==arguments[1]&&(n="single")),"single"===n)r.options[o]=s;else if("multiple"===n)i.each(o,function(i,e){r.options[i]=e});else if("responsive"===n)for(t in s)if("array"!==i.type(r.options.responsive))r.options.responsive=[s[t]];else{for(e=r.options.responsive.length-1;e>=0;)r.options.responsive[e].breakpoint===s[t].breakpoint&&r.options.responsive.splice(e,1),e--;r.options.responsive.push(s[t])}l&&(r.unload(),r.reinit())},e.prototype.setPosition=function(){var i=this;i.setDimensions(),i.setHeight(),!1===i.options.fade?i.setCSS(i.getLeft(i.currentSlide)):i.setFade(),i.$slider.trigger("setPosition",[i])},e.prototype.setProps=function(){var i=this,e=document.body.style;i.positionProp=!0===i.options.vertical?"top":"left","top"===i.positionProp?i.$slider.addClass("slick-vertical"):i.$slider.removeClass("slick-vertical"),void 0===e.WebkitTransition&&void 0===e.MozTransition&&void 0===e.msTransition||!0===i.options.useCSS&&(i.cssTransitions=!0),i.options.fade&&("number"==typeof i.options.zIndex?i.options.zIndex<3&&(i.options.zIndex=3):i.options.zIndex=i.defaults.zIndex),void 0!==e.OTransform&&(i.animType="OTransform",i.transformType="-o-transform",i.transitionType="OTransition",void 0===e.perspectiveProperty&&void 0===e.webkitPerspective&&(i.animType=!1)),void 0!==e.MozTransform&&(i.animType="MozTransform",i.transformType="-moz-transform",i.transitionType="MozTransition",void 0===e.perspectiveProperty&&void 0===e.MozPerspective&&(i.animType=!1)),void 0!==e.webkitTransform&&(i.animType="webkitTransform",i.transformType="-webkit-transform",i.transitionType="webkitTransition",void 0===e.perspectiveProperty&&void 0===e.webkitPerspective&&(i.animType=!1)),void 0!==e.msTransform&&(i.animType="msTransform",i.transformType="-ms-transform",i.transitionType="msTransition",void 0===e.msTransform&&(i.animType=!1)),void 0!==e.transform&&!1!==i.animType&&(i.animType="transform",i.transformType="transform",i.transitionType="transition"),i.transformsEnabled=i.options.useTransform&&null!==i.animType&&!1!==i.animType},e.prototype.setSlideClasses=function(i){var e,t,o,s,n=this;t=n.$slider.find(".slick-slide").removeClass("slick-active slick-center slick-current").attr("aria-hidden","true"),n.$slides.eq(i).addClass("slick-current"),!0===n.options.centerMode?(e=Math.floor(n.options.slidesToShow/2),!0===n.options.infinite&&(i>=e&&i<=n.slideCount-1-e?n.$slides.slice(i-e,i+e+1).addClass("slick-active").attr("aria-hidden","false"):(o=n.options.slidesToShow+i,t.slice(o-e+1,o+e+2).addClass("slick-active").attr("aria-hidden","false")),0===i?t.eq(t.length-1-n.options.slidesToShow).addClass("slick-center"):i===n.slideCount-1&&t.eq(n.options.slidesToShow).addClass("slick-center")),n.$slides.eq(i).addClass("slick-center")):i>=0&&i<=n.slideCount-n.options.slidesToShow?n.$slides.slice(i,i+n.options.slidesToShow).addClass("slick-active").attr("aria-hidden","false"):t.length<=n.options.slidesToShow?t.addClass("slick-active").attr("aria-hidden","false"):(s=n.slideCount%n.options.slidesToShow,o=!0===n.options.infinite?n.options.slidesToShow+i:i,n.options.slidesToShow==n.options.slidesToScroll&&n.slideCount-i<n.options.slidesToShow?t.slice(o-(n.options.slidesToShow-s),o+s).addClass("slick-active").attr("aria-hidden","false"):t.slice(o,o+n.options.slidesToShow).addClass("slick-active").attr("aria-hidden","false")),"ondemand"===n.options.lazyLoad&&n.lazyLoad()},e.prototype.setupInfinite=function(){var e,t,o,s=this;if(!0===s.options.fade&&(s.options.centerMode=!1),!0===s.options.infinite&&!1===s.options.fade&&(t=null,s.slideCount>s.options.slidesToShow)){for(o=!0===s.options.centerMode?s.options.slidesToShow+1:s.options.slidesToShow,e=s.slideCount;e>s.slideCount-o;e-=1)t=e-1,i(s.$slides[t]).clone(!0).attr("id","").attr("data-slick-index",t-s.slideCount).prependTo(s.$slideTrack).addClass("slick-cloned");for(e=0;e<o;e+=1)t=e,i(s.$slides[t]).clone(!0).attr("id","").attr("data-slick-index",t+s.slideCount).appendTo(s.$slideTrack).addClass("slick-cloned");s.$slideTrack.find(".slick-cloned").find("[id]").each(function(){i(this).attr("id","")})}},e.prototype.interrupt=function(i){i||this.autoPlay(),this.interrupted=i},e.prototype.selectHandler=function(e){var t=this,o=i(e.target).is(".slick-slide")?i(e.target):i(e.target).parents(".slick-slide"),s=parseInt(o.attr("data-slick-index"));if(s||(s=0),t.slideCount<=t.options.slidesToShow)return t.setSlideClasses(s),void t.asNavFor(s);t.slideHandler(s)},e.prototype.slideHandler=function(i,e,t){var o,s,n,r,l,d,a=this;if(e=e||!1,(!0!==a.animating||!0!==a.options.waitForAnimate)&&!(!0===a.options.fade&&a.currentSlide===i||a.slideCount<=a.options.slidesToShow))if(!1===e&&a.asNavFor(i),o=i,l=a.getLeft(o),r=a.getLeft(a.currentSlide),a.currentLeft=null===a.swipeLeft?r:a.swipeLeft,!1===a.options.infinite&&!1===a.options.centerMode&&(i<0||i>a.getDotCount()*a.options.slidesToScroll))!1===a.options.fade&&(o=a.currentSlide,!0!==t?a.animateSlide(r,function(){a.postSlide(o)}):a.postSlide(o));else if(!1===a.options.infinite&&!0===a.options.centerMode&&(i<0||i>a.slideCount-a.options.slidesToScroll))!1===a.options.fade&&(o=a.currentSlide,!0!==t?a.animateSlide(r,function(){a.postSlide(o)}):a.postSlide(o));else{if(a.options.autoplay&&clearInterval(a.autoPlayTimer),s=o<0?a.slideCount%a.options.slidesToScroll!=0?a.slideCount-a.slideCount%a.options.slidesToScroll:a.slideCount+o:o>=a.slideCount?a.slideCount%a.options.slidesToScroll!=0?0:o-a.slideCount:o,a.animating=!0,a.$slider.trigger("beforeChange",[a,a.currentSlide,s]),n=a.currentSlide,a.currentSlide=s,a.setSlideClasses(a.currentSlide),a.options.asNavFor&&(d=(d=a.getNavTarget()).slick("getSlick")).slideCount<=d.options.slidesToShow&&d.setSlideClasses(a.currentSlide),a.updateDots(),a.updateArrows(),!0===a.options.fade)return!0!==t?(a.fadeSlideOut(n),a.fadeSlide(s,function(){a.postSlide(s)})):a.postSlide(s),void a.animateHeight();!0!==t?a.animateSlide(l,function(){a.postSlide(s)}):a.postSlide(s)}},e.prototype.startLoad=function(){var i=this;!0===i.options.arrows&&i.slideCount>i.options.slidesToShow&&(i.$prevArrow.hide(),i.$nextArrow.hide()),!0===i.options.dots&&i.slideCount>i.options.slidesToShow&&i.$dots.hide(),i.$slider.addClass("slick-loading")},e.prototype.swipeDirection=function(){var i,e,t,o,s=this;return i=s.touchObject.startX-s.touchObject.curX,e=s.touchObject.startY-s.touchObject.curY,t=Math.atan2(e,i),(o=Math.round(180*t/Math.PI))<0&&(o=360-Math.abs(o)),o<=45&&o>=0?!1===s.options.rtl?"left":"right":o<=360&&o>=315?!1===s.options.rtl?"left":"right":o>=135&&o<=225?!1===s.options.rtl?"right":"left":!0===s.options.verticalSwiping?o>=35&&o<=135?"down":"up":"vertical"},e.prototype.swipeEnd=function(i){var e,t,o=this;if(o.dragging=!1,o.interrupted=!1,o.shouldClick=!(o.touchObject.swipeLength>10),void 0===o.touchObject.curX)return!1;if(!0===o.touchObject.edgeHit&&o.$slider.trigger("edge",[o,o.swipeDirection()]),o.touchObject.swipeLength>=o.touchObject.minSwipe){switch(t=o.swipeDirection()){case"left":case"down":e=o.options.swipeToSlide?o.checkNavigable(o.currentSlide+o.getSlideCount()):o.currentSlide+o.getSlideCount(),o.currentDirection=0;break;case"right":case"up":e=o.options.swipeToSlide?o.checkNavigable(o.currentSlide-o.getSlideCount()):o.currentSlide-o.getSlideCount(),o.currentDirection=1}"vertical"!=t&&(o.slideHandler(e),o.touchObject={},o.$slider.trigger("swipe",[o,t]))}else o.touchObject.startX!==o.touchObject.curX&&(o.slideHandler(o.currentSlide),o.touchObject={})},e.prototype.swipeHandler=function(i){var e=this;if(!(!1===e.options.swipe||"ontouchend"in document&&!1===e.options.swipe||!1===e.options.draggable&&-1!==i.type.indexOf("mouse")))switch(e.touchObject.fingerCount=i.originalEvent&&void 0!==i.originalEvent.touches?i.originalEvent.touches.length:1,e.touchObject.minSwipe=e.listWidth/e.options.touchThreshold,!0===e.options.verticalSwiping&&(e.touchObject.minSwipe=e.listHeight/e.options.touchThreshold),i.data.action){case"start":e.swipeStart(i);break;case"move":e.swipeMove(i);break;case"end":e.swipeEnd(i)}},e.prototype.swipeMove=function(i){var e,t,o,s,n,r=this;return n=void 0!==i.originalEvent?i.originalEvent.touches:null,!(!r.dragging||n&&1!==n.length)&&(e=r.getLeft(r.currentSlide),r.touchObject.curX=void 0!==n?n[0].pageX:i.clientX,r.touchObject.curY=void 0!==n?n[0].pageY:i.clientY,r.touchObject.swipeLength=Math.round(Math.sqrt(Math.pow(r.touchObject.curX-r.touchObject.startX,2))),!0===r.options.verticalSwiping&&(r.touchObject.swipeLength=Math.round(Math.sqrt(Math.pow(r.touchObject.curY-r.touchObject.startY,2)))),"vertical"!==(t=r.swipeDirection())?(void 0!==i.originalEvent&&r.touchObject.swipeLength>4&&i.preventDefault(),s=(!1===r.options.rtl?1:-1)*(r.touchObject.curX>r.touchObject.startX?1:-1),!0===r.options.verticalSwiping&&(s=r.touchObject.curY>r.touchObject.startY?1:-1),o=r.touchObject.swipeLength,r.touchObject.edgeHit=!1,!1===r.options.infinite&&(0===r.currentSlide&&"right"===t||r.currentSlide>=r.getDotCount()&&"left"===t)&&(o=r.touchObject.swipeLength*r.options.edgeFriction,r.touchObject.edgeHit=!0),!1===r.options.vertical?r.swipeLeft=e+o*s:r.swipeLeft=e+o*(r.$list.height()/r.listWidth)*s,!0===r.options.verticalSwiping&&(r.swipeLeft=e+o*s),!0!==r.options.fade&&!1!==r.options.touchMove&&(!0===r.animating?(r.swipeLeft=null,!1):void r.setCSS(r.swipeLeft))):void 0)},e.prototype.swipeStart=function(i){var e,t=this;if(t.interrupted=!0,1!==t.touchObject.fingerCount||t.slideCount<=t.options.slidesToShow)return t.touchObject={},!1;void 0!==i.originalEvent&&void 0!==i.originalEvent.touches&&(e=i.originalEvent.touches[0]),t.touchObject.startX=t.touchObject.curX=void 0!==e?e.pageX:i.clientX,t.touchObject.startY=t.touchObject.curY=void 0!==e?e.pageY:i.clientY,t.dragging=!0},e.prototype.unfilterSlides=e.prototype.slickUnfilter=function(){var i=this;null!==i.$slidesCache&&(i.unload(),i.$slideTrack.children(this.options.slide).detach(),i.$slidesCache.appendTo(i.$slideTrack),i.reinit())},e.prototype.unload=function(){var e=this;i(".slick-cloned",e.$slider).remove(),e.$dots&&e.$dots.remove(),e.$prevArrow&&e.htmlExpr.test(e.options.prevArrow)&&e.$prevArrow.remove(),e.$nextArrow&&e.htmlExpr.test(e.options.nextArrow)&&e.$nextArrow.remove(),e.$slides.removeClass("slick-slide slick-active slick-visible slick-current").attr("aria-hidden","true").css("width","")},e.prototype.unslick=function(i){var e=this;e.$slider.trigger("unslick",[e,i]),e.destroy()},e.prototype.updateArrows=function(){var i=this;Math.floor(i.options.slidesToShow/2),!0===i.options.arrows&&i.slideCount>i.options.slidesToShow&&!i.options.infinite&&(i.$prevArrow.removeClass("slick-disabled").attr("aria-disabled","false"),i.$nextArrow.removeClass("slick-disabled").attr("aria-disabled","false"),0===i.currentSlide?(i.$prevArrow.addClass("slick-disabled").attr("aria-disabled","true"),i.$nextArrow.removeClass("slick-disabled").attr("aria-disabled","false")):i.currentSlide>=i.slideCount-i.options.slidesToShow&&!1===i.options.centerMode?(i.$nextArrow.addClass("slick-disabled").attr("aria-disabled","true"),i.$prevArrow.removeClass("slick-disabled").attr("aria-disabled","false")):i.currentSlide>=i.slideCount-1&&!0===i.options.centerMode&&(i.$nextArrow.addClass("slick-disabled").attr("aria-disabled","true"),i.$prevArrow.removeClass("slick-disabled").attr("aria-disabled","false")))},e.prototype.updateDots=function(){var i=this;null!==i.$dots&&(i.$dots.find("li").removeClass("slick-active").attr("aria-hidden","true"),i.$dots.find("li").eq(Math.floor(i.currentSlide/i.options.slidesToScroll)).addClass("slick-active").attr("aria-hidden","false"))},e.prototype.visibility=function(){var i=this;i.options.autoplay&&(document[i.hidden]?i.interrupted=!0:i.interrupted=!1)},i.fn.slick=function(){var i,t,o=this,s=arguments[0],n=Array.prototype.slice.call(arguments,1),r=o.length;for(i=0;i<r;i++)if("object"==typeof s||void 0===s?o[i].slick=new e(o[i],s):t=o[i].slick[s].apply(o[i].slick,n),void 0!==t)return t;return o}});
 	!function(t){"use strict";t.fn.placeholderTypewriter=function(e){var n=t.extend({delay:50,pause:1e3,text:[]},e);function r(t,e){t.attr("placeholder",""),function t(e,r,u,a){var i=n.text[r],o=e.attr("placeholder");if(e.attr("placeholder",o+i[u]),u<i.length-1)return setTimeout(function(){t(e,r,u+1,a)},n.delay),!0;a()}(t,e,0,function(){setTimeout(function(){!function t(e,r){var u=e.attr("placeholder"),a=u.length;if(e.attr("placeholder",u.substr(0,a-1)),a>1)return setTimeout(function(){t(e,r)},n.delay),!0;r()}(t,function(){r(t,(e+1)%n.text.length)})},n.pause)})}return this.each(function(){r(t(this),0)})}}(jQuery);
-	
-	
+
+
 	/*=============================================
 	=            04. Mailchimp            =
 	=============================================*/
@@ -181,7 +181,7 @@
 	  window.dataLayer = window.dataLayer || [];
 	  function gtag(){dataLayer.push(arguments);}
 	  gtag('js', new Date());
-	
+
 	  gtag('config', 'AW-386115741');
 	</script>
 <meta name="google-site-verification"
@@ -221,7 +221,7 @@
 	function gtag(){dataLayer.push(arguments);}
 	  gtag('js', new Date());
 	  gtag('config', 'UA-115969364-1');
-	  ga('require', 'displayfeatures'); 
+	  ga('require', 'displayfeatures');
 	!function(e,t,n){var a=t.getElementsByTagName(n)[0],c=t.createElement(n);c.async=false,c.src="//theme.hstatic.net/1000230347/"+(Haravan.theme.id == 1000631160?1000631160:1000703102)+"/14/nco-babel.js?v="+(new Date).getTime(),a.parentNode.insertBefore(c,a)}(window,document,"script");
 	} catch (e) {};
 	                //]]>
@@ -306,15 +306,15 @@
 												<div class="item ">
 													<a
 														class="d-block  pos-relative embed-responsive embed-responsive-1by1"
-														href="https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_xanh_la_61ec2a07e2a64836bb6817f738f6f80d.jpg">
+														href="#">
 														<img class="lazyload img-fluid" style="-image-scale: 1"
-														src=" ${sp1}"
-														alt="Bút Gel Papermate OS UPC Ink Joy 0.5 mm">
+														src="data:image/png;base64, ${sp1}"
+														alt="${sp.getTen()}">
 													</a>
 												</div>
 											</c:forEach>
 
-											<!-- 
+											<!--
 											<div class="item ">
 												<a
 													class="d-block  pos-relative embed-responsive embed-responsive-1by1"
@@ -334,7 +334,7 @@
 										</div>
 
 										<div class="hidden">
-											<div class="item ">
+											<%--<div class="item ">
 												<a
 													class="d-block  pos-relative embed-responsive embed-responsive-1by1"
 													href="https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_berry_778d4175eeb84e3a9bf6af18727b5c63.jpg"
@@ -342,61 +342,34 @@
 													data-image="https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_berry_778d4175eeb84e3a9bf6af18727b5c63.jpg"
 													data-zoom-image="https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_berry_778d4175eeb84e3a9bf6af18727b5c63.jpg">
 												</a>
-											</div>
-											<div class="item ">
-												<a
-													class="d-block  pos-relative embed-responsive embed-responsive-1by1"
-													href="https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_cam_0a4048255f374f41834dfe4003a1b145.jpg"
-													title="Bút Gel Papermate OS UPC Ink Joy 0.5 mm"
-													data-image="https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_cam_0a4048255f374f41834dfe4003a1b145.jpg"
-													data-zoom-image="https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_cam_0a4048255f374f41834dfe4003a1b145.jpg">
-												</a>
-											</div>
-											<div class="item ">
-												<a
-													class="d-block  pos-relative embed-responsive embed-responsive-1by1"
-													href="https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_do_903a8a21cdc24b8197845547d3e20199.jpg"
-													title="Bút Gel Papermate OS UPC Ink Joy 0.5 mm"
-													data-image="https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_do_903a8a21cdc24b8197845547d3e20199.jpg"
-													data-zoom-image="https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_do_903a8a21cdc24b8197845547d3e20199.jpg">
-												</a>
-											</div>
-											<div class="item ">
-												<a
-													class="d-block  pos-relative embed-responsive embed-responsive-1by1"
-													href="https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_hong_8949434b8c81484bb30332d18420ed29.jpg"
-													title="Bút Gel Papermate OS UPC Ink Joy 0.5 mm"
-													data-image="https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_hong_8949434b8c81484bb30332d18420ed29.jpg"
-													data-zoom-image="https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_hong_8949434b8c81484bb30332d18420ed29.jpg">
-												</a>
-											</div>
-											<div class="item ">
-												<a
-													class="d-block  pos-relative embed-responsive embed-responsive-1by1"
-													href="https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_tim_3ac04e4c19504866a2de143d63d66368.jpg"
-													title="Bút Gel Papermate OS UPC Ink Joy 0.5 mm"
-													data-image="https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_tim_3ac04e4c19504866a2de143d63d66368.jpg"
-													data-zoom-image="https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_tim_3ac04e4c19504866a2de143d63d66368.jpg">
-												</a>
-											</div>
-											<div class="item ">
-												<a
-													class="d-block  pos-relative embed-responsive embed-responsive-1by1"
-													href="https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_vang_a15029234b87431e8ae9718ffbfdf549.jpg"
-													title="Bút Gel Papermate OS UPC Ink Joy 0.5 mm"
-													data-image="https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_vang_a15029234b87431e8ae9718ffbfdf549.jpg"
-													data-zoom-image="https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_vang_a15029234b87431e8ae9718ffbfdf549.jpg">
-												</a>
-											</div>
-
+											</div>--%>
+                                            <c:forEach items="${sp.getListHinhBase64()}" var="sp1">
+                                                <div class="item ">
+                                                    <a
+                                                            class="d-block  pos-relative embed-responsive embed-responsive-1by1"
+                                                            href="https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_berry_778d4175eeb84e3a9bf6af18727b5c63.jpg"
+                                                            title="Bút Gel Papermate OS UPC Ink Joy 0.5 mm"
+                                                            data-image="https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_berry_778d4175eeb84e3a9bf6af18727b5c63.jpg"
+                                                            data-zoom-image="https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_berry_778d4175eeb84e3a9bf6af18727b5c63.jpg">
+                                                    </a>
+                                                </div>
+                                            </c:forEach>
 										</div>
 									</div>
 
 									<div class="section slickthumb_relative_product_1">
 										<div id="gallery_02"
 											class=" slider-nav slickproduct thumb_product_details">
-
-											<div class="item">
+                                            <c:forEach items="${sp.getListHinhBase64()}" var="sp1">
+                                                <div class="item">
+                                                    <a href="javascript:void(0)">
+                                                        <img class="lazyload img-fluid"
+                                                             src="data:image/png;base64, ${sp1}"
+                                                             alt="Bút Gel Papermate OS UPC Ink Joy 0.5 mm">
+                                                    </a>
+                                                </div>
+                                            </c:forEach>
+											<%--<div class="item">
 												<a href="javascript:void(0)"
 													data-zoom-image="//product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_xanh_la_61ec2a07e2a64836bb6817f738f6f80d_1024x1024.jpg">
 													<img class="lazyload img-fluid"
@@ -405,73 +378,8 @@
 													data-src="//product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_xanh_la_61ec2a07e2a64836bb6817f738f6f80d_1024x1024.jpg"
 													alt="Bút Gel Papermate OS UPC Ink Joy 0.5 mm">
 												</a>
-											</div>
+											</div>--%>
 
-											<div class="item">
-												<a href="javascript:void(0)"
-													data-zoom-image="//product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_berry_778d4175eeb84e3a9bf6af18727b5c63_1024x1024.jpg">
-													<img class="lazyload img-fluid"
-													data-img="https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_berry_778d4175eeb84e3a9bf6af18727b5c63.jpg"
-													src="//theme.hstatic.net/1000230347/1000703102/14/product-placeholder.png?v=453"
-													data-src="//product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_berry_778d4175eeb84e3a9bf6af18727b5c63_1024x1024.jpg"
-													alt="Bút Gel Papermate OS UPC Ink Joy 0.5 mm">
-												</a>
-											</div>
-
-											<div class="item">
-												<a href="javascript:void(0)"
-													data-zoom-image="//product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_cam_0a4048255f374f41834dfe4003a1b145_1024x1024.jpg">
-													<img class="lazyload img-fluid"
-													data-img="https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_cam_0a4048255f374f41834dfe4003a1b145.jpg"
-													src="//theme.hstatic.net/1000230347/1000703102/14/product-placeholder.png?v=453"
-													data-src="//product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_cam_0a4048255f374f41834dfe4003a1b145_1024x1024.jpg"
-													alt="Bút Gel Papermate OS UPC Ink Joy 0.5 mm">
-												</a>
-											</div>
-
-											<div class="item">
-												<a href="javascript:void(0)"
-													data-zoom-image="//product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_do_903a8a21cdc24b8197845547d3e20199_1024x1024.jpg">
-													<img class="lazyload img-fluid"
-													data-img="https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_do_903a8a21cdc24b8197845547d3e20199.jpg"
-													src="//theme.hstatic.net/1000230347/1000703102/14/product-placeholder.png?v=453"
-													data-src="//product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_do_903a8a21cdc24b8197845547d3e20199_1024x1024.jpg"
-													alt="Bút Gel Papermate OS UPC Ink Joy 0.5 mm">
-												</a>
-											</div>
-
-											<div class="item">
-												<a href="javascript:void(0)"
-													data-zoom-image="//product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_hong_8949434b8c81484bb30332d18420ed29_1024x1024.jpg">
-													<img class="lazyload img-fluid"
-													data-img="https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_hong_8949434b8c81484bb30332d18420ed29.jpg"
-													src="//theme.hstatic.net/1000230347/1000703102/14/product-placeholder.png?v=453"
-													data-src="//product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_hong_8949434b8c81484bb30332d18420ed29_1024x1024.jpg"
-													alt="Bút Gel Papermate OS UPC Ink Joy 0.5 mm">
-												</a>
-											</div>
-
-											<div class="item">
-												<a href="javascript:void(0)"
-													data-zoom-image="//product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_tim_3ac04e4c19504866a2de143d63d66368_1024x1024.jpg">
-													<img class="lazyload img-fluid"
-													data-img="https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_tim_3ac04e4c19504866a2de143d63d66368.jpg"
-													src="//theme.hstatic.net/1000230347/1000703102/14/product-placeholder.png?v=453"
-													data-src="//product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_tim_3ac04e4c19504866a2de143d63d66368_1024x1024.jpg"
-													alt="Bút Gel Papermate OS UPC Ink Joy 0.5 mm">
-												</a>
-											</div>
-
-											<div class="item">
-												<a href="javascript:void(0)"
-													data-zoom-image="//product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_vang_a15029234b87431e8ae9718ffbfdf549_1024x1024.jpg">
-													<img class="lazyload img-fluid"
-													data-img="https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_vang_a15029234b87431e8ae9718ffbfdf549.jpg"
-													src="//theme.hstatic.net/1000230347/1000703102/14/product-placeholder.png?v=453"
-													data-src="//product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_vang_a15029234b87431e8ae9718ffbfdf549_1024x1024.jpg"
-													alt="Bút Gel Papermate OS UPC Ink Joy 0.5 mm">
-												</a>
-											</div>
 
 										</div>
 									</div>
@@ -642,8 +550,8 @@
 																	onkeypress="if ( isNaN(this.value + String.fromCharCode(event.keyCode) )) return false;"
 																	onchange="if(this.value == 0)this.value=1; check_min_qty();">
 																<button class="btn btn_num num_2 button button_qty"
-																	onClick="var result = document.getElementById('qtym'); 
-														 var qtypro = result.value; 
+																	onClick="var result = document.getElementById('qtym');
+														 var qtypro = result.value;
 														 if( !isNaN( qtypro )) result.value++;
 														 check_min_qty();
 														 return false;"
@@ -831,10 +739,10 @@
 
 	</section>
 
-	<script> 
+	<script>
 		var ww = $(window).width();
 		var getLimit = 3;
-	
+
 		function validate(evt) {
 			var theEvent = evt || window.event;
 			var key = theEvent.keyCode || theEvent.which;
@@ -845,16 +753,16 @@
 				if(theEvent.preventDefault) theEvent.preventDefault();
 			}
 		}
-	
+
 		var selectCallback = function(variant, selector) {
-	
+
 			if (variant) {
-	
-	
+
+
 				var form = jQuery('#' + selector.domIdPrefix).closest('form');
-	
+
 				for (var i=0,length=variant.options.length; i<length; i++) {
-	
+
 					var radioButton = form.find('.swatch[data-option-index="' + i + '"] :radio[value="' + variant.options[i] +'"]');
 					if (radioButton.size()) {
 						radioButton.get(0).checked = true;
@@ -872,7 +780,7 @@
 					comparePrice = jQuery('.details-pro .old-price .product-price-old'),
 					saleTag = jQuery('.details-pro .price-box .product-discount'),
 					vat = jQuery('.form-group .vat');
-	
+
 			/* SKU */
 			if (variant && variant.sku != "" && variant.sku != null) {
 				product_sku.html(variant.sku);
@@ -887,7 +795,7 @@
 					$('.form-group').removeClass('hidden').find('.vat').text('(Chưa bao gồm VAT)');
 				}
 			}
-	
+
 			if (variant && variant.available) {
 				if(variant.inventory_management == "haravan" ){
 					if (variant.inventory_quantity != 0) {
@@ -898,11 +806,11 @@
 				} else {
 					qty.html('<link itemprop="availability" href="http://schema.org/OutOfStock" />Còn hàng');
 				}
-	
+
 				group.removeClass('hidden');
-				addToCart.html('<span class="text_1">Chọn Mua</span>').removeAttr('disabled');	
+				addToCart.html('<span class="text_1">Chọn Mua</span>').removeAttr('disabled');
 				if(variant.price == 0){
-					productPrice.html('Liên hệ');	
+					productPrice.html('Liên hệ');
 					comparePrice.hide();
 					saleTag.html('');
 					form.addClass('hidden');
@@ -928,7 +836,7 @@
 						sale.addClass('sale');
 						var salePersent = Math.round((variant.compare_at_price - variant.price) / variant.compare_at_price * 100);
 						saleTag.html('<span>Tiết kiệm<strong>' + salePersent + '%</strong></span>');
-	
+
 						if(variant.inventory_management == "haravan" ){
 							if (variant.inventory_quantity != 0) {
 	                        qty.html('<link itemprop="availability" href="http://schema.org/InStock" />Còn hàng');
@@ -947,7 +855,7 @@
 							form.removeClass('hidden');
 							vat.removeClass('hidden');
 						}
-	
+
 					} else {
 						comparePrice.hide();
 						saleTag.html('');
@@ -969,9 +877,9 @@
 							form2.removeClass('hidden');
 							form.removeClass('hidden');
 						}
-					}       										
+					}
 				}
-	
+
 			} else {
 				addToCart.html('<span class="text_1">Hết hàng</span>').attr('disabled', 'disabled');
 				qty.html('Hết hàng');
@@ -979,7 +887,7 @@
 				form2.addClass('hidden');
 				group.removeClass('hidden');
 				vat.removeClass('hidden');
-	
+
 				if(variant){
 					if(variant.price != 0){
 						form.removeClass('hidden');
@@ -992,7 +900,7 @@
 						  saleTag.html('<span>Tiết kiệm<strong>' + salePersent + '%</strong></span>');
 							sale.addClass('sale');
 							addToCart.html('<span class="text_1">Hết hàng</span>').attr('disabled', 'disabled').removeClass('hidden');
-	
+
 							if(variant.inventory_management == "haravan" ){
 								if (variant.inventory_quantity != 0 && variant.available) {
 	                            qty.html('<link itemprop="availability" href="http://schema.org/InStock" />Còn hàng');
@@ -1004,7 +912,7 @@
 							} else {
 								qty.html('<link itemprop="availability" href="http://schema.org/InStock" />Còn hàng');
 							}
-	
+
 						} else {
 							comparePrice.hide();
 							saleTag.html('');
@@ -1012,7 +920,7 @@
 							sale.removeClass('sale');
 							form.addClass('hidden');
 							addToCart.html('<span class="text_1">Hết hàng</span>').attr('disabled', 'disabled').removeClass('hidden');
-	
+
 							if(variant.inventory_management == "haravan" ){
 	                        if (variant.inventory_quantity != 0 && variant.available) {
 	                            qty.html('<link itemprop="availability" href="http://schema.org/InStock" />Còn hàng');
@@ -1020,34 +928,34 @@
 	                            form2.addClass('hidden');
 	                            qty.html('<link itemprop="availability" href="http://schema.org/OutOfStock" />Hết hàng');
 	                            form.removeClass('hidden');
-	
+
 	                        }
 	                    } else {
 	                        qty.html('<link itemprop="availability" href="http://schema.org/InStock" />Còn hàng');
 	                    }
-						}     
+						}
 					}else{
 						productPrice.html('Liên hệ');
 						form2.addClass('hidden');
 						vat.addClass('hidden');
 						comparePrice.hide();
 						saleTag.html('');
-						form.addClass('hidden');	
+						form.addClass('hidden');
 						sale.removeClass('sale');
 					}
 				}else{
-					productPrice.html('Liên hệ');	
+					productPrice.html('Liên hệ');
 					form2.addClass('hidden');
 					vat.addClass('hidden');
 					comparePrice.hide();
 					saleTag.html('');
-					form.addClass('hidden');	
+					form.addClass('hidden');
 					sale.removeClass('sale');
 				}
 			}
 			/*begin variant image*/
-			if (variant && variant.featured_image) {  
-				var originalImage = jQuery(".large-image img"); 
+			if (variant && variant.featured_image) {
+				var originalImage = jQuery(".large-image img");
 				var newImage = variant.featured_image;
 				var element = originalImage[0];
 				console.log(element,	$('.slider-nav .slick-slide').length)
@@ -1062,19 +970,19 @@
 						}
 					});
 				});
-	
+
 				setTimeout(function(){
 					$('.checkurl').attr('href',$(this).attr('src'));
-	
+
 					if (ww >= 1200){
-						
+
 						 }
 						},200);
-	
-					} 
+
+					}
 				};
-	
-	
+
+
 									 jQuery('.swatch .swatch-element  :radio').change(function() {
 					var optionIndex = jQuery(this).closest('.swatch').attr('data-option-index');
 					var optionValue = jQuery(this).val();
@@ -1085,7 +993,7 @@
 						.val(optionValue)
 						.trigger('change');
 				});
-	
+
 				$(".dp-flex img").click(function(e){
 					e.preventDefault();
 					var hr = $(this).attr('data-src');
@@ -1096,19 +1004,19 @@
 				var alias = 'but-gel-papermate-os-upc-ink-joy-0-5-mm';
 				/*end*/
 				if (ww >= 1200){
-					
+
 					 }
-	
-	
+
+
 					 if (ww >= 1200){
-						 
+
 							}
-	
-	
+
+
 	</script>
 	<script>
-	
-	
+
+
 		function scrollToxx() {
 			$('html, body').animate({ scrollTop: $('.product-tab.e-tabs').offset().top }, 'slow');
 			$('.product-tab .tab-link').removeClass('current');
@@ -1117,11 +1025,11 @@
 			$('.tab-review-c').addClass('current');
 			return false;
 		}
-	
-	
+
+
 		$(document).ready(function (e) {
-	
-	
+
+
 			var wDW = $(window).width();
 			$('#gallery_1').slick({
 				autoplay: false,
@@ -1140,17 +1048,17 @@
 				$(this).one('mouseup', function(e){
 	 			 $(this).off('mousemove');
 				$('#gallery_1 a').css('pointer-events','initial')
-					
+
 				}).on('mousemove', function(e){
-					if(prevPos !== e.pageX){ 
+					if(prevPos !== e.pageX){
 						prev = e.pageX
 					$('#gallery_1 a').css('pointer-events','none')
 					}
 				});
-	
+
 			});
 			$('#gallery_1').on('swipe', function(event, slick, currentSlide, nextSlide){
-	
+
 				$('#gallery_1 a').css('pointer-events','none')
 			});
 			$('#gallery_1').on('beforeChange', function(event, slick, currentSlide, nextSlide){
@@ -1167,7 +1075,7 @@
 				arrows: false,
 				focusOnSelect: true,
 				infinite: false,
-	
+
 			});
 			window.matchMedia('(min-width: 768px)').matches && $('.slickrelated .item').length > 5 && $('.slickrelated').slick({
 				autoplay: false,
@@ -1210,28 +1118,28 @@
 					}
 				]
 			});
-	
+
 			// check variant
 			jQuery(function($) {
-				
+
 				if(navigator.userAgent.indexOf("Speed Insights") == -1) {
-	
+
 					new Haravan.OptionSelectors('product-selectors', {
 						product: {"available":true,"compare_at_price_max":4500000.0,"compare_at_price_min":4500000.0,"compare_at_price_varies":false,"compare_at_price":4500000.0,"content":null,"description":"<p><strong>Thông số kĩ thuật :</strong></p><table id=\"tblGeneralAttribute\" cellspacing=\"0\" style=\"border-collapse:collapse; border-color:#eeeeee; border-spacing:0px; border-style:solid; box-sizing:border-box; color:#333333; font-size:13px; margin-bottom:20px; max-width:100%; min-width:500px; width:100%\" class=\"mce-item-table table table-bordered\"><tbody style=\"box-sizing: border-box;\"><tr style=\"box-sizing:border-box\" class=\"row-info\"><td style=\"background-color:#f7f7f7 !important; border-color:#eeeeee; border-style:solid; box-sizing:border-box; padding:8px; vertical-align:top; width:200px\"><span style=\"box-sizing:border-box; color:#000000; font-family:Roboto-Medium,sans-serif; font-size:10pt\">Thương hiệu</span></td><td style=\"border-color:#eeeeee; border-style:solid; box-sizing:border-box; padding:8px; vertical-align:top\"><span style=\"color:#000000\"><span style=\"font-size:13.3333px\">Paper Mate</span></span></td></tr><tr style=\"box-sizing:border-box\" class=\"row-info\"><td style=\"background-color:#f7f7f7 !important; border-color:#eeeeee; border-style:solid; box-sizing:border-box; padding:8px; vertical-align:top; width:200px\"><span style=\"color:#000000; font-family:Roboto-Medium,sans-serif\"><span style=\"font-size:13.3333px\">Đầu bi</span></span></td><td style=\"border-color:#eeeeee; border-style:solid; box-sizing:border-box; padding:8px; vertical-align:top\">0.5 mm</td></tr></tbody></table><p>Paper Mate thương hiệu nổi tiếng từ Mỹ năm 1940, hơn 80 năm phát triển Paper Mate đã cho ra đời rất nhiều dòng bút cho văn phòng, sinh viên học sinh...</p><p style=\"text-align: center\"><img src=\"//file.hstatic.net/1000230347/file/ppmate_os_upc_0.5_5_d0824b436d2649e5b4b6a939045992ce_1024x1024.jpg\"></p><p>Paper Mate® InkJoy® có hệ thống truyền mực tiên tiến giúp dòng mực ổn định, trơn và êm</p><p>Học tập và làm việc với nhiều niềm vui từ hệ thống màu sắc phong phú và rực rỡ</p><p>Với Inkjoy, sáng tạo là không giới hạn</p><ul><li>Giúp bạn phân loại các ghi chú dễ dàng và khoa học hơn</li><li>Làm nổi bật các ghi chú quan trọng</li><li>Phương pháp này giúp ghi nhớ thông tin trong cả ngắn hạn và dài hạn</li><li>Giúp tiết kiệm thời gian cho việc ôn tập giữa kỳ, cuối kỳ</li></ul><div style=\"text-align: center;\"><p style=\"text-align: center\"><img src=\"//file.hstatic.net/1000230347/file/ppmate_os_upc_0.5_2_5b8dbcaf15eb47dba2b5b6596fc146cd_1024x1024.jpg\"></p><p> </p></div>","featured_image":"https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_xanh_la_61ec2a07e2a64836bb6817f738f6f80d.jpg","handle":"but-gel-papermate-os-upc-ink-joy-0-5-mm","id":1033258305,"images":["https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_xanh_la_61ec2a07e2a64836bb6817f738f6f80d.jpg","https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_berry_778d4175eeb84e3a9bf6af18727b5c63.jpg","https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_cam_0a4048255f374f41834dfe4003a1b145.jpg","https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_do_903a8a21cdc24b8197845547d3e20199.jpg","https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_hong_8949434b8c81484bb30332d18420ed29.jpg","https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_tim_3ac04e4c19504866a2de143d63d66368.jpg","https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_vang_a15029234b87431e8ae9718ffbfdf549.jpg"],"options":["Màu sắc"],"price":4050000.0,"price_max":4050000.0,"price_min":4050000.0,"price_varies":false,"tags":["newell","VPP"],"template_suffix":null,"title":"Bút Gel Papermate OS UPC Ink Joy 0.5 mm","type":"Bút gel","url":"/products/but-gel-papermate-os-upc-ink-joy-0-5-mm","pagetitle":"Bút Gel Papermate OS UPC Ink Joy 0.5 mm","metadescription":"Paper Mate® InkJoy® có hệ thống truyền mực tiên tiến giúp dòng mực ổn định, trơn và êm. Học tập và làm việc với nhiều niềm vui từ hệ thống màu sắc phong phú và rực rỡ.","variants":[{"id":1073177610,"barcode":null,"available":true,"price":4050000.0,"sku":"60002003","option1":"Đỏ","option2":"","option3":"","options":["Đỏ"],"inventory_quantity":0,"old_inventory_quantity":0,"title":"Đỏ","weight":14.0,"compare_at_price":4500000.0,"inventory_management":"haravan","inventory_policy":"continue","selected":false,"url":null,"featured_image":{"id":1196393987,"created_at":"0001-01-01T00:00:00","position":4,"product_id":1033258305,"updated_at":"0001-01-01T00:00:00","src":"https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_do_903a8a21cdc24b8197845547d3e20199.jpg","variant_ids":[1073177610]}},{"id":1073177611,"barcode":null,"available":true,"price":4050000.0,"sku":"60002004","option1":"Vàng","option2":"","option3":"","options":["Vàng"],"inventory_quantity":-1,"old_inventory_quantity":-1,"title":"Vàng","weight":14.0,"compare_at_price":4500000.0,"inventory_management":"haravan","inventory_policy":"continue","selected":false,"url":null,"featured_image":{"id":1196393991,"created_at":"0001-01-01T00:00:00","position":7,"product_id":1033258305,"updated_at":"0001-01-01T00:00:00","src":"https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_vang_a15029234b87431e8ae9718ffbfdf549.jpg","variant_ids":[1073177611]}},{"id":1073177612,"barcode":null,"available":true,"price":4050000.0,"sku":"60002007","option1":"cam","option2":"","option3":"","options":["cam"],"inventory_quantity":-1,"old_inventory_quantity":-1,"title":"cam","weight":14.0,"compare_at_price":4500000.0,"inventory_management":"haravan","inventory_policy":"continue","selected":false,"url":null,"featured_image":{"id":1196393985,"created_at":"0001-01-01T00:00:00","position":3,"product_id":1033258305,"updated_at":"0001-01-01T00:00:00","src":"https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_cam_0a4048255f374f41834dfe4003a1b145.jpg","variant_ids":[1073177612]}},{"id":1073177613,"barcode":null,"available":true,"price":4050000.0,"sku":"60002006","option1":"xanhla","option2":"","option3":"","options":["xanhla"],"inventory_quantity":-1,"old_inventory_quantity":-1,"title":"xanhla","weight":14.0,"compare_at_price":4500000.0,"inventory_management":"haravan","inventory_policy":"continue","selected":false,"url":null,"featured_image":{"id":1196393983,"created_at":"0001-01-01T00:00:00","position":1,"product_id":1033258305,"updated_at":"0001-01-01T00:00:00","src":"https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_xanh_la_61ec2a07e2a64836bb6817f738f6f80d.jpg","variant_ids":[1073177613]}},{"id":1073177614,"barcode":null,"available":true,"price":4050000.0,"sku":"60002009","option1":"Tím","option2":"","option3":"","options":["Tím"],"inventory_quantity":0,"old_inventory_quantity":0,"title":"Tím","weight":14.0,"compare_at_price":4500000.0,"inventory_management":"haravan","inventory_policy":"continue","selected":false,"url":null,"featured_image":{"id":1196393989,"created_at":"0001-01-01T00:00:00","position":6,"product_id":1033258305,"updated_at":"0001-01-01T00:00:00","src":"https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_tim_3ac04e4c19504866a2de143d63d66368.jpg","variant_ids":[1073177614]}},{"id":1073177615,"barcode":null,"available":true,"price":4050000.0,"sku":"60002008","option1":"Hồng","option2":"","option3":"","options":["Hồng"],"inventory_quantity":-1,"old_inventory_quantity":-1,"title":"Hồng","weight":14.0,"compare_at_price":4500000.0,"inventory_management":"haravan","inventory_policy":"continue","selected":false,"url":null,"featured_image":{"id":1196393988,"created_at":"0001-01-01T00:00:00","position":5,"product_id":1033258305,"updated_at":"0001-01-01T00:00:00","src":"https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_hong_8949434b8c81484bb30332d18420ed29.jpg","variant_ids":[1073177615]}},{"id":1073177616,"barcode":null,"available":true,"price":4050000.0,"sku":"60002005","option1":"hongdam","option2":"","option3":"","options":["hongdam"],"inventory_quantity":-1,"old_inventory_quantity":-1,"title":"hongdam","weight":14.0,"compare_at_price":4500000.0,"inventory_management":"haravan","inventory_policy":"continue","selected":false,"url":null,"featured_image":{"id":1196393984,"created_at":"0001-01-01T00:00:00","position":2,"product_id":1033258305,"updated_at":"0001-01-01T00:00:00","src":"https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_berry_778d4175eeb84e3a9bf6af18727b5c63.jpg","variant_ids":[1073177616]}}],"vendor":"Paper Mate","published_at":"2021-05-21T09:33:47.267Z","created_at":"2021-05-21T09:32:55.684Z","not_allow_promotion":false},
-																			onVariantSelected: selectCallback, 
+																			onVariantSelected: selectCallback,
 																			enableHistoryState: false
-																			});     
+																			});
 				}
-	
-				
-	
+
+
+
 				// Add label if only one product option and it isn't 'Title'. Could be 'Size'.
-				
+
 				$('.selector-wrapper:eq(0)').prepend('<label>Màu sắc</label>');
-				 
-	
+
+
 				 // Hide selectors if we only have 1 variant and its title contains 'Default'.
-				  
+
 					$('.selector-wrapper').css({
 						'text-align':'left',
 						'margin-bottom':'15px'
@@ -1239,7 +1147,7 @@
 					});
 					// load more content
 					var $proContent = $('#content');
-	
+
 					if($proContent.height() > 500){
 						$proContent.css("height","500px");
 						$('.ega-pro__seemore').click(function(){
@@ -1255,7 +1163,7 @@
 					}else{
 						$('.ega-pro__seemore').hide();
 					}
-	
+
 					// set recent view
 					function  setProductRecent(){
 						let productUrl = 'but-gel-papermate-os-upc-ink-joy-0-5-mm'
@@ -1267,618 +1175,618 @@
 						}
 					}
 					setProductRecent()
-	
+
 				 });
-	
-	
-	
+
+
+
 	</script>
 	<script type="text/x-custom-template" data-template="navigation">
 <ul  class="navigation list-group list-group-flush scroll">
-	
-	
-	
+
+
+
 			<li class="menu-item list-group-item">
 		<a href="/collections/flash-sale" class="menu-item__link d-flex justify-content-between align-items-center" title="Giá tốt hôm nay">
 			<span>
-						<img class=" lazyload" 
+						<img class=" lazyload"
 				 src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAeAAAAHgCAMAAABKCk6nAAAAA1BMVEXr6+uInxNMAAAA9UlEQVR42u3BgQAAAADDoPtTH2TVAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADghg0AAVGLwCwAAAAASUVORK5CYII="
 				 data-src="//theme.hstatic.net/1000230347/1000703102/14/menu_icon_1.png?v=453" alt="Giá tốt hôm nay" />
-						Giá tốt hôm nay 
-		</a>		
-			
-		
+						Giá tốt hôm nay
+		</a>
+
+
 			</li>
-	
-	
-	
+
+
+
 			<li class="menu-item list-group-item">
 		<a href="/collections/but-viet" class="menu-item__link d-flex justify-content-between align-items-center" title="Bút viết">
 			<span>
-						<img class=" lazyload" 
+						<img class=" lazyload"
 				 src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAeAAAAHgCAMAAABKCk6nAAAAA1BMVEXr6+uInxNMAAAA9UlEQVR42u3BgQAAAADDoPtTH2TVAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADghg0AAVGLwCwAAAAASUVORK5CYII="
 				 data-src="//theme.hstatic.net/1000230347/1000703102/14/menu_icon_2.png?v=453" alt="Bút viết" />
-						Bút viết 
+						Bút viết
 			</span>
 				<i class='fas fa-chevron-right float-right' data-toggle-submenu></i>
-		</a>		
-			
-		
+		</a>
+
+
 				<div class="submenu scroll">
 						<ul class="submenu__list">
-			
-			
-			
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/but-bi" title="Bút bi">Bút bi</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/but-chi" title="Bút chì">Bút chì</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/but-gel" title="Bút Gel">Bút Gel</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/but-long" title="Bút lông">Bút lông</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/but-da-quang" title="Bút dạ quang">Bút dạ quang</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/but-xoa" title="Bút xóa">Bút xóa</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/but-luyen-chu" title="Bút luyện chữ">Bút luyện chữ</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/phu-kien-but-viet" title="Phụ kiện bút viết">Phụ kiện bút viết</a>
 				</li>
-			
-			
+
+
 		</ul>
 		</div>
 			</li>
-	
-	
-	
+
+
+
 			<li class="menu-item list-group-item">
 		<a href="/collections/van-phong-pham" class="menu-item__link d-flex justify-content-between align-items-center" title="Văn phòng phẩm">
 			<span>
-						<img class=" lazyload" 
+						<img class=" lazyload"
 				 src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAeAAAAHgCAMAAABKCk6nAAAAA1BMVEXr6+uInxNMAAAA9UlEQVR42u3BgQAAAADDoPtTH2TVAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADghg0AAVGLwCwAAAAASUVORK5CYII="
 				 data-src="//theme.hstatic.net/1000230347/1000703102/14/menu_icon_3.png?v=453" alt="Văn phòng phẩm" />
-						Văn phòng phẩm 
+						Văn phòng phẩm
 			</span>
 				<i class='fas fa-chevron-right float-right' data-toggle-submenu></i>
-		</a>		
-			
-		
+		</a>
+
+
 				<div class="submenu scroll">
 						<ul class="submenu__list">
-			
-			
-			
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/but-viet" title="Bút viết">Bút viết</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/giay-van-phong" title="Giấy văn phòng">Giấy văn phòng</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/dung-cu-van-phong" title="Dụng cụ văn phòng">Dụng cụ văn phòng</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/file-bia-ho-so" title="File bìa hồ sơ">File bìa hồ sơ</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/bang-keo-ho-gian" title="Băng keo - hồ dán">Băng keo - hồ dán</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/cham-soc-ca-nhan" title="Chăm sóc cá nhân">Chăm sóc cá nhân</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/so-bi-thu" title="Sổ - Bì thư">Sổ - Bì thư</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/combo" title="Combo">Combo</a>
 				</li>
-			
-			
+
+
 		</ul>
 		</div>
 			</li>
-	
-	
-	
+
+
+
 			<li class="menu-item list-group-item">
 		<a href="/collections/dung-cu-hoc-tap" class="menu-item__link d-flex justify-content-between align-items-center" title="Dụng cụ học tập">
 			<span>
-						<img class=" lazyload" 
+						<img class=" lazyload"
 				 src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAeAAAAHgCAMAAABKCk6nAAAAA1BMVEXr6+uInxNMAAAA9UlEQVR42u3BgQAAAADDoPtTH2TVAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADghg0AAVGLwCwAAAAASUVORK5CYII="
 				 data-src="//theme.hstatic.net/1000230347/1000703102/14/menu_icon_4.png?v=453" alt="Dụng cụ học tập" />
-						Dụng cụ học tập 
+						Dụng cụ học tập
 			</span>
 				<i class='fas fa-chevron-right float-right' data-toggle-submenu></i>
-		</a>		
-			
-		
+		</a>
+
+
 				<div class="submenu scroll">
 						<ul class="submenu__list">
-			
-			
-			
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/but-viet" title="Bút viết">Bút viết</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/gom" title="Gôm">Gôm</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/thuoc-compa-dung-cu-khac" title="Thước - Compa">Thước - Compa</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/chuot-but-chi" title="Chuốt bút chì">Chuốt bút chì</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/tap-hoc-sinh" title="Tập học sinh">Tập học sinh</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/bia-bao-tap" title="Bìa bao tập">Bìa bao tập</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/giay-kiem-tra-nhan-vo" title="Giấy kiểm tra - Nhãn vở">Giấy kiểm tra - Nhãn vở</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/dung-cu-thu-cong" title="Dụng cụ thủ công">Dụng cụ thủ công</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/bang-hoc-sinh" title="Bảng học sinh">Bảng học sinh</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/may-tinh-khoa-hoc" title="Máy tính khoa học">Máy tính khoa học</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/balo-hoc-sinh" title="Ba lô">Ba lô</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/phu-kien-hoc-sinh" title="Phụ kiện học sinh">Phụ kiện học sinh</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/bo-dung-cu-hoc-tap" title="Bộ dụng cụ học tập">Bộ dụng cụ học tập</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/cham-soc-ca-nhan" title="Chăm sóc cá nhân">Chăm sóc cá nhân</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/to-mau-va-sap-nan" title="Sáp nặn">Sáp nặn</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/do-choi-sang-tao-1" title="Đồ chơi sáng tạo">Đồ chơi sáng tạo</a>
 				</li>
-			
-			
+
+
 		</ul>
 		</div>
 			</li>
-	
-	
-	
+
+
+
 			<li class="menu-item list-group-item">
 		<a href="https://flexoffice.com/collections/dung-cu-my-thuat/" class="menu-item__link d-flex justify-content-between align-items-center" title="Vẽ, học vẽ, tô màu">
 			<span>
-						<img class=" lazyload" 
+						<img class=" lazyload"
 				 src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAeAAAAHgCAMAAABKCk6nAAAAA1BMVEXr6+uInxNMAAAA9UlEQVR42u3BgQAAAADDoPtTH2TVAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADghg0AAVGLwCwAAAAASUVORK5CYII="
 				 data-src="//theme.hstatic.net/1000230347/1000703102/14/menu_icon_5.png?v=453" alt="Vẽ, học vẽ, tô màu" />
-						Vẽ, học vẽ, tô màu 
+						Vẽ, học vẽ, tô màu
 			</span>
 				<i class='fas fa-chevron-right float-right' data-toggle-submenu></i>
-		</a>		
-			
-		
+		</a>
+
+
 				<div class="submenu scroll">
 						<ul class="submenu__list">
-			
-			
-			
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/but-mau" title="Bút màu">Bút màu</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/mau-nuoc" title="Màu nước">Màu nước</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/tap-to-mau-to-chu" title="Tập tô màu - Tô chữ">Tập tô màu - Tô chữ</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/bo-to-mau" title="Bộ tô màu">Bộ tô màu</a>
 				</li>
-			
-			
+
+
 		</ul>
 		</div>
 			</li>
-	
-	
-	
+
+
+
 			<li class="menu-item list-group-item">
 		<a href="/collections/do-choi" class="menu-item__link d-flex justify-content-between align-items-center" title="Đồ chơi">
 			<span>
-						<img class=" lazyload" 
+						<img class=" lazyload"
 				 src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAeAAAAHgCAMAAABKCk6nAAAAA1BMVEXr6+uInxNMAAAA9UlEQVR42u3BgQAAAADDoPtTH2TVAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADghg0AAVGLwCwAAAAASUVORK5CYII="
 				 data-src="//theme.hstatic.net/1000230347/1000703102/14/menu_icon_6.png?v=453" alt="Đồ chơi" />
-						Đồ chơi 
+						Đồ chơi
 			</span>
 				<i class='fas fa-chevron-right float-right' data-toggle-submenu></i>
-		</a>		
-			
-		
+		</a>
+
+
 				<div class="submenu scroll">
 						<ul class="submenu__list">
-			
-			
-			
+
+
+
 			<li class="submenu__col">
 				<span class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/do-choi-be-trai" title="Đồ chơi bé trai">Đồ chơi bé trai</a>
 				</span>
-				
+
 				 <span class="submenu__item submenu__item">
 					 <a class="link" href="/collections/sieu-nhan-robot" title="Siêu nhân, Robot">Siêu nhân, Robot</a>
 				 </span>
-				
+
 				 <span class="submenu__item submenu__item">
 					 <a class="link" href="/collections/do-choi-lap-rap" title="Đồ chơi lắp ráp">Đồ chơi lắp ráp</a>
 				 </span>
-				
+
 				 <span class="submenu__item submenu__item">
 					 <a class="link" href="/collections/do-choi-dieu-khien" title="Đồ chơi điều khiển">Đồ chơi điều khiển</a>
 				 </span>
-				
+
 				 <span class="submenu__item submenu__item">
 					 <a class="link" href="/collections/xe-mo-hinh" title="Xe mô hình">Xe mô hình</a>
 				 </span>
-				
+
 			</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__col">
 				<span class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/do-choi-be-gai" title="Đồ chơi bé gái">Đồ chơi bé gái</a>
 				</span>
-				
+
 				 <span class="submenu__item submenu__item">
 					 <a class="link" href="/collections/bup-be-thu-cung" title="Búp bê, thú cưng">Búp bê, thú cưng</a>
 				 </span>
-				
+
 				 <span class="submenu__item submenu__item">
 					 <a class="link" href="/collections/may-tao-bong-bong" title="Máy tạo bong bóng">Máy tạo bong bóng</a>
 				 </span>
-				
+
 			</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/mo-hinh-nhan-vat" title="Mô hình nhân vật">Mô hình nhân vật</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__col">
 				<span class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/do-choi" title="Thương hiệu Đồ chơi">Thương hiệu Đồ chơi</a>
 				</span>
-				
+
 				 <span class="submenu__item submenu__item">
 					 <a class="link" href="/collections/beast-kingdom" title="Beast Kingdom">Beast Kingdom</a>
 				 </span>
-				
+
 				 <span class="submenu__item submenu__item">
 					 <a class="link" href="/collections/cobi" title="Cobi">Cobi</a>
 				 </span>
-				
+
 				 <span class="submenu__item submenu__item">
 					 <a class="link" href="/collections/lena" title="Lena">Lena</a>
 				 </span>
-				
+
 				 <span class="submenu__item submenu__item">
 					 <a class="link" href="/collections/miniland" title="Miniland">Miniland</a>
 				 </span>
-				
+
 				 <span class="submenu__item submenu__item">
 					 <a class="link" href="/collections/popular-playthings" title="Popular Playthings">Popular Playthings</a>
 				 </span>
-				
+
 				 <span class="submenu__item submenu__item">
 					 <a class="link" href="/collections/whistle-racer" title="Whistle Racer">Whistle Racer</a>
 				 </span>
-				
+
 				 <span class="submenu__item submenu__item">
 					 <a class="link" href="/collections/woma" title="Woma">Woma</a>
 				 </span>
-				
+
 				 <span class="submenu__item submenu__item">
 					 <a class="link" href="/collections/welly" title="Welly">Welly</a>
 				 </span>
-				
+
 				 <span class="submenu__item submenu__item">
 					 <a class="link" href="/collections/three-three-six" title="Three Three Six (336)">Three Three Six (336)</a>
 				 </span>
-				
+
 				 <span class="submenu__item submenu__item">
 					 <a class="link" href="/collections/ddung" title="Ddung">Ddung</a>
 				 </span>
-				
+
 				 <span class="submenu__item submenu__item">
 					 <a class="link" href="/collections/fitfun" title="Fitfun">Fitfun</a>
 				 </span>
-				
+
 				 <span class="submenu__item submenu__item">
 					 <a class="link" href="/collections/hongdou" title="Hongdou">Hongdou</a>
 				 </span>
-				
+
 				 <span class="submenu__item submenu__item">
 					 <a class="link" href="/collections/guoan-toys" title="Guoan Toys">Guoan Toys</a>
 				 </span>
-				
+
 				 <span class="submenu__item submenu__item">
 					 <a class="link" href="/collections/ktt" title="KTT">KTT</a>
 				 </span>
-				
+
 				 <span class="submenu__item submenu__item">
 					 <a class="link" href="/collections/yyl" title="YYL">YYL</a>
 				 </span>
-				
+
 				 <span class="submenu__item submenu__item">
 					 <a class="link" href="/collections/yasini" title="Yasini">Yasini</a>
 				 </span>
-				
+
 				 <span class="submenu__item submenu__item">
 					 <a class="link" href="/collections/wanlixing" title="KLX">KLX</a>
 				 </span>
-				
+
 				 <span class="submenu__item submenu__item">
 					 <a class="link" href="/collections/bti" title="BTI">BTI</a>
 				 </span>
-				
+
 			</li>
-			
-			
+
+
 		</ul>
 		</div>
 			</li>
-	
-	
-	
+
+
+
 			<li class="menu-item list-group-item">
 		<a href="https://flexoffice.com/collections/steam-diy/" class="menu-item__link d-flex justify-content-between align-items-center" title="STEAM & DIY">
 			<span>
-						<img class=" lazyload" 
+						<img class=" lazyload"
 				 src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAeAAAAHgCAMAAABKCk6nAAAAA1BMVEXr6+uInxNMAAAA9UlEQVR42u3BgQAAAADDoPtTH2TVAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADghg0AAVGLwCwAAAAASUVORK5CYII="
 				 data-src="//theme.hstatic.net/1000230347/1000703102/14/menu_icon_7.png?v=453" alt="STEAM & DIY" />
-						STEAM & DIY 
+						STEAM & DIY
 			</span>
 				<i class='fas fa-chevron-right float-right' data-toggle-submenu></i>
-		</a>		
-			
-		
+		</a>
+
+
 				<div class="submenu scroll">
 						<ul class="submenu__list">
-			
-			
-			
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/elmers" title="Elmer's">Elmer's</a>
 				</li>
-			
-			
+
+
 		</ul>
 		</div>
 			</li>
-	
-	
-	
+
+
+
 			<li class="menu-item list-group-item">
 		<a href="/collections/san-pham-cao-cap-qua-tang" class="menu-item__link d-flex justify-content-between align-items-center" title="Sản phẩm cao cấp">
 			<span>
-						<img class=" lazyload" 
+						<img class=" lazyload"
 				 src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAeAAAAHgCAMAAABKCk6nAAAAA1BMVEXr6+uInxNMAAAA9UlEQVR42u3BgQAAAADDoPtTH2TVAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADghg0AAVGLwCwAAAAASUVORK5CYII="
 				 data-src="//theme.hstatic.net/1000230347/1000703102/14/menu_icon_8.png?v=453" alt="Sản phẩm cao cấp" />
-						Sản phẩm cao cấp 
+						Sản phẩm cao cấp
 			</span>
 				<i class='fas fa-chevron-right float-right' data-toggle-submenu></i>
-		</a>		
-			
-		
+		</a>
+
+
 				<div class="submenu scroll">
 						<ul class="submenu__list">
-			
-			
-			
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/but-bi-cao-cap-1" title="Bút bi cao cấp">Bút bi cao cấp</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/but-may-cao-cap" title="Bút máy cao cấp">Bút máy cao cấp</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/but-long-bi-cao-cap-1" title="Bút lông bi cao cấp">Bút lông bi cao cấp</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/phu-kien-but-cao-cap" title="Phụ kiện bút cao cấp">Phụ kiện bút cao cấp</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/but-gel-cao-cap" title="Bút Gel cao cấp">Bút Gel cao cấp</a>
 				</li>
-			
-			
+
+
 		</ul>
 		</div>
 			</li>
-	
-	
-	
+
+
+
 			<li class="menu-item list-group-item">
 		<a href="/collections/flexhome" class="menu-item__link d-flex justify-content-between align-items-center" title="FlexHome">
 			<span>
-						<img class=" lazyload" 
+						<img class=" lazyload"
 				 src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAeAAAAHgCAMAAABKCk6nAAAAA1BMVEXr6+uInxNMAAAA9UlEQVR42u3BgQAAAADDoPtTH2TVAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADghg0AAVGLwCwAAAAASUVORK5CYII="
 				 data-src="//theme.hstatic.net/1000230347/1000703102/14/menu_icon_9.png?v=453" alt="FlexHome" />
-						FlexHome 
-		</a>		
-			
-		
+						FlexHome
+		</a>
+
+
 			</li>
-	
-</ul> 
+
+</ul>
 	</script>
 	<script type="text/x-custom-template" data-template="menuMobile">
 <div id="mobile-menu" class="scroll">
@@ -1893,647 +1801,647 @@
 				<a href="/account/login" title="Đăng nhập" class="font-weight: light">
 					Đăng nhập
 				</a> </small>
-			
+
 		</div>
 	</div>
 	<div class="mobile-menu-body scroll">
 				<ul  class="navigation list-group list-group-flush scroll">
-	
-	
-	
+
+
+
 			<li class="menu-item list-group-item">
 		<a href="/collections/flash-sale" class="menu-item__link d-flex justify-content-between align-items-center" title="Giá tốt hôm nay">
 			<span>
-						<img class=" lazyload" 
+						<img class=" lazyload"
 				 src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAeAAAAHgCAMAAABKCk6nAAAAA1BMVEXr6+uInxNMAAAA9UlEQVR42u3BgQAAAADDoPtTH2TVAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADghg0AAVGLwCwAAAAASUVORK5CYII="
 				 data-src="//theme.hstatic.net/1000230347/1000703102/14/menu_icon_1.png?v=453" alt="Giá tốt hôm nay" />
-						Giá tốt hôm nay 
-		</a>		
-			
-		
+						Giá tốt hôm nay
+		</a>
+
+
 			</li>
-	
-	
-	
+
+
+
 			<li class="menu-item list-group-item">
 		<a href="/collections/but-viet" class="menu-item__link d-flex justify-content-between align-items-center" title="Bút viết">
 			<span>
-						<img class=" lazyload" 
+						<img class=" lazyload"
 				 src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAeAAAAHgCAMAAABKCk6nAAAAA1BMVEXr6+uInxNMAAAA9UlEQVR42u3BgQAAAADDoPtTH2TVAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADghg0AAVGLwCwAAAAASUVORK5CYII="
 				 data-src="//theme.hstatic.net/1000230347/1000703102/14/menu_icon_2.png?v=453" alt="Bút viết" />
-						Bút viết 
+						Bút viết
 			</span>
 				<i class='fas fa-chevron-right float-right' data-toggle-submenu></i>
-		</a>		
-			
-		
+		</a>
+
+
 				<div class="submenu scroll">
 						<div class='toggle-submenu'>
 				<i class='fas fa-chevron-left mr-3'></i>
 				<span>Bút viết </span>
 			</div>
 						<ul class="submenu__list">
-			
-			
-			
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/but-bi" title="Bút bi">Bút bi</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/but-chi" title="Bút chì">Bút chì</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/but-gel" title="Bút Gel">Bút Gel</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/but-long" title="Bút lông">Bút lông</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/but-da-quang" title="Bút dạ quang">Bút dạ quang</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/but-xoa" title="Bút xóa">Bút xóa</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/but-luyen-chu" title="Bút luyện chữ">Bút luyện chữ</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/phu-kien-but-viet" title="Phụ kiện bút viết">Phụ kiện bút viết</a>
 				</li>
-			
-			
+
+
 		</ul>
 		</div>
 			</li>
-	
-	
-	
+
+
+
 			<li class="menu-item list-group-item">
 		<a href="/collections/van-phong-pham" class="menu-item__link d-flex justify-content-between align-items-center" title="Văn phòng phẩm">
 			<span>
-						<img class=" lazyload" 
+						<img class=" lazyload"
 				 src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAeAAAAHgCAMAAABKCk6nAAAAA1BMVEXr6+uInxNMAAAA9UlEQVR42u3BgQAAAADDoPtTH2TVAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADghg0AAVGLwCwAAAAASUVORK5CYII="
 				 data-src="//theme.hstatic.net/1000230347/1000703102/14/menu_icon_3.png?v=453" alt="Văn phòng phẩm" />
-						Văn phòng phẩm 
+						Văn phòng phẩm
 			</span>
 				<i class='fas fa-chevron-right float-right' data-toggle-submenu></i>
-		</a>		
-			
-		
+		</a>
+
+
 				<div class="submenu scroll">
 						<div class='toggle-submenu'>
 				<i class='fas fa-chevron-left mr-3'></i>
 				<span>Văn phòng phẩm </span>
 			</div>
 						<ul class="submenu__list">
-			
-			
-			
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/but-viet" title="Bút viết">Bút viết</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/giay-van-phong" title="Giấy văn phòng">Giấy văn phòng</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/dung-cu-van-phong" title="Dụng cụ văn phòng">Dụng cụ văn phòng</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/file-bia-ho-so" title="File bìa hồ sơ">File bìa hồ sơ</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/bang-keo-ho-gian" title="Băng keo - hồ dán">Băng keo - hồ dán</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/cham-soc-ca-nhan" title="Chăm sóc cá nhân">Chăm sóc cá nhân</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/so-bi-thu" title="Sổ - Bì thư">Sổ - Bì thư</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/combo" title="Combo">Combo</a>
 				</li>
-			
-			
+
+
 		</ul>
 		</div>
 			</li>
-	
-	
-	
+
+
+
 			<li class="menu-item list-group-item">
 		<a href="/collections/dung-cu-hoc-tap" class="menu-item__link d-flex justify-content-between align-items-center" title="Dụng cụ học tập">
 			<span>
-						<img class=" lazyload" 
+						<img class=" lazyload"
 				 src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAeAAAAHgCAMAAABKCk6nAAAAA1BMVEXr6+uInxNMAAAA9UlEQVR42u3BgQAAAADDoPtTH2TVAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADghg0AAVGLwCwAAAAASUVORK5CYII="
 				 data-src="//theme.hstatic.net/1000230347/1000703102/14/menu_icon_4.png?v=453" alt="Dụng cụ học tập" />
-						Dụng cụ học tập 
+						Dụng cụ học tập
 			</span>
 				<i class='fas fa-chevron-right float-right' data-toggle-submenu></i>
-		</a>		
-			
-		
+		</a>
+
+
 				<div class="submenu scroll">
 						<div class='toggle-submenu'>
 				<i class='fas fa-chevron-left mr-3'></i>
 				<span>Dụng cụ học tập </span>
 			</div>
 						<ul class="submenu__list">
-			
-			
-			
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/but-viet" title="Bút viết">Bút viết</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/gom" title="Gôm">Gôm</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/thuoc-compa-dung-cu-khac" title="Thước - Compa">Thước - Compa</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/chuot-but-chi" title="Chuốt bút chì">Chuốt bút chì</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/tap-hoc-sinh" title="Tập học sinh">Tập học sinh</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/bia-bao-tap" title="Bìa bao tập">Bìa bao tập</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/giay-kiem-tra-nhan-vo" title="Giấy kiểm tra - Nhãn vở">Giấy kiểm tra - Nhãn vở</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/dung-cu-thu-cong" title="Dụng cụ thủ công">Dụng cụ thủ công</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/bang-hoc-sinh" title="Bảng học sinh">Bảng học sinh</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/may-tinh-khoa-hoc" title="Máy tính khoa học">Máy tính khoa học</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/balo-hoc-sinh" title="Ba lô">Ba lô</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/phu-kien-hoc-sinh" title="Phụ kiện học sinh">Phụ kiện học sinh</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/bo-dung-cu-hoc-tap" title="Bộ dụng cụ học tập">Bộ dụng cụ học tập</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/cham-soc-ca-nhan" title="Chăm sóc cá nhân">Chăm sóc cá nhân</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/to-mau-va-sap-nan" title="Sáp nặn">Sáp nặn</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/do-choi-sang-tao-1" title="Đồ chơi sáng tạo">Đồ chơi sáng tạo</a>
 				</li>
-			
-			
+
+
 		</ul>
 		</div>
 			</li>
-	
-	
-	
+
+
+
 			<li class="menu-item list-group-item">
 		<a href="https://flexoffice.com/collections/dung-cu-my-thuat/" class="menu-item__link d-flex justify-content-between align-items-center" title="Vẽ, học vẽ, tô màu">
 			<span>
-						<img class=" lazyload" 
+						<img class=" lazyload"
 				 src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAeAAAAHgCAMAAABKCk6nAAAAA1BMVEXr6+uInxNMAAAA9UlEQVR42u3BgQAAAADDoPtTH2TVAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADghg0AAVGLwCwAAAAASUVORK5CYII="
 				 data-src="//theme.hstatic.net/1000230347/1000703102/14/menu_icon_5.png?v=453" alt="Vẽ, học vẽ, tô màu" />
-						Vẽ, học vẽ, tô màu 
+						Vẽ, học vẽ, tô màu
 			</span>
 				<i class='fas fa-chevron-right float-right' data-toggle-submenu></i>
-		</a>		
-			
-		
+		</a>
+
+
 				<div class="submenu scroll">
 						<div class='toggle-submenu'>
 				<i class='fas fa-chevron-left mr-3'></i>
 				<span>Vẽ, học vẽ, tô màu </span>
 			</div>
 						<ul class="submenu__list">
-			
-			
-			
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/but-mau" title="Bút màu">Bút màu</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/mau-nuoc" title="Màu nước">Màu nước</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/tap-to-mau-to-chu" title="Tập tô màu - Tô chữ">Tập tô màu - Tô chữ</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/bo-to-mau" title="Bộ tô màu">Bộ tô màu</a>
 				</li>
-			
-			
+
+
 		</ul>
 		</div>
 			</li>
-	
-	
-	
+
+
+
 			<li class="menu-item list-group-item">
 		<a href="/collections/do-choi" class="menu-item__link d-flex justify-content-between align-items-center" title="Đồ chơi">
 			<span>
-						<img class=" lazyload" 
+						<img class=" lazyload"
 				 src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAeAAAAHgCAMAAABKCk6nAAAAA1BMVEXr6+uInxNMAAAA9UlEQVR42u3BgQAAAADDoPtTH2TVAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADghg0AAVGLwCwAAAAASUVORK5CYII="
 				 data-src="//theme.hstatic.net/1000230347/1000703102/14/menu_icon_6.png?v=453" alt="Đồ chơi" />
-						Đồ chơi 
+						Đồ chơi
 			</span>
 				<i class='fas fa-chevron-right float-right' data-toggle-submenu></i>
-		</a>		
-			
-		
+		</a>
+
+
 				<div class="submenu scroll">
 						<div class='toggle-submenu'>
 				<i class='fas fa-chevron-left mr-3'></i>
 				<span>Đồ chơi </span>
 			</div>
 						<ul class="submenu__list">
-			
-			
-			
+
+
+
 			<li class="submenu__col">
 				<span class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/do-choi-be-trai" title="Đồ chơi bé trai">Đồ chơi bé trai</a>
 				</span>
-				
+
 				 <span class="submenu__item submenu__item">
 					 <a class="link" href="/collections/sieu-nhan-robot" title="Siêu nhân, Robot">Siêu nhân, Robot</a>
 				 </span>
-				
+
 				 <span class="submenu__item submenu__item">
 					 <a class="link" href="/collections/do-choi-lap-rap" title="Đồ chơi lắp ráp">Đồ chơi lắp ráp</a>
 				 </span>
-				
+
 				 <span class="submenu__item submenu__item">
 					 <a class="link" href="/collections/do-choi-dieu-khien" title="Đồ chơi điều khiển">Đồ chơi điều khiển</a>
 				 </span>
-				
+
 				 <span class="submenu__item submenu__item">
 					 <a class="link" href="/collections/xe-mo-hinh" title="Xe mô hình">Xe mô hình</a>
 				 </span>
-				
+
 			</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__col">
 				<span class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/do-choi-be-gai" title="Đồ chơi bé gái">Đồ chơi bé gái</a>
 				</span>
-				
+
 				 <span class="submenu__item submenu__item">
 					 <a class="link" href="/collections/bup-be-thu-cung" title="Búp bê, thú cưng">Búp bê, thú cưng</a>
 				 </span>
-				
+
 				 <span class="submenu__item submenu__item">
 					 <a class="link" href="/collections/may-tao-bong-bong" title="Máy tạo bong bóng">Máy tạo bong bóng</a>
 				 </span>
-				
+
 			</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/mo-hinh-nhan-vat" title="Mô hình nhân vật">Mô hình nhân vật</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__col">
 				<span class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/do-choi" title="Thương hiệu Đồ chơi">Thương hiệu Đồ chơi</a>
 				</span>
-				
+
 				 <span class="submenu__item submenu__item">
 					 <a class="link" href="/collections/beast-kingdom" title="Beast Kingdom">Beast Kingdom</a>
 				 </span>
-				
+
 				 <span class="submenu__item submenu__item">
 					 <a class="link" href="/collections/cobi" title="Cobi">Cobi</a>
 				 </span>
-				
+
 				 <span class="submenu__item submenu__item">
 					 <a class="link" href="/collections/lena" title="Lena">Lena</a>
 				 </span>
-				
+
 				 <span class="submenu__item submenu__item">
 					 <a class="link" href="/collections/miniland" title="Miniland">Miniland</a>
 				 </span>
-				
+
 				 <span class="submenu__item submenu__item">
 					 <a class="link" href="/collections/popular-playthings" title="Popular Playthings">Popular Playthings</a>
 				 </span>
-				
+
 				 <span class="submenu__item submenu__item">
 					 <a class="link" href="/collections/whistle-racer" title="Whistle Racer">Whistle Racer</a>
 				 </span>
-				
+
 				 <span class="submenu__item submenu__item">
 					 <a class="link" href="/collections/woma" title="Woma">Woma</a>
 				 </span>
-				
+
 				 <span class="submenu__item submenu__item">
 					 <a class="link" href="/collections/welly" title="Welly">Welly</a>
 				 </span>
-				
+
 				 <span class="submenu__item submenu__item">
 					 <a class="link" href="/collections/three-three-six" title="Three Three Six (336)">Three Three Six (336)</a>
 				 </span>
-				
+
 				 <span class="submenu__item submenu__item">
 					 <a class="link" href="/collections/ddung" title="Ddung">Ddung</a>
 				 </span>
-				
+
 				 <span class="submenu__item submenu__item">
 					 <a class="link" href="/collections/fitfun" title="Fitfun">Fitfun</a>
 				 </span>
-				
+
 				 <span class="submenu__item submenu__item">
 					 <a class="link" href="/collections/hongdou" title="Hongdou">Hongdou</a>
 				 </span>
-				
+
 				 <span class="submenu__item submenu__item">
 					 <a class="link" href="/collections/guoan-toys" title="Guoan Toys">Guoan Toys</a>
 				 </span>
-				
+
 				 <span class="submenu__item submenu__item">
 					 <a class="link" href="/collections/ktt" title="KTT">KTT</a>
 				 </span>
-				
+
 				 <span class="submenu__item submenu__item">
 					 <a class="link" href="/collections/yyl" title="YYL">YYL</a>
 				 </span>
-				
+
 				 <span class="submenu__item submenu__item">
 					 <a class="link" href="/collections/yasini" title="Yasini">Yasini</a>
 				 </span>
-				
+
 				 <span class="submenu__item submenu__item">
 					 <a class="link" href="/collections/wanlixing" title="KLX">KLX</a>
 				 </span>
-				
+
 				 <span class="submenu__item submenu__item">
 					 <a class="link" href="/collections/bti" title="BTI">BTI</a>
 				 </span>
-				
+
 			</li>
-			
-			
+
+
 		</ul>
 		</div>
 			</li>
-	
-	
-	
+
+
+
 			<li class="menu-item list-group-item">
 		<a href="https://flexoffice.com/collections/steam-diy/" class="menu-item__link d-flex justify-content-between align-items-center" title="STEAM & DIY">
 			<span>
-						<img class=" lazyload" 
+						<img class=" lazyload"
 				 src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAeAAAAHgCAMAAABKCk6nAAAAA1BMVEXr6+uInxNMAAAA9UlEQVR42u3BgQAAAADDoPtTH2TVAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADghg0AAVGLwCwAAAAASUVORK5CYII="
 				 data-src="//theme.hstatic.net/1000230347/1000703102/14/menu_icon_7.png?v=453" alt="STEAM & DIY" />
-						STEAM & DIY 
+						STEAM & DIY
 			</span>
 				<i class='fas fa-chevron-right float-right' data-toggle-submenu></i>
-		</a>		
-			
-		
+		</a>
+
+
 				<div class="submenu scroll">
 						<div class='toggle-submenu'>
 				<i class='fas fa-chevron-left mr-3'></i>
 				<span>STEAM & DIY </span>
 			</div>
 						<ul class="submenu__list">
-			
-			
-			
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/elmers" title="Elmer's">Elmer's</a>
 				</li>
-			
-			
+
+
 		</ul>
 		</div>
 			</li>
-	
-	
-	
+
+
+
 			<li class="menu-item list-group-item">
 		<a href="/collections/san-pham-cao-cap-qua-tang" class="menu-item__link d-flex justify-content-between align-items-center" title="Sản phẩm cao cấp">
 			<span>
-						<img class=" lazyload" 
+						<img class=" lazyload"
 				 src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAeAAAAHgCAMAAABKCk6nAAAAA1BMVEXr6+uInxNMAAAA9UlEQVR42u3BgQAAAADDoPtTH2TVAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADghg0AAVGLwCwAAAAASUVORK5CYII="
 				 data-src="//theme.hstatic.net/1000230347/1000703102/14/menu_icon_8.png?v=453" alt="Sản phẩm cao cấp" />
-						Sản phẩm cao cấp 
+						Sản phẩm cao cấp
 			</span>
 				<i class='fas fa-chevron-right float-right' data-toggle-submenu></i>
-		</a>		
-			
-		
+		</a>
+
+
 				<div class="submenu scroll">
 						<div class='toggle-submenu'>
 				<i class='fas fa-chevron-left mr-3'></i>
 				<span>Sản phẩm cao cấp </span>
 			</div>
 						<ul class="submenu__list">
-			
-			
-			
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/but-bi-cao-cap-1" title="Bút bi cao cấp">Bút bi cao cấp</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/but-may-cao-cap" title="Bút máy cao cấp">Bút máy cao cấp</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/but-long-bi-cao-cap-1" title="Bút lông bi cao cấp">Bút lông bi cao cấp</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/phu-kien-but-cao-cap" title="Phụ kiện bút cao cấp">Phụ kiện bút cao cấp</a>
 				</li>
-			
-			
-			
-			
+
+
+
+
 			<li class="submenu__item submenu__item--main">
 					<a class="link" href="/collections/but-gel-cao-cap" title="Bút Gel cao cấp">Bút Gel cao cấp</a>
 				</li>
-			
-			
+
+
 		</ul>
 		</div>
 			</li>
-	
-	
-	
+
+
+
 			<li class="menu-item list-group-item">
 		<a href="/collections/flexhome" class="menu-item__link d-flex justify-content-between align-items-center" title="FlexHome">
 			<span>
-						<img class=" lazyload" 
+						<img class=" lazyload"
 				 src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAeAAAAHgCAMAAABKCk6nAAAAA1BMVEXr6+uInxNMAAAA9UlEQVR42u3BgQAAAADDoPtTH2TVAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADghg0AAVGLwCwAAAAASUVORK5CYII="
 				 data-src="//theme.hstatic.net/1000230347/1000703102/14/menu_icon_9.png?v=453" alt="FlexHome" />
-						FlexHome 
-		</a>		
-			
-		
+						FlexHome
+		</a>
+
+
 			</li>
-	
+
 </ul>
 		<ul class="shop-policises list-unstyled  d-flex align-items-center flex-wrap m-0 pr-0">
 							<li>
 		<div class="">
-			<img class="img-fluid lazyload" 
+			<img class="img-fluid lazyload"
 				 src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"
 				 data-src="//theme.hstatic.net/1000230347/1000703102/14/policy_header_image_1.png?v=453" alt="Sản phẩm chính hãng">
 		</div>
@@ -2541,7 +2449,7 @@
 	</li>
 								<li>
 		<div class="">
-			<img class="img-fluid lazyload" 
+			<img class="img-fluid lazyload"
 				 src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"
 				 data-src="//theme.hstatic.net/1000230347/1000703102/14/policy_header_image_2.png?v=453" alt="Ngập tràn ưu đãi">
 		</div>
@@ -2549,13 +2457,13 @@
 	</li>
 								<li>
 		<div class="">
-			<img class="img-fluid lazyload" 
+			<img class="img-fluid lazyload"
 				 src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAAANSURBVBhXYzh8+PB/AAffA0nNPuCLAAAAAElFTkSuQmCC"
 				 data-src="//theme.hstatic.net/1000230347/1000703102/14/policy_header_image_3.png?v=453" alt="Giao hàng tận nơi">
 		</div>
 		<a class="link" href="/collections/all" title="Giao hàng tận nơi">Giao hàng tận nơi</a>
 	</li>
-			
+
 </ul>	</div>
 
 	<div class="mobile-menu-footer border-top w-100 d-flex align-items-center text-center">
@@ -2565,13 +2473,13 @@
 			</a>
 		</div>
 				<div class="messenger border-left p-2 w-50 border-left">
-						
+
 			<a  href="https://m.me/flexofficeonline" title="https://m.me/flexofficeonline">
 				Nhắn tin
 				<i class="fab fa-facebook-messenger ml-3"></i>
 			</a>
 		</div>
-		
+
 	</div>
 </div>
 <div class='menu-overlay'>
@@ -2585,10 +2493,10 @@
 	<script
 		src='//theme.hstatic.net/1000230347/1000703102/14/plugin.js?v=453'
 		type='text/javascript'></script>
-	<script type="text/javascript">  
-	
-	
-	
+	<script type="text/javascript">
+
+
+
 		Haravan.doNotTriggerClickOnThumb = false;
 		function changeImageQuickView(img, selector) {
 			var src = $(img).attr("src");
@@ -2616,14 +2524,14 @@
 				status = productItem.find('.soluong'),
 				sku = productItem.find('.sku_'),
 				totalPrice = productItem.find('.total-price span');
-	
+
 			if(variant && variant.sku ){
 				sku.text(variant.sku);
 			} else {
 				sku.text('Đang cập nhật');
 			}
 			if (variant && variant.available) {
-	
+
 				var form = jQuery('#' + selector.domIdPrefix).closest('form');
 				for (var i=0,length=variant.options.length; i<length; i++) {
 					var radioButton = form.find('.swatch[data-option-index="' + i + '"] :radio[value="' + variant.options[i] +'"]');
@@ -2631,11 +2539,11 @@
 						radioButton.get(0).checked = true;
 					}
 				}
-	
+
 				addToCart.removeClass('disabled').removeAttr('disabled');
 				addToCart.html('<span class="btn-image"></span><span class="btn-content text_1">Chọn mua</span>').removeAttr('disabled');
 				status.text('Còn hàng');
-				if(variant.price < 1){			   
+				if(variant.price < 1){
 					$("#quick-view-product .price").html('Liên hệ');
 					$("#quick-view-product del, #quick-view-product .quantity_wanted_p").hide();
 					$("#quick-view-product .prices .old-price").hide();
@@ -2643,7 +2551,7 @@
 				}else{
 					productPrice.html(Haravan.formatMoney(variant.price, "{{amount}}₫"));
 														 if ( variant.compare_at_price > variant.price ) {
-									  comparePrice.html(Haravan.formatMoney(variant.compare_at_price, "{{amount}}₫")).show();         
+									  comparePrice.html(Haravan.formatMoney(variant.compare_at_price, "{{amount}}₫")).show();
 									  productPrice.addClass('on-sale');
 															 var salePersent = Math.round((variant.compare_at_price - variant.price) / variant.compare_at_price * 100);
 						saleTag.html('<span>Tiết kiệm<strong>' + salePersent + '%</strong></span>');
@@ -2652,19 +2560,19 @@
 					saleTag.html('');
 					productPrice.removeClass('on-sale');
 				}
-	
+
 				$(".quantity_wanted_p").show();
 				$(".input_qty_qv_").show();
 				form2.show();
 			}
-	
-	
-			
+
+
+
 			updatePricingQuickView();
-			
+
 								/*begin variant image*/
 								if (variant && variant.featured_image) {
-	
+
 				var originalImage = $("#product-featured-image-quickview");
 				var newImage = variant.featured_image;
 				var element = originalImage[0];
@@ -2677,7 +2585,7 @@
 							return false;
 						}
 					});
-	
+
 				});
 				$('#product-featured-image-quickview').attr('src',variant.featured_image.src);
 			}
@@ -2687,7 +2595,7 @@
 			status.text('Hết hàng');
 			$(".quantity_wanted_p").show();
 			if(variant){
-				if(variant.price < 1){			   
+				if(variant.price < 1){
 					$("#quick-view-product .price").html('Liên hệ');
 					$("#quick-view-product del").hide();
 					$("#quick-view-product .quantity_wanted_p").hide();
@@ -2697,10 +2605,10 @@
 					saleTag.html('');
 					productPrice.removeClass('on-sale');
 					addToCart.addClass('disabled').attr('disabled', 'disabled');
-					addToCart.removeClass('hidden').addClass('btn_buy').attr('disabled','disabled').html('<div class="disabled">Hết hàng</div>').show();			   
+					addToCart.removeClass('hidden').addClass('btn_buy').attr('disabled','disabled').html('<div class="disabled">Hết hàng</div>').show();
 				}else{
 					if ( variant.compare_at_price > variant.price ) {
-						comparePrice.html(Haravan.formatMoney(variant.compare_at_price, "{{amount}}₫")).show();         
+						comparePrice.html(Haravan.formatMoney(variant.compare_at_price, "{{amount}}₫")).show();
 															 productPrice.addClass('on-sale');
 						var salePersent = Math.round((variant.compare_at_price - variant.price) / variant.compare_at_price * 100);
 						saleTag.html('<span>Tiết kiệm<strong>' + salePersent + '%</strong></span>');
@@ -2733,7 +2641,7 @@
 		}
 		/*begin variant image*/
 		if (variant && variant.featured_image) {
-	
+
 			var originalImage = $("#product-featured-image-quickview");
 			var newImage = variant.featured_image;
 			var element = originalImage[0];
@@ -2746,11 +2654,11 @@
 						return false;
 					}
 				});
-	
+
 			});
 			$('#product-featured-image-quickview').attr('src',variant.featured_image.src);
 		}
-	
+
 		};
 	</script>
 	<script type="text/javascript" defer
@@ -2837,7 +2745,7 @@
 	</div>
 		<div style="width: 17%" class="a-center">
 			<span class="cart-prices">
-				<span class="prices">${price}</span> 
+				<span class="prices">${price}</span>
 	</span>
 	</div>
 		<div style="width: 14%" class="a-center">
@@ -2850,7 +2758,7 @@
 	</div>
 		<div style="width: 14%" class="a-center">
 			<span class="cart-price">
-				<span class="price">${price_quanty}</span> 
+				<span class="price">${price_quanty}</span>
 	</span>
 	</div>
 		<div style="width: 5%" class="a-center">
@@ -2869,7 +2777,7 @@
 	    </a>
 	  </div>
 		<div class="item-product-cart-mobile">
-			<a href="${url}">	
+			<a href="${url}">
 				<a class="product-images1  pos-relative embed-responsive embed-responsive-1by1" href=""  title="${title}">
 					<img class="img-fluid" src="${image_url}" alt="${title}">
 	      </a>
@@ -2906,7 +2814,7 @@
 	</div>
 		<div class="checkout">
 			<button class="btn btn-block btn-proceed-checkout-mobile ${checkoutClass}"
-			title="Tiến hành đặt hàng" type="button" 
+			title="Tiến hành đặt hàng" type="button"
 			onclick="goToCheckout()">
 				<i class='fas fa-spinner'></i><span>Tiến hành đặt hàng</span></button>
 
@@ -2998,20 +2906,20 @@
 		};
 		$(document).ready(UTIL.loadEvents);
 		Number.prototype.formatMoney = function(c, d, t){
-			var n = this, 
-					c = isNaN(c = Math.abs(c)) ? 2 : c, 
-					d = d == undefined ? "." : d, 
-					t = t == undefined ? "." : t, 
-					s = n < 0 ? "-" : "", 
-					i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "", 
+			var n = this,
+					c = isNaN(c = Math.abs(c)) ? 2 : c,
+					d = d == undefined ? "." : d,
+					t = t == undefined ? "." : t,
+					s = n < 0 ? "-" : "",
+					i = parseInt(n = Math.abs(+n || 0).toFixed(c)) + "",
 					j = (j = i.length) > 3 ? j % 3 : 0;
 			return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
 		};
 		function addToCart(e){
 			if (typeof e !== 'undefined') e.preventDefault();
-			if (!$(this).hasClass('disabled')) {			
+			if (!$(this).hasClass('disabled')) {
 				var $this = $(this);
-				var form = $this.parents('form');		
+				var form = $this.parents('form');
 				$.ajax({
 					type: 'POST',
 					url: '/cart/add.js',
@@ -3019,15 +2927,15 @@
 					data: form.serialize(),
 					dataType: 'json',
 					error: addToCartFail,
-					beforeSend: function() {  
+					beforeSend: function() {
 					},
 					success: addToCartSuccess,
 					cache: false
 				});
 			}
 		}
-		function qty(){	
-			var dqty = $('#qtym').val();	
+		function qty(){
+			var dqty = $('#qtym').val();
 			if (dqty == undefined){
 				return 1;
 			}
@@ -3055,7 +2963,7 @@
 					var nameid = dataList,
 							found = $.inArray(name, nameid);
 					var textfind = found;
-	
+
 					var src = '';
 					if(!jqXHR['image'] || (Haravan.resizeImage(jqXHR['image'], 'small') == null || Haravan.resizeImage(jqXHR['image'], 'small') =="null" || Haravan.resizeImage(jqXHR['image'], 'small')) ==''){
 						src= no_image_placeholder
@@ -3065,8 +2973,8 @@
 						src=  Haravan.resizeImage(jqXHR['image'], 'small')
 					}
 					$(".item-info > p:contains("+id+")").html('<span class="add_sus" style="color:#898989;"><i style="margin-right:5px; color:#3cb878; font-size:14px;" class="fa fa-check" aria-hidden="true"></i>Sản phẩm vừa thêm</span>');
-	
-	
+
+
 					var va_title = jqXHR['variant_options'].filter(opt =>  opt != 'Default Title').join(', ');
 					var windowW = $(window).width();
 					$('#popup-cart').addClass('opencart');
@@ -3078,12 +2986,12 @@
 					console.log(parseInt(20000),  (cart.total_price / 100) )
 					var $popupMobile = ''
 					+'<div class="modal-dialog">'
-	
+
 					+'<div class="modal-content">'
 					+ '<button type="button" class="close" data-dismiss="modal" data-backdrop="false" aria-label="Close" style="z-index: 9;"><span aria-hidden="true">×</span></button>'
 					+ '<div class="row row-noGutter"><div class="modal-left col-sm-12 col-lg-12 col-md-12">'
 					+ '<h3 class="modal-title"><svg width="18" height="18" class="mb-1"><g fill="none" fill-rule="evenodd" stroke="#0d5302" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.455" transform="translate(1 1)"><path d="M3.636 8l2.91 2.91 5.818-5.82"></path><circle cx="8" cy="8" r="8"></circle></g></svg> Sản phẩm vừa được thêm <span class="hidden-xs">vào giỏ hàng</span></h3>'
-	
+
 					+ '<div class="modal-body"><div class="media"><div class="media-left thumb_img"><div class="thumb-1x1">'
 					+ '<img src="'+ src +'" alt="'+ jqXHR['title'] +'"></div></div>'
 					+ '<div class="media-body body_content"><div class="product-title">'+ jqXHR['title'] +'</div>'
@@ -3098,7 +3006,7 @@
 					+ '</div>'
 					+ '</div></div>';
 					$('#popupCartModal').html($popupMobile);
-					$('#popupCartModal').modal(); 
+					$('#popupCartModal').modal();
 					Haravan.updateCartFromForm(cart, '.top-cart-content .mini-products-list');
 					Haravan.updateCartPopupForm(cart, '#popup-cart-desktop .tbody-popup');
 				}
@@ -3134,9 +3042,9 @@
 			var email_company = $('input[name="attributes[invoice_email]"]').val();
 			var cart_info = {
 				'invoice': invoice,
-				'company_name':company, 
-				'company_address': address, 
-				'tax_code':tax, 
+				'company_name':company,
+				'company_address': address,
+				'tax_code':tax,
 				'invoice_email': email_company
 			};
 			var attributes = Object.keys(cart_info).reduce(function (result, info) {
@@ -3150,7 +3058,7 @@
 				}
 				return result;
 			}, {})
-			
+
 			$.ajax({
 				type: "POST",
 				url: "/cart/update.js",
@@ -3217,14 +3125,14 @@
 				if (cart_summary.length) {
 					// Start from scratch.
 					cart_summary.empty();
-					// Pull it all out.        
+					// Pull it all out.
 					jQuery.each(cart, function(key, value) {
 						if (key === 'items') {
-							var table = jQuery(cart_summary_id);           
-							if (value.length) {   
+							var table = jQuery(cart_summary_id);
+							if (value.length) {
 								// header cart
 								jQuery('<ul class="list-item-cart"></ul>').appendTo(table);
-								jQuery.each(value, function(i, item) {	
+								jQuery.each(value, function(i, item) {
 									var buttonQty = "";
 									if(item.quantity == '1'){
 										buttonQty = 'disabled';
@@ -3235,7 +3143,7 @@
 									if(link_img0=="null" || link_img0 =='' || link_img0 ==null){
 										link_img0 = no_image_placeholder;
 									}
-									if(item.variant_title == 'Default Title' ){				  
+									if(item.variant_title == 'Default Title' ){
 										var ItemDropCart = [{
 											url: item.url,
 											image_url: link_img0,
@@ -3261,22 +3169,22 @@
 										}
 									$(function() {
 										// header cart
-										
+
 										var TemplateItemDropCart = $('script[data-template="ItemDropCart"]').text().split(/\$\{(.+?)\}/g);
 										$('.list-item-cart').append(ItemDropCart.map(function(item) {
 											return TemplateItemDropCart.map(render(item)).join('');
 										}));
-										
+
 									});
-								}); 
+								});
 								jQuery('<div class="pd"><div class="top-subtotal">Tổng tiền tạm tính: <span class="price price_big">' + Haravan.formatMoney(cart.total_price, window.money_format) + '</span></div></div>').appendTo(table);
 							var topCheckoutClass = parseInt(20000) > (cart.total_price / 100) ? 'disabled' : '';
 								jQuery(`<div class="pd right_ct"><a href="/cart" class="btn btn-white ${topCheckoutClass}"><span>Tiến hành đặt hàng</span></a></div>`).appendTo(table);
-	
+
 							}
 							else {
 								jQuery('<div class="no-item"><p>Không có sản phẩm nào.</p></div>').appendTo(table);
-	
+
 							}
 						}
 					});
@@ -3300,26 +3208,26 @@
 				}, false)
 			}
 		}
-	
+
 		Haravan.updateCartPageForm = function(cart, cart_summary_id, cart_count_id) {
 			if ((typeof cart_summary_id) === 'string') {
 				var cart_summary = jQuery(cart_summary_id);
 				if (cart_summary.length) {
 					// Start from scratch.
 					cart_summary.empty();
-					// Pull it all out.        
+					// Pull it all out.
 					jQuery.each(cart, function(key, value) {
 						if (key === 'items') {
-							var table = jQuery(cart_summary_id);           
-							if (value.length) {  
-	
+							var table = jQuery(cart_summary_id);
+							if (value.length) {
+
 								var HeaderCartPc = $('script[data-template="HeaderCartPc"]').text().split(/\$\{(.+?)\}/g);
 								var pageCartCheckout = $('script[data-template="pageCartCheckout"]').text().split(/\$\{(.+?)\}/g);
-	
+
 								$(table).append((function() {
 									return HeaderCartPc.map(render()).join('');
 								}));
-	
+
 								jQuery.each(value, function(i, item) {
 									var buttonQty = "";
 									if(item.quantity == '1'){
@@ -3331,8 +3239,8 @@
 									if(link_img1=="null" || link_img1 =='' || link_img1 ==null){
 										link_img1 =no_image_placeholder;
 									}
-	
-	
+
+
 									if(item.variant_title == 'Default Title' ){
 										var ItemCartPage = [{
 											url: item.url,
@@ -3360,20 +3268,20 @@
 												id_item: item.variant_id
 											}]
 											}
-	
+
 									$(function() {
 										var pageCartItem = $('script[data-template="pageCartItem"]').text().split(/\$\{(.+?)\}/g);
 										$(table.find('.cart-tbody')).append(ItemCartPage.map(function(item) {
 											return pageCartItem.map(render(item)).join('');
-	
+
 										}));
 									});
-	
-								}); 
-	
+
+								});
+
 								var PriceTotalCheckout = [{
 									price_total: Haravan.formatMoney(cart.total_price, window.money_format)
-								}];				
+								}];
 								$(table.children('.cart')).append(PriceTotalCheckout.map(function(item) {
 									return pageCartCheckout.map(render(item)).join('');
 								}));
@@ -3387,20 +3295,20 @@
 			}
 			updateCartDesc(cart);
 			jQuery('#wait').hide();
-	
+
 		}
 		Haravan.updateCartPopupForm = function(cart, cart_summary_id, cart_count_id) {
-	
+
 			if ((typeof cart_summary_id) === 'string') {
 				var cart_summary = jQuery(cart_summary_id);
 				if (cart_summary.length) {
 					// Start from scratch.
 					cart_summary.empty();
-					// Pull it all out.        
+					// Pull it all out.
 					jQuery.each(cart, function(key, value) {
 						if (key === 'items') {
-							var table = jQuery(cart_summary_id);           
-							if (value.length) { 
+							var table = jQuery(cart_summary_id);
+							if (value.length) {
 								jQuery.each(value, function(i, item) {
 									var src = item.image;
 									if(src == null){
@@ -3412,8 +3320,8 @@
 									}else{
 										buttonQty = '';
 									}
-	
-									if(item.variant_title == 'Default Title' ){				  
+
+									if(item.variant_title == 'Default Title' ){
 										var ItemPopupCart = [{
 											url: item.url,
 											image_url: src,
@@ -3426,7 +3334,7 @@
 										}];
 									}else {
 										let variant_title = item.variant_options ? item.variant_options.filter(opt =>  opt != 'Default Title').join(', ') : ''
-	
+
 										var ItemPopupCart = [{
 											url: item.url,
 											image_url: src,
@@ -3438,17 +3346,17 @@
 											id_item: item.variant_id
 										}];
 									}
-	
-	
+
+
 									$(function() {
 										var TemplateItemPopupCart = $('script[data-template="TemplateItemPopupCart"]').text().split(/\$\{(.+?)\}/g);
 										$(table).append(ItemPopupCart.map(function(item) {
 											return TemplateItemPopupCart.map(render(item)).join('');
 										}));
-									});					  
-	
+									});
+
 									$('.link_product').text();
-								}); 
+								});
 							}
 						}
 					});
@@ -3463,11 +3371,11 @@
 				if (cart_summary.length) {
 					// Start from scratch.
 					cart_summary.empty();
-					// Pull it all out.        
+					// Pull it all out.
 					jQuery.each(cart, function(key, value) {
 						if (key === 'items') {
-							var table = jQuery(cart_summary_id);           
-							if (value.length) {   
+							var table = jQuery(cart_summary_id);
+							if (value.length) {
 								jQuery('<div class="cart_page_mobile content-product-list"></div>').appendTo(table);
 								jQuery.each(value, function(i, item) {
 									if( item.image){
@@ -3476,7 +3384,7 @@
 										var src = no_image_placeholder;
 									}
 									let variant_title = item.variant_options ? item.variant_options.filter(opt =>  opt != 'Default Title').join(', ') : ''
-	
+
 									var ItemCartPageMobile = [{
 										url: item.url,
 										image_url: src,
@@ -3493,10 +3401,10 @@
 											return pageCartItemMobile.map(render(item)).join('');
 										}));
 									});
-	
+
 								})
-	
-								var pageCartCheckoutMobile = $('script[data-template="pageCartCheckoutMobile"]').text().split(/\$\{(.+?)\}/g);  
+
+								var pageCartCheckoutMobile = $('script[data-template="pageCartCheckoutMobile"]').text().split(/\$\{(.+?)\}/g);
 								var PriceTotalCheckoutMobile = [{
 									price_total: Haravan.formatMoney(cart.total_price, window.money_format),
 									checkoutClass: (cart.total_price / 100) < parseInt(20000) ? 'disabled' : ''
@@ -3511,36 +3419,36 @@
 			}
 			updateCartDesc(cart);
 		}
-	
-	
+
+
 		function updateCartDesc(data){
 			var $cartPrice = Haravan.formatMoney(data.total_price, window.money_format),
 					$cartMobile = $('#header .cart-mobile .quantity-product'),
 					$cartDesktop = $('.count_item_pr, .count_sidebar, .cart-popup-count'),
 					$cartDesktopList = $('.cart-counter-list'),
 					$cartPopup = $('.cart-popup-count');
-	
+
 			switch(data.item_count){
 				case 0:
 					$cartMobile.text('0');
 					$cartDesktop.text('0');
 					$cartDesktopList.text('0');
 					$cartPopup.text('0');
-	
+
 					break;
 				case 1:
 					$cartMobile.text('1');
 					$cartDesktop.text('1');
 					$cartDesktopList.text('1');
 					$cartPopup.text('1');
-	
+
 					break;
 				default:
 					$cartMobile.text(data.item_count);
 					$cartDesktop.text(data.item_count);
 					$cartDesktopList.text(data.item_count);
 					$cartPopup.text(data.item_count);
-	
+
 					break;
 			}
 			$('.top-cart-content .top-subtotal .price, aside.sidebar .block-cart .subtotal .price, .popup-total .total-price').html($cartPrice);
@@ -3548,17 +3456,17 @@
 			$('.shopping-cart-table-total .totals_price, .price_sidebar .price_total_sidebar').html($cartPrice);
 			$('.header-cart-price .totals_price_mobile').html($cartPrice);
 			$('.cartCount, .cart-popup-count, #ega-cart-count').html(data.item_count);
-	
+
 		}
-	
+
 		Haravan.onCartUpdate = function(cart) {
 			Haravan.updateCartFromForm(cart, '.mini-products-list');
 			Haravan.updateCartPopupForm(cart, '#popup-cart-desktop .tbody-popup');
-			
+
 			 };
 			 Haravan.onCartUpdateClick = function(cart, variantId) {
 				 jQuery.each(cart, function(key, value) {
-					 if (key === 'items') {    
+					 if (key === 'items') {
 						 jQuery.each(value, function(i, item) {
 							 if(item.variant_id == variantId){
 								 $('.productid-'+variantId).find('.cart-price span.price').html(Haravan.formatMoney(item.price * item.quantity, window.money_format));
@@ -3570,27 +3478,27 @@
 									 $('.productid-'+variantId).find('.items-count.btn-minus').prop("disabled", true);
 								 }
 							 }
-						 }); 
-	
+						 });
+
 					 }
 				 });
-	
+
 				 updateCartDesc(cart);
 			 }
 			 Haravan.onCartRemoveClick = function(cart, variantId) {
 				 jQuery.each(cart, function(key, value) {
-					 if (key === 'items') {    
-						 jQuery.each(value, function(i, item) {	
+					 if (key === 'items') {
+						 jQuery.each(value, function(i, item) {
 							 if(item.variant_id == variantId){
 								 $('.productid-'+variantId).remove();
 							 }
-						 }); 
+						 });
 					 }
 				 });
 				 updateCartDesc(cart);
 			 }
 			 $(window).ready(function(){
-	
+
 				 $.ajax({
 					 type: 'GET',
 					 url: '/cart.js',
@@ -3599,26 +3507,26 @@
 					 dataType: 'json',
 					 success: function (cart){
 						 Haravan.updateCartFromForm(cart, '.mini-products-list');
-						 Haravan.updateCartPopupForm(cart, '#popup-cart-desktop .tbody-popup'); 
-						 
+						 Haravan.updateCartPopupForm(cart, '#popup-cart-desktop .tbody-popup');
+
 							}
 						 });
-	
+
 						 var wDWs = $(window).width();
 						 if (wDWs < 1199) {
 							 $('.top-cart-content').remove();
-	
+
 						 }
-	
+
 					 });
-					 
+
 	Haravan.OptionSelectors.prototype.fireOnChangeForFirstDropdown = function (options) {
 	   					 if (this.selectors && this.selectors.length && this.selectors.length > 0) {
 	       				 this.selectors[0].element.onchange(options);
 	    				}
 						};
-				 
-					  function updateVAT() { 	
+
+					  function updateVAT() {
 	     $('.btn-proceed-checkout-mobile').addClass('loading');
 	     var invoice = $('input[name="attributes[invoice]"]').val();
 	     var company = $('input[name="attributes[company_name]"]').val();
@@ -3651,7 +3559,7 @@
 	         return result;
 	     }, {})
 	     var note = document.getElementById('note').value;
-	
+
 	     var data = {};
 	     if (note.trim() !== '') {
 	         data.note = note;
@@ -3659,7 +3567,7 @@
 	     if (invoice === 'yes') {
 	         data.attributes = attributes;
 	     }
-	
+
 	     if (note.trim() !== '' || invoice === 'yes') {
 	         var params = {
 	             type: 'POST',
@@ -3683,7 +3591,7 @@
 	         window.location.href = '/checkout'
 	     }
 	 }
-	
+
 	 function goToCheckout(e) {
 		if($('.btn-proceed-checkout-mobile').hasClass('disabled')) {
 			 return;
@@ -3712,7 +3620,7 @@
 	                             if ($(this).siblings('span.text-danger').length == 0)
 	                                 $(this).after('<span class="text-danger">Mã số thuế phải tối thiểu 10 ký tự</span>');
 	                         }
-	
+
 	                     })
 	                     if (!f) {
 	                         return false;
@@ -3745,13 +3653,13 @@
 	         });
 	     }
 	 }
-			
-				 
-				 
-				 
-				 
-				 
-				 
+
+
+
+
+
+
+
 				 function cart_min(){
 		var sts = true;
 		$.ajax({
@@ -3774,12 +3682,12 @@
 		})
 		return sts;
 	}
-	 
-	
+
+
 			cart_min();
-		
-				 
-				 
+
+
+
 	</script>
 	<script
 		src='//theme.hstatic.net/1000230347/1000703102/14/main.js?v=453'
@@ -3823,37 +3731,37 @@
 			cro_general_color = "#ec1c24",
 			cro_product_color = "#ec1c24",
 			cro_background_color = "#fff"
-		  	  var links = [		
+		  	  var links = [
 																				 							{
 									url: "/",
 									title: "Trang Chủ",
 									icon:"//theme.hstatic.net/1000230347/1000703102/14/icon_cro_home_1.png?v=453"
 								},
-						
+
 																								 							{
 									url: "/collections/all",
 									title: "Danh mục",
 									icon:"//theme.hstatic.net/1000230347/1000703102/14/icon_cro_home_2.png?v=453"
 								},
-						
+
 																								 							{
 									url: "https://flexoffice.com/collections/flash-sale",
 									title: "Flash Sale",
 									icon:"//theme.hstatic.net/1000230347/1000703102/14/icon_cro_home_3.png?v=453"
 								},
-						
+
 																								 							{
 									url: "/cart",
 									title: "Giỏ Hàng",
 									icon:"//theme.hstatic.net/1000230347/1000703102/14/icon_cro_home_4.png?v=453"
 								},
-						
+
 																								 							{
 									url: "/account",
 									title: "Tài Khoản",
 									icon:"//theme.hstatic.net/1000230347/1000703102/14/icon_cro_home_5.png?v=453"
 								},
-						
+
 											]
 				window.EGACRAddonSettings = {
 			general: {
@@ -3966,13 +3874,13 @@
 				}
 			};
 			jQuery.ajax(n)
-	
+
 		}
 		if(typeof EGA === 'undefined'){
 			EGA = {}
 		}
 		window.egaCRAddonValid = window.EGACRAddonSettings.general.enabled;
-	
+
 		$(document).ready(function ($) {
 			var isInit = false
 			$(window).on('scroll click mousemove touchstart',()=>{
@@ -3981,17 +3889,17 @@
 					$("body").append(`<script src="${crAddonScript}" defer ><\/script>`);
 				}
 			})
-	
+
 		});
 	</script>
 	<script>
 	if(typeof Haravan == undefined) {
 	Haravan = {};
 	}
-	
+
 	Haravan.ProductURL = 'https://flexoffice.com/products/but-gel-papermate-os-upc-ink-joy-0-5-mm';
 	Haravan.ProductId = '1033258305';
-	
+
 	</script>
 	<script>
 				window.fbAsyncInit = function() {
@@ -4003,7 +3911,7 @@
 					});
 					triggerCustomerChat();
 				};
-	
+
 				(function(d, s, id){
 					var js, fjs = d.getElementsByTagName(s)[0];
 					if (d.getElementById(id)) {return;}
@@ -4016,11 +3924,11 @@
 		logged_in_greeting="" logged_out_greeting=""
 		greeting_dialog_display="hide"></div>
 	<script>
-				function triggerCustomerChat() {      
+				function triggerCustomerChat() {
 					FB.Event.subscribe('customerchat.dialogShow', function(){
 						//console.log(1);
 						ga('send', 'event', 'Customer Chat', 'Click FB Chat');
-					});	 
+					});
 				}
 				</script>
 </body>

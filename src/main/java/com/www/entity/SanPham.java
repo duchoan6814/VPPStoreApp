@@ -40,7 +40,7 @@ public class SanPham implements Serializable {
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "hinh_anh", joinColumns = @JoinColumn(name = "id"))
-    private Set<byte[]> listHinh;
+    private Set<byte[]> listHinh = new HashSet<>();
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "chi_tiet", joinColumns = @JoinColumn(name = "san_pham_id"))
@@ -133,7 +133,7 @@ public class SanPham implements Serializable {
     public Set<byte[]> getListHinh() {
         return listHinh;
     }
-    
+
     public Set<String> getListHinhBase64() {
     	Set<String> listHinh = new HashSet<String>();
     	this.getListHinh().forEach(i -> {
@@ -194,8 +194,8 @@ public class SanPham implements Serializable {
                 ", thuongHieu='" + thuongHieu + '\'' +
                 ", gia=" + gia +
                 ", moTa='" + moTa + '\'' +
-                ", anhDaiDien=" + Arrays.toString(anhDaiDien) +
-                ", listHinh=" + listHinh +
+//                ", anhDaiDien=" + Arrays.toString(anhDaiDien) +
+//                ", listHinh=" + listHinh +
                 ", chiTiets=" + chiTiets +
                 ", mauSacs=" + mauSacs +
                 ", theLoai=" + theLoai +
