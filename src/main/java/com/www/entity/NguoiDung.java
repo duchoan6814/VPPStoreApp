@@ -34,6 +34,8 @@ public class NguoiDung implements Serializable {
     private String soDienThoai;
     @Column(name = "gioi_tinh")
     private boolean gioiTinh;
+
+    @Lob
     @Column(name = "avatar")
     private byte[] avatar;
 

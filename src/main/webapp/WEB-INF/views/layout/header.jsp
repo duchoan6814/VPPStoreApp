@@ -109,7 +109,7 @@
                                             alt="avatar"/>
                                 </c:if>
                                 <c:if test="${nguoiDung.getAvatar() != null}">
-                                    <img src="${nguoiDung.getAvatar()}"
+                                    <img src="data:image/png;base64, ${nguoiDung.getAvatarBase64()}"
                                          alt="avatar"/>
                                 </c:if>
                             </div>
