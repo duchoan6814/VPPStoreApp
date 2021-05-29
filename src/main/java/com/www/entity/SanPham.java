@@ -10,7 +10,6 @@ import java.util.Set;
 
 @Entity
 @Table(name = "san_pham")
-@Cacheable
 public class SanPham implements Serializable {
 
     private static final long serialVersionUID = 4659917672555361897L;
@@ -38,7 +37,6 @@ public class SanPham implements Serializable {
     @Column(name = "anhDaiDien")
     private byte[] anhDaiDien;
 
-//    @Lob
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "hinh_anh", joinColumns = @JoinColumn(name = "id"))
     private Set<byte[]> listHinh;
