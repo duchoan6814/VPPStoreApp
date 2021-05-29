@@ -11,8 +11,9 @@
     <title>Trang chủ</title>
 </head>
 <body>
-<jsp:include page="layout/header.jsp"/>
-<h1>Content Of home pafe</h1>
-<jsp:include page="layout/footer.jsp"/>
+	<jsp:include page="layout/header.jsp"/>
+	<jsp:include page="components/item-header.jsp" /> 
+	<jsp:include page="components/item-section.jsp" />        
+	<jsp:include page="layout/footer.jsp"/>
 </body>
 </html>
