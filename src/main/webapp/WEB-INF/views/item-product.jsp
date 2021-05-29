@@ -302,100 +302,19 @@
 									class="product-detail-left product-images col-xs-12 col-sm-12 col-md-8 mx-auto col-lg-4 ">
 									<div class=" pb-3 pt-0  col_large_default large-image">
 										<div id="gallery_1" class="slider-for">
-											<div class="item ">
-												<a
-													class="d-block  pos-relative embed-responsive embed-responsive-1by1"
-													href="https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_xanh_la_61ec2a07e2a64836bb6817f738f6f80d.jpg"
-													title="Bút Gel Papermate OS UPC Ink Joy 0.5 mm"
-													data-image="https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_xanh_la_61ec2a07e2a64836bb6817f738f6f80d.jpg"
-													data-zoom-image="https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_xanh_la_61ec2a07e2a64836bb6817f738f6f80d.jpg"
-													data-rel="prettyPhoto[product-gallery]"> <img
-													class="lazyload img-fluid" style="-image-scale: 1"
-													data-img="https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_xanh_la_61ec2a07e2a64836bb6817f738f6f80d.jpg"
-													src="//theme.hstatic.net/1000230347/1000703102/14/product-placeholder.png?v=453"
-													data-src="https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_xanh_la_61ec2a07e2a64836bb6817f738f6f80d.jpg"
-													alt="Bút Gel Papermate OS UPC Ink Joy 0.5 mm">
-												</a>
-											</div>
-											<div class="item ">
-												<a
-													class="d-block  pos-relative embed-responsive embed-responsive-1by1"
-													href="https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_berry_778d4175eeb84e3a9bf6af18727b5c63.jpg"
-													title="Bút Gel Papermate OS UPC Ink Joy 0.5 mm"
-													data-image="https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_berry_778d4175eeb84e3a9bf6af18727b5c63.jpg"
-													data-zoom-image="https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_berry_778d4175eeb84e3a9bf6af18727b5c63.jpg"
-													data-rel="prettyPhoto[product-gallery]"> <img
-													class="lazyload img-fluid" style="-image-scale: 1"
-													data-img="https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_berry_778d4175eeb84e3a9bf6af18727b5c63.jpg"
-													src="//theme.hstatic.net/1000230347/1000703102/14/product-placeholder.png?v=453"
-													data-src="https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_berry_778d4175eeb84e3a9bf6af18727b5c63.jpg"
-													alt="Bút Gel Papermate OS UPC Ink Joy 0.5 mm">
-												</a>
-											</div>
-											<div class="item ">
-												<a
-													class="d-block  pos-relative embed-responsive embed-responsive-1by1"
-													href="https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_cam_0a4048255f374f41834dfe4003a1b145.jpg"
-													title="Bút Gel Papermate OS UPC Ink Joy 0.5 mm"
-													data-image="https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_cam_0a4048255f374f41834dfe4003a1b145.jpg"
-													data-zoom-image="https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_cam_0a4048255f374f41834dfe4003a1b145.jpg"
-													data-rel="prettyPhoto[product-gallery]"> <img
-													class="lazyload img-fluid" style="-image-scale: 1"
-													data-img="https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_cam_0a4048255f374f41834dfe4003a1b145.jpg"
-													src="//theme.hstatic.net/1000230347/1000703102/14/product-placeholder.png?v=453"
-													data-src="https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_cam_0a4048255f374f41834dfe4003a1b145.jpg"
-													alt="Bút Gel Papermate OS UPC Ink Joy 0.5 mm">
+											<c:forEach items="${sp.getListHinhBase64()}" var="sp1">
+												<div class="item ">
+													<a
+														class="d-block  pos-relative embed-responsive embed-responsive-1by1"
+														href="https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_xanh_la_61ec2a07e2a64836bb6817f738f6f80d.jpg">
+														<img class="lazyload img-fluid" style="-image-scale: 1"
+														src=" ${sp1}"
+														alt="Bút Gel Papermate OS UPC Ink Joy 0.5 mm">
+													</a>
+												</div>
+											</c:forEach>
 
-												</a>
-											</div>
-
-											<div class="item ">
-												<a
-													class="d-block  pos-relative embed-responsive embed-responsive-1by1"
-													href="https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_do_903a8a21cdc24b8197845547d3e20199.jpg"
-													title="Bút Gel Papermate OS UPC Ink Joy 0.5 mm"
-													data-image="https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_do_903a8a21cdc24b8197845547d3e20199.jpg"
-													data-zoom-image="https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_do_903a8a21cdc24b8197845547d3e20199.jpg"
-													data-rel="prettyPhoto[product-gallery]"> <img
-													class="lazyload img-fluid" style="-image-scale: 1"
-													data-img="https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_do_903a8a21cdc24b8197845547d3e20199.jpg"
-													src="//theme.hstatic.net/1000230347/1000703102/14/product-placeholder.png?v=453"
-													data-src="https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_do_903a8a21cdc24b8197845547d3e20199.jpg"
-													alt="Bút Gel Papermate OS UPC Ink Joy 0.5 mm">
-
-
-												</a>
-											</div>
-											<div class="item ">
-												<a
-													class="d-block  pos-relative embed-responsive embed-responsive-1by1"
-													href="https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_hong_8949434b8c81484bb30332d18420ed29.jpg"
-													title="Bút Gel Papermate OS UPC Ink Joy 0.5 mm"
-													data-image="https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_hong_8949434b8c81484bb30332d18420ed29.jpg"
-													data-zoom-image="https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_hong_8949434b8c81484bb30332d18420ed29.jpg"
-													data-rel="prettyPhoto[product-gallery]"> <img
-													class="lazyload img-fluid" style="-image-scale: 1"
-													data-img="https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_hong_8949434b8c81484bb30332d18420ed29.jpg"
-													src="//theme.hstatic.net/1000230347/1000703102/14/product-placeholder.png?v=453"
-													data-src="https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_hong_8949434b8c81484bb30332d18420ed29.jpg"
-													alt="Bút Gel Papermate OS UPC Ink Joy 0.5 mm">
-												</a>
-											</div>
-											<div class="item ">
-												<a
-													class="d-block  pos-relative embed-responsive embed-responsive-1by1"
-													href="https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_tim_3ac04e4c19504866a2de143d63d66368.jpg"
-													title="Bút Gel Papermate OS UPC Ink Joy 0.5 mm"
-													data-image="https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_tim_3ac04e4c19504866a2de143d63d66368.jpg"
-													data-zoom-image="https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_tim_3ac04e4c19504866a2de143d63d66368.jpg"
-													data-rel="prettyPhoto[product-gallery]"> <img
-													class="lazyload img-fluid" style="-image-scale: 1"
-													data-img="https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_tim_3ac04e4c19504866a2de143d63d66368.jpg"
-													src="//theme.hstatic.net/1000230347/1000703102/14/product-placeholder.png?v=453"
-													data-src="https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_tim_3ac04e4c19504866a2de143d63d66368.jpg"
-													alt="Bút Gel Papermate OS UPC Ink Joy 0.5 mm">
-												</a>
-											</div>
+											<!-- 
 											<div class="item ">
 												<a
 													class="d-block  pos-relative embed-responsive embed-responsive-1by1"
@@ -410,7 +329,7 @@
 													data-src="https://product.hstatic.net/1000230347/product/ppmate_os_upc_0.5_vang_a15029234b87431e8ae9718ffbfdf549.jpg"
 													alt="Bút Gel Papermate OS UPC Ink Joy 0.5 mm">
 												</a>
-											</div>
+											</div> -->
 
 										</div>
 
@@ -579,7 +498,16 @@
 													Mã sản phẩm: <span class='status_name'>${sp.getId()}</span>
 												</p>
 											</div>
-
+											<div class="col-9">
+												<span class="special-price"> <span
+													class="price product-price"><p>${sp.getGia()}<p></span>
+												</span>
+												<!-- Giá Khuyến mại -->
+												<span class="old-price"> <del
+														class="price product-price-old sale"><p>${sp.getGia()}<p></del>
+												</span>
+												<!-- Giá gốc -->
+											</div>
 
 											<div class="form-product">
 												<div class="swatch-color swatch clearfix"

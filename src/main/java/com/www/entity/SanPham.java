@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Base64;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -131,6 +132,14 @@ public class SanPham implements Serializable {
 
     public Set<byte[]> getListHinh() {
         return listHinh;
+    }
+    
+    public Set<String> getListHinhBase64() {
+    	Set<String> listHinh = new HashSet<String>();
+    	this.getListHinh().forEach(i -> {
+    		listHinh.add(Base64.getEncoder().encodeToString(i));
+    	});
+    	return listHinh;
     }
 
     public void setListHinh(Set<byte[]> listHinh) {

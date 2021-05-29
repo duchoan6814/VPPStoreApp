@@ -103,5 +103,9 @@ public class DataSeendingListener implements ApplicationListener {
 
             nguoiDungRepository.save(nguoiDung);
         }
+
+//        System.out.println("hello world"+sanPhamRepository.findAll());
+//        	System.out.println("aaaa"+sanPhamRepository.findById(8));
+
     }
 }

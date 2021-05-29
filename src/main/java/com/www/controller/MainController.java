@@ -30,10 +30,7 @@ import com.www.service.SanPhamService;
 public class MainController {
 
 
-	@RequestMapping("/cart")
-	public String getCart() {
-		return "cart";
-	} 
+	
 	
 
 	// san pham
@@ -44,10 +41,14 @@ public class MainController {
 	 @RequestMapping(value="/showFormItemProduct",method = RequestMethod.GET)
 	public String getItemProduct(Model model,@RequestParam("sanpham") int theID) {
 		SanPham sanpham = sanPhamRepository.findById((long) theID);
+		System.out.println("aaa"+sanpham);
 		List<SanPham> sanPhams = sanPhamRepository.findByTheLoai(sanpham.getTheLoai());
+	
 		
 		if (sanpham != null) {
+			// item sp
 			model.addAttribute("sp",sanpham);
+//			list sp
 			model.addAttribute("sp1", sanPhams);
 		}else {
 			model.addAttribute("sp", new SanPham());
@@ -64,4 +65,15 @@ public class MainController {
 	}
 	
 	
+	
+   
+
+    @RequestMapping("/cart")
+    public String getCart() {
+        return "cart";
+    } 
+   
+    
+
+    
 }

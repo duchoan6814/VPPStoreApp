@@ -84,9 +84,12 @@
 											<!-- Product actions-->
 											<div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
 												<div class="text-center">
-													<c:url var="itemProduct" value="/showFormItemProduct" />
-													<a class="btn btn-outline-dark mt-auto"
-														href="${itemProduct}">View options</a>
+													<c:url var="viewUrl" value="/showFormItemProduct">
+														<c:param name="sanpham" value="${sp.id}" />
+													</c:url>
+													
+													<a class="btn btn-outline-dark mt-auto" href="${viewUrl}">View
+														options</a>
 												</div>
 											</div>
 										</div>
