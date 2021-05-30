@@ -3,12 +3,15 @@ package com.www.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.www.entity.NguoiDung;
 import com.www.entity.Role;
+import com.www.entity.SanPham;
 import com.www.entity.User;
 import com.www.form.FormRegister;
 import com.www.form.ImformationForm;
 import com.www.repository.NguoiDungRepository;
 import com.www.repository.RoleRepository;
 import com.www.repository.UserRepository;
+import com.www.service.SanPhamService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
@@ -18,10 +21,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.view.RedirectView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -31,6 +36,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Optional;
+import java.util.List;
 import java.util.Set;
 
 @Controller

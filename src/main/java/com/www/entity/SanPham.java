@@ -6,11 +6,11 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Base64;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
 @Table(name = "san_pham")
-@Cacheable
 public class SanPham implements Serializable {
 
     private static final long serialVersionUID = 4659917672555361897L;
@@ -38,10 +38,9 @@ public class SanPham implements Serializable {
     @Column(name = "anhDaiDien")
     private byte[] anhDaiDien;
 
-//    @Lob
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "hinh_anh", joinColumns = @JoinColumn(name = "id"))
-    private Set<byte[]> listHinh;
+    private Set<byte[]> listHinh = new HashSet<>();
 
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "chi_tiet", joinColumns = @JoinColumn(name = "san_pham_id"))
@@ -135,6 +134,14 @@ public class SanPham implements Serializable {
         return listHinh;
     }
 
+    public Set<String> getListHinhBase64() {
+    	Set<String> listHinh = new HashSet<String>();
+    	this.getListHinh().forEach(i -> {
+    		listHinh.add(Base64.getEncoder().encodeToString(i));
+    	});
+    	return listHinh;
+    }
+
     public void setListHinh(Set<byte[]> listHinh) {
         this.listHinh = listHinh;
     }
@@ -187,8 +194,8 @@ public class SanPham implements Serializable {
                 ", thuongHieu='" + thuongHieu + '\'' +
                 ", gia=" + gia +
                 ", moTa='" + moTa + '\'' +
-                ", anhDaiDien=" + Arrays.toString(anhDaiDien) +
-                ", listHinh=" + listHinh +
+//                ", anhDaiDien=" + Arrays.toString(anhDaiDien) +
+//                ", listHinh=" + listHinh +
                 ", chiTiets=" + chiTiets +
                 ", mauSacs=" + mauSacs +
                 ", theLoai=" + theLoai +

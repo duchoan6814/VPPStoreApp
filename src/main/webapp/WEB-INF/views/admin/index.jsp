@@ -320,7 +320,7 @@
                                         <img class="img-xs rounded-circle" src="https://i.pinimg.com/originals/51/f6/fb/51f6fb256629fc755b8870c801092942.png" alt="">
                                     </c:when>
                                     <c:otherwise>
-                                        <img class="img-xs rounded-circle" src="${nguoiDung.getAvartar()}" alt="">
+                                        <img class="img-xs rounded-circle" src="data:image/png;base64, ${nguoiDung.getAvatarBase64()}" alt="">
                                     </c:otherwise>
                                 </c:choose>
                                 <p class="mb-0 d-none d-sm-block navbar-profile-name">${nguoiDung.getHoTenDem()} ${nguoiDung.getTen()}</p>

@@ -4,6 +4,7 @@ import org.hibernate.annotations.Nationalized;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Embeddable
 public class MauSac implements Serializable {
@@ -45,5 +46,18 @@ public class MauSac implements Serializable {
                 "ten='" + ten + '\'' +
                 ", maMau='" + maMau + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof MauSac)) return false;
+        MauSac mauSac = (MauSac) o;
+        return Objects.equals(getTen(), mauSac.getTen()) && Objects.equals(getMaMau(), mauSac.getMaMau());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getTen(), getMaMau());
     }
 }

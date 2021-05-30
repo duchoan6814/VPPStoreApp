@@ -4,6 +4,7 @@ import org.hibernate.annotations.Nationalized;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Embeddable
 public class ChiTiet implements Serializable {
@@ -47,5 +48,18 @@ public class ChiTiet implements Serializable {
     public ChiTiet(String key, String value) {
         this.key = key;
         this.value = value;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ChiTiet)) return false;
+        ChiTiet chiTiet = (ChiTiet) o;
+        return Objects.equals(getKey(), chiTiet.getKey()) && Objects.equals(getValue(), chiTiet.getValue());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getKey(), getValue());
     }
 }
