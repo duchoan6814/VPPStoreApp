@@ -38,6 +38,7 @@ public class SanPham implements Serializable {
     @Column(name = "anhDaiDien")
     private byte[] anhDaiDien;
 
+//    @Lob
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "hinh_anh", joinColumns = @JoinColumn(name = "id"))
     private Set<byte[]> listHinh = new HashSet<>();
