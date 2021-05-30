@@ -9,12 +9,12 @@
     <body>
       <div class="col-12 order-detail py-3 mb-2">
         <div class="row align-items-center">
-          <div class="col-5 order-detail__left-site">
-            <img class="img-thumbnail"
+          <div class="d-flex col-5 order-detail__left-site">
+            <img style="width: 200px; height: 200px;" class="img-thumbnail"
               src="data:image/png;base64, ${param.hinhAnh}"
               alt="item">
             <div class="order-detai-item__left-site__content ml-2">
-              <h6>${param.tenSanPham}</h6>
+              <h6 style="text-align: justify">${param.tenSanPham}</h6>
             </div>
           </div>
           <div class="col-7">

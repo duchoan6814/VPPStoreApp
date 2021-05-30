@@ -141,7 +141,7 @@
                     </div>
 
                     <div class="header__wrap-right-site__gio-hang">
-                        <button class="gio-hang__wrap-gio-hang">
+                        <button id="btnGioHang" class="gio-hang__wrap-gio-hang">
                             <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
                                  class="bi bi-bag-check-fill" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd"
@@ -149,10 +149,14 @@
                             </svg>
                             <p class="mx-3">Giỏ hàng</p>
                             <div class="gio-hang__wrap-gio-hang__bage">
-                                <p>${state}</p>
-                                <c:if test="${nguoiDung.getCart() != null}">
-                                    <p>${nguoiDung.getCart().size()}</p>
-                                </c:if>
+                                <c:choose>
+                                    <c:when test="${cart == null}">
+                                        <p>0</p>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <p>${cart.getChiTietHoaDons().size()}</p>
+                                    </c:otherwise>
+                                </c:choose>
                             </div>
                         </button>
                     </div>

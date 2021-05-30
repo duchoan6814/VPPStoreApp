@@ -40,9 +40,6 @@ public class DiaChi implements Serializable {
     @Nationalized
     private LableAddress lableAddress;
 
-    @OneToMany(mappedBy = "diaChi")
-    private Set<SanPham> sanPhams = new HashSet<>();
-
     public DiaChi() {
     }
 

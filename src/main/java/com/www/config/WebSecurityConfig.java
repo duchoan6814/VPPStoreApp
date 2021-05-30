@@ -52,6 +52,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // For MANAGER only.
         http.authorizeRequests().antMatchers("/product/**").access("hasRole('ROLE_ADMIN')");
         http.authorizeRequests().antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')");
+        http.authorizeRequests().antMatchers("/cart/payment").authenticated();
 
         http.authorizeRequests().antMatchers("/user/login").permitAll();
         http.authorizeRequests().antMatchers("/user/register").permitAll();

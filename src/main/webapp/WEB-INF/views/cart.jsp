@@ -48,53 +48,26 @@
     </div>
 
     <c:choose>
-        <c:when test="${pageContext.request.userPrincipal.name == null}">
-            <c:choose>
-                <c:when test="${cart == null}">
-                    <div class="row cart__list-order-detail">
-                        <h3>Chưa có sản phẩm nào trong giỏ hàng</h3>
-                    </div>
-                </c:when>
-                <c:otherwise>
-                    <div class="row cart__list-order-detail">
-                        <c:forEach items="${cart.getChiTietHoaDons()}" var="chiTietHoaDon">
-                            <jsp:include page="components/order-detail-cart.jsp">
-                                <jsp:param name="tenSanPham" value="${chiTietHoaDon.getSanPham().getTen()}"/>
-                                <jsp:param name="gia" value="${chiTietHoaDon.tinhGiaBanFormat()}"/>
-                                <jsp:param name="soLuong" value="${chiTietHoaDon.getSoLuong()}"/>
-                                <jsp:param name="tongTien" value="${chiTietHoaDon.getTongTienFormat()}"/>
-                                <jsp:param name="maSanPham" value="${chiTietHoaDon.getSanPham().getId()}"/>
-                                <jsp:param name="hinhAnh" value="${chiTietHoaDon.getSanPham().getAnhDaiDienBase64()}"/>
-                            </jsp:include>
-                        </c:forEach>
-                            <%--<jsp:include page="components/order-detail-cart.jsp"/>
-                            <jsp:include page="components/order-detail-cart.jsp"/>--%>
-                    </div>
-                </c:otherwise>
-            </c:choose>
+        <c:when test="${cart == null}">
+            <div class="row cart__list-order-detail">
+                <h3>Chưa có sản phẩm nào trong giỏ hàng</h3>
+            </div>
         </c:when>
         <c:otherwise>
-            <c:choose>
-                <c:when test="${nguoiDung.getCart() == null}">
-                    <div class="row cart__list-order-detail">
-                        <h3>Chưa có sản phẩm nào trong giỏ hàng</h3>
-                    </div>
-                </c:when>
-                <c:otherwise>
-                    <div class="row cart__list-order-detail">
-                        <c:forEach items="${nguoiDung.getCart().getChiTietHoaDons()}" var="chiTietHoaDon">
-                            <jsp:include page="components/order-detail-cart.jsp">
-                                <jsp:param name="tenSanPham" value="${chiTietHoaDon.getSanPham().getTen()}"/>
-                                <jsp:param name="gia" value="${chiTietHoaDon.tinhGiaBanFormat()}"/>
-                                <jsp:param name="soLuong" value="${chiTietHoaDon.getSoLuong()}"/>
-                                <jsp:param name="tongTien" value="${chiTietHoaDon.getTongTienFormat()}"/>
-                                <jsp:param name="maSanPham" value="${chiTietHoaDon.getSanPham().getId()}"/>
-                                <jsp:param name="hinhAnh" value="${chiTietHoaDon.getSanPham().getAnhDaiDienBase64()}"/>
-                            </jsp:include>
-                        </c:forEach>
-                    </div>
-                </c:otherwise>
-            </c:choose>
+            <div class="row cart__list-order-detail">
+                <c:forEach items="${cart.getChiTietHoaDons()}" var="chiTietHoaDon">
+                    <jsp:include page="components/order-detail-cart.jsp">
+                        <jsp:param name="tenSanPham" value="${chiTietHoaDon.getSanPham().getTen()}"/>
+                        <jsp:param name="gia" value="${chiTietHoaDon.tinhGiaBanFormat()}"/>
+                        <jsp:param name="soLuong" value="${chiTietHoaDon.getSoLuong()}"/>
+                        <jsp:param name="tongTien" value="${chiTietHoaDon.getTongTienFormat()}"/>
+                        <jsp:param name="maSanPham" value="${chiTietHoaDon.getSanPham().getId()}"/>
+                        <jsp:param name="hinhAnh" value="${chiTietHoaDon.getSanPham().getAnhDaiDienBase64()}"/>
+                    </jsp:include>
+                </c:forEach>
+                    <%--<jsp:include page="components/order-detail-cart.jsp"/>
+                    <jsp:include page="components/order-detail-cart.jsp"/>--%>
+            </div>
         </c:otherwise>
     </c:choose>
 
@@ -103,7 +76,8 @@
         <div class="col-12">
             <div class="cart__sum__wrap-content">
                 <p class="mb-0">Tổng số tiền: <span>${cart.getTongTienChiTietHoaDonFormat()}</span></p>
-                <button type="button" class="ml-3 btn btn-danger">Mua hàng</button>
+                <a href="${pageContext.request.contextPath}/cart/payment" type="button" class="ml-3 btn btn-danger">Mua
+                    hàng</a>
             </div>
         </div>
     </div>
