@@ -6,6 +6,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Base64;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -43,8 +44,10 @@ public class NguoiDung implements Serializable {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @OneToMany(mappedBy = "nguoiDung", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    private Set<DiaChi> diaChis;
+//    @OneToMany(mappedBy = "nguoiDung", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "dia_chi", joinColumns = @JoinColumn(name = "nguoi_dung_id"))
+    private Set<DiaChi> diaChis = new HashSet<>();
 
     @OneToMany(mappedBy = "nguoiDung")
     private Set<HoaDon> hoaDons;

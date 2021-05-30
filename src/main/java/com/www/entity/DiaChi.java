@@ -4,15 +4,11 @@ import org.hibernate.annotations.Nationalized;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Objects;
 
-@Entity
-@Table(name = "dia_chi")
+@Embeddable
 public class DiaChi implements Serializable {
     private static final long serialVersionUID = -5694643530826830252L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id", nullable = false)
-    private long id;
 
     @Column(name = "phuong_xa", nullable = false)
     @Nationalized
@@ -34,24 +30,30 @@ public class DiaChi implements Serializable {
     @Nationalized
     private String tenNguoiNhan;
 
+    @Column(name = "so_dien_thoai")
+    private String soDienThoai;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "label")
     @Nationalized
     private LableAddress lableAddress;
 
-    @ManyToOne
-    @JoinColumn(name = "nguoi_dung_id")
-    private NguoiDung nguoiDung;
 
     public DiaChi() {
     }
 
-    public long getId() {
-        return id;
+    public DiaChi(String phuongXa, String quanHuyen, String tinhThanhPho, String chiTiet, String tenNguoiNhan, String soDienThoai, LableAddress lableAddress) {
+        this.phuongXa = phuongXa;
+        this.quanHuyen = quanHuyen;
+        this.tinhThanhPho = tinhThanhPho;
+        this.chiTiet = chiTiet;
+        this.tenNguoiNhan = tenNguoiNhan;
+        this.soDienThoai = soDienThoai;
+        this.lableAddress = lableAddress;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 
     public String getPhuongXa() {
@@ -94,6 +96,14 @@ public class DiaChi implements Serializable {
         this.tenNguoiNhan = tenNguoiNhan;
     }
 
+    public String getSoDienThoai() {
+        return soDienThoai;
+    }
+
+    public void setSoDienThoai(String soDienThoai) {
+        this.soDienThoai = soDienThoai;
+    }
+
     public LableAddress getLableAddress() {
         return lableAddress;
     }
@@ -102,11 +112,29 @@ public class DiaChi implements Serializable {
         this.lableAddress = lableAddress;
     }
 
-    public NguoiDung getNguoiDung() {
-        return nguoiDung;
+    @Override
+    public String toString() {
+        return "DiaChi{" +
+                "phuongXa='" + phuongXa + '\'' +
+                ", quanHuyen='" + quanHuyen + '\'' +
+                ", tinhThanhPho='" + tinhThanhPho + '\'' +
+                ", chiTiet='" + chiTiet + '\'' +
+                ", tenNguoiNhan='" + tenNguoiNhan + '\'' +
+                ", soDienThoai='" + soDienThoai + '\'' +
+                ", lableAddress=" + lableAddress +
+                '}';
     }
 
-    public void setNguoiDung(NguoiDung nguoiDung) {
-        this.nguoiDung = nguoiDung;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof DiaChi)) return false;
+        DiaChi diaChi = (DiaChi) o;
+        return Objects.equals(getPhuongXa(), diaChi.getPhuongXa()) && Objects.equals(getQuanHuyen(), diaChi.getQuanHuyen()) && Objects.equals(getTinhThanhPho(), diaChi.getTinhThanhPho()) && Objects.equals(getChiTiet(), diaChi.getChiTiet()) && Objects.equals(getTenNguoiNhan(), diaChi.getTenNguoiNhan()) && Objects.equals(getSoDienThoai(), diaChi.getSoDienThoai()) && getLableAddress() == diaChi.getLableAddress();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getPhuongXa(), getQuanHuyen(), getTinhThanhPho(), getChiTiet(), getTenNguoiNhan(), getSoDienThoai(), getLableAddress());
     }
 }

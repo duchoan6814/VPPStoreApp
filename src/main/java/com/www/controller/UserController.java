@@ -1,10 +1,8 @@
 package com.www.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.www.entity.NguoiDung;
-import com.www.entity.Role;
-import com.www.entity.SanPham;
-import com.www.entity.User;
+import com.www.entity.*;
+import com.www.form.DiaChiForm;
 import com.www.form.FormRegister;
 import com.www.form.ImformationForm;
 import com.www.repository.NguoiDungRepository;
@@ -132,7 +130,37 @@ public class UserController {
 
     @RequestMapping("/address")
     public String getAddress() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = userRepository.findByEmail(authentication.getName());
+        NguoiDung nguoiDung = nguoiDungRepository.findByUser(user);
+        System.out.println("diachinguoidung"+nguoiDung.getDiaChis());
         return "user/address-page";
+    }
+
+    @PostMapping(value = "/add-address", consumes = "application/x-www-form-urlencoded")
+    public RedirectView postAddress(DiaChiForm diaChiForm, Model model) {
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = userRepository.findByEmail(authentication.getName());
+        NguoiDung nguoiDung = nguoiDungRepository.findByUser(user);
+
+        DiaChi diaChi = new DiaChi();
+        diaChi.setTenNguoiNhan(diaChiForm.getTenNguoiNhan());
+        diaChi.setTinhThanhPho(diaChiForm.getTinhThanhPho());
+        diaChi.setQuanHuyen(diaChiForm.getQuanHuyen());
+        diaChi.setPhuongXa(diaChiForm.getPhuongXa());
+        diaChi.setChiTiet(diaChiForm.getChiTiet());
+        diaChi.setSoDienThoai(diaChiForm.getSoDienThoai());
+        if (diaChiForm.getLabel() == 1) {
+            diaChi.setLableAddress(LableAddress.HOME);
+        }else {
+            diaChi.setLableAddress(LableAddress.WORK);
+        }
+
+        nguoiDung.getDiaChis().add(diaChi);
+
+        nguoiDungRepository.save(nguoiDung);
+        return new RedirectView("address");
     }
 
 }
