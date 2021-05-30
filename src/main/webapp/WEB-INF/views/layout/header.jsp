@@ -70,7 +70,9 @@
                             </svg>
                             <p class="mx-3">Giỏ hàng</p>
                             <div class="gio-hang__wrap-gio-hang__bage">
-                                <p>1</p>
+                                <c:if test="${carts == null}">
+                                    <p>0</p>
+                                </c:if>
                             </div>
                         </button>
                     </div>

@@ -59,17 +59,5 @@ public class MainController {
 	    model.addAttribute("sanPham", sanPhamRepository.findAll());
 	    return "index";
 	}
-	
-	
-	
-   
-
-    @RequestMapping("/cart")
-    public String getCart() {
-        return "cart";
-    } 
-   
-    
-
     
 }
