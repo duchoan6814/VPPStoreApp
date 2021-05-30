@@ -521,8 +521,7 @@
 
 														<div class="button_actions clearfix">
 
-															<button type="submit"
-																class="btn btn_base btn_add_cart btn-cart add_to_cart"
+															<button id="btnSubmit" class="btn btn_base btn_add_cart btn-cart add_to_cart"
 																style="background-color: red">
 																<span class="text_1">Chọn mua</span>
 															</button>
@@ -653,10 +652,8 @@
 						<c:forEach items="${sp1}" var="sp" begin="0" end="9">
 							<div class="item  linh col-md-12 col-5 ">
 								<div class="item_product_main ">
-									<form action="/cart/add" method="post"
-										class="variants product-action"
-										data-id="product-actions-1009631215"
-										enctype="multipart/form-data">
+									<form class="variants product-action">
+	>
 										<div class="product-thumbnail pos-relative">
 											<a
 												class="image_thumb pos-relative embed-responsive embed-responsive-1by1">
@@ -1140,7 +1137,39 @@
 
 
 	</script>
+<%--<script src="${pageContext.request.contextPath}/js/handleThemGioHang.js">--%>
+<%--</script>--%>
+<script>
+	$(document).ready(function () {
+		$("#btnSubmit").click(function (e) {
+			e.preventDefault();
+			let searchParams = new URLSearchParams(window.location.search)
+			let idProduct = searchParams.get("sanpham");
+			console.log('maSanPham', idProduct);
 
+			let data = new FormData();
 
+			const dataJson = {
+				"maSanPham": idProduct,
+				"soLuong": $("#qtym").val()
+			}
+
+			data.append("dataJson", JSON.stringify(dataJson));
+
+			$.ajax({
+				type: "Get",
+				url: "${pageContext.request.contextPath}/cart/add?maSanPham="+idProduct+"&soLuong="+$("#qtym").val(),
+				processData: false,
+				contentType: false,
+				cache: false,
+				timeout: 600000,
+				success: function (response) {
+					console.log('SUCCESS', response);
+					window.location = "${pageContext.request.contextPath}/cart";
+				}
+			});
+		});
+	});
+</script>
 </body>
 </html>

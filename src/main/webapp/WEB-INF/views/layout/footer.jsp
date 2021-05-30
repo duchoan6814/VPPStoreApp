@@ -65,6 +65,18 @@
 <!-- endinject -->
 <!-- Custom js for this page -->
 <!-- End custom js for this page -->
-
+<script>
+    $(document).ready(function () {
+        $("#btnGioHang").click(function() {
+            $.get({
+                url: "${pageContext.request.contextPath}/cart",
+                success: function (response) {
+                    console.log('SUCCESS', response);
+                    window.location = "${pageContext.request.contextPath}/cart"
+                }
+            })
+        })
+    })
+</script>
 </body>
 </html>

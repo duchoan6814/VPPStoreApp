@@ -4,7 +4,9 @@ import org.hibernate.annotations.Nationalized;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Embeddable
 public class DiaChi implements Serializable {
@@ -38,6 +40,8 @@ public class DiaChi implements Serializable {
     @Nationalized
     private LableAddress lableAddress;
 
+    @OneToMany(mappedBy = "diaChi")
+    private Set<SanPham> sanPhams = new HashSet<>();
 
     public DiaChi() {
     }

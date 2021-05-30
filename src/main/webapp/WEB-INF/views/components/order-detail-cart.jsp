@@ -1,4 +1,4 @@
-<%-- Created by IntelliJ IDEA. User: hoantruong Date: 21/05/2021 Time: 16:15 To change this template use File | Settings
+<%@ page import="com.www.entity.ChiTietHoaDon" %><%-- Created by IntelliJ IDEA. User: hoantruong Date: 21/05/2021 Time: 16:15 To change this template use File | Settings
   | File Templates. --%>
   <%@ page contentType="text/html;charset=UTF-8" language="java" %>
     <html>
@@ -9,17 +9,17 @@
     <body>
       <div class="col-12 order-detail py-3 mb-2">
         <div class="row align-items-center">
-          <div class="col-6 order-detail__left-site">
+          <div class="col-5 order-detail__left-site">
             <img class="img-thumbnail"
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSwN8q0EpHDsatukgzuMAqoNv2A4FSuYuQxRQ&usqp=CAU"
+              src="data:image/png;base64, ${param.hinhAnh}"
               alt="item">
             <div class="order-detai-item__left-site__content ml-2">
-              <h6>Bút xóa cao cấp nhập khẩu</h6>
+              <h6>${param.tenSanPham}</h6>
             </div>
           </div>
-          <div class="col-6">
+          <div class="col-7">
             <div class="row align-items-center">
-              <div class="col-3 align-self-center">100.000đ</div>
+              <div class="col-3 align-self-center">${param.gia}</div>
 
               <div class="col-3 align-self-center">
                 <div class="input-group">
@@ -31,7 +31,7 @@
                       </svg>
                     </button>
                   </div>
-                  <input type="number" class="form-control" placeholder="" aria-label=""
+                  <input value="${param.soLuong}" type="number" class="form-control" placeholder="" aria-label=""
                     aria-describedby="basic-addon1">
                   <div class="input-group-append">
                     <button class="btn btn-outline-secondary" type="button">
@@ -45,7 +45,7 @@
                 </div>
               </div>
 
-              <div class="col-3 align-self-center">1.000.000đ</div>
+              <div class="col-3 align-self-center">${param.tongTien}</div>
               <div class="col-3 align-self-center">
                 <button type="button" class="btn btn-danger">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash"

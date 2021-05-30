@@ -1,5 +1,7 @@
 package com.www.entity;
 
+import com.www.Util.UtilClass;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -54,5 +56,17 @@ public class Cart implements Serializable {
                 "nguoiDung=" + nguoiDung +
                 ", chiTietHoaDons=" + chiTietHoaDons +
                 '}';
+    }
+
+    public double tinhTongTienTrongCart() {
+        double sum = 0;
+        for (ChiTietHoaDon chiTietHoaDon : this.getChiTietHoaDons()) {
+            sum += chiTietHoaDon.tinhTienChiTietHoaDon();
+        }
+        return sum;
+    }
+
+    public String getTongTienChiTietHoaDonFormat() {
+        return new UtilClass().formatMoneyVnd(this.tinhTongTienTrongCart());
     }
 }

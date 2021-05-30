@@ -1,5 +1,7 @@
 package com.www.entity;
 
+import com.www.Util.UtilClass;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
@@ -19,7 +21,9 @@ public class ChiTietHoaDon implements Serializable {
     public double tinhGiaBan() {
         return this.getSanPham().getGia() * 1.4;
     }
-
+    public String tinhGiaBanFormat() {
+        return new UtilClass().formatMoneyVnd(this.tinhGiaBan());
+    }
     public ChiTietHoaDon() {
     }
 
@@ -67,5 +71,14 @@ public class ChiTietHoaDon implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(getSoLuong(), getSanPham());
+    }
+
+    public double tinhTienChiTietHoaDon() {
+        return tinhGiaBan() * this.getSoLuong();
+    }
+
+    public String getTongTienFormat() {
+        UtilClass utilClass = new UtilClass();
+        return utilClass.formatMoneyVnd(this.tinhTienChiTietHoaDon());
     }
 }

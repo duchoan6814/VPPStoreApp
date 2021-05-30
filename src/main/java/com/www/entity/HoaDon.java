@@ -36,6 +36,9 @@ public class HoaDon implements Serializable {
     @CollectionTable(name = "chi_tiet_hoa_don_hoa_don", joinColumns = @JoinColumn(name = "hoa_don_id"))
     private Set<ChiTietHoaDon> chiTietHoaDons;
 
+    @Embedded
+    private DiaChi diaChi;
+
     @Override
     public String toString() {
         return "HoaDon{" +

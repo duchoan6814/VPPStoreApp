@@ -52,7 +52,7 @@ public class NguoiDung implements Serializable {
     @OneToMany(mappedBy = "nguoiDung")
     private Set<HoaDon> hoaDons;
 
-    @OneToOne(mappedBy = "nguoiDung")
+    @OneToOne(mappedBy = "nguoiDung", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private Cart cart;
 
     @Override
