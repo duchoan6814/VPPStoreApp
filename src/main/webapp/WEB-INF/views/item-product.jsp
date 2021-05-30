@@ -371,14 +371,9 @@
 												</p>
 											</div>
 											<div class="col-9">
-												<span class="special-price"> <span
-													class="price product-price"><p>${sp.getGia()}<p></span>
+												<span style="color: red; font-size: 20px;" class="special-price"> <span
+													class="price product-price"><p>${sp.getGiaFormat()}<p></span>
 												</span>
-												<!-- Giá Khuyến mại -->
-												<span class="old-price"> <del
-														class="price product-price-old sale"><p>${sp.getGia()}<p></del>
-												</span>
-												<!-- Giá gốc -->
 											</div>
 
 											<div class="form-product">

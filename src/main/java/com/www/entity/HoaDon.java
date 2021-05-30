@@ -32,7 +32,8 @@ public class HoaDon implements Serializable {
     @JoinColumn(name = "nguoi_dung_id", nullable = false)
     private NguoiDung nguoiDung;
 
-    @OneToMany(mappedBy = "hoaDon")
+    @ElementCollection(fetch = FetchType.EAGER)
+    @CollectionTable(name = "chi_tiet_hoa_don_hoa_don", joinColumns = @JoinColumn(name = "hoa_don_id"))
     private Set<ChiTietHoaDon> chiTietHoaDons;
 
     @Override

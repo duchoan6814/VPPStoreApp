@@ -1,6 +1,8 @@
 package com.www.entity;
 
+import com.www.Util.UtilClass;
 import org.hibernate.annotations.Nationalized;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -38,7 +40,7 @@ public class SanPham implements Serializable {
     @Column(name = "anhDaiDien")
     private byte[] anhDaiDien;
 
-//    @Lob
+    //    @Lob
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "hinh_anh", joinColumns = @JoinColumn(name = "id"))
     private Set<byte[]> listHinh = new HashSet<>();
@@ -58,13 +60,11 @@ public class SanPham implements Serializable {
     @Column(name = "so_luong_ton", nullable = false)
     private int soLuongTon;
 
-    @OneToMany(mappedBy = "sanPham", fetch = FetchType.LAZY)
-    private Set<ChiTietHoaDon> chiTietHoaDons;
 
     public SanPham() {
     }
 
-    public SanPham(long id, String ten, String thuongHieu, double gia, String moTa, byte[] anhDaiDien, Set<byte[]> listHinh, Set<ChiTiet> chiTiets, Set<MauSac> mauSacs, TheLoai theLoai, int soLuongTon, Set<ChiTietHoaDon> chiTietHoaDons) {
+    public SanPham(long id, String ten, String thuongHieu, double gia, String moTa, byte[] anhDaiDien, Set<byte[]> listHinh, Set<ChiTiet> chiTiets, Set<MauSac> mauSacs, TheLoai theLoai, int soLuongTon) {
         this.id = id;
         this.ten = ten;
         this.thuongHieu = thuongHieu;
@@ -76,7 +76,10 @@ public class SanPham implements Serializable {
         this.mauSacs = mauSacs;
         this.theLoai = theLoai;
         this.soLuongTon = soLuongTon;
-        this.chiTietHoaDons = chiTietHoaDons;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 
     public long getId() {
@@ -123,24 +126,12 @@ public class SanPham implements Serializable {
         return anhDaiDien;
     }
 
-    public String getAnhDaiDienBase64() {
-        return Base64.getEncoder().encodeToString(this.anhDaiDien);
-    }
-
     public void setAnhDaiDien(byte[] anhDaiDien) {
         this.anhDaiDien = anhDaiDien;
     }
 
     public Set<byte[]> getListHinh() {
         return listHinh;
-    }
-
-    public Set<String> getListHinhBase64() {
-    	Set<String> listHinh = new HashSet<String>();
-    	this.getListHinh().forEach(i -> {
-    		listHinh.add(Base64.getEncoder().encodeToString(i));
-    	});
-    	return listHinh;
     }
 
     public void setListHinh(Set<byte[]> listHinh) {
@@ -179,14 +170,6 @@ public class SanPham implements Serializable {
         this.soLuongTon = soLuongTon;
     }
 
-    public Set<ChiTietHoaDon> getChiTietHoaDons() {
-        return chiTietHoaDons;
-    }
-
-    public void setChiTietHoaDons(Set<ChiTietHoaDon> chiTietHoaDons) {
-        this.chiTietHoaDons = chiTietHoaDons;
-    }
-
     @Override
     public String toString() {
         return "SanPham{" +
@@ -195,12 +178,29 @@ public class SanPham implements Serializable {
                 ", thuongHieu='" + thuongHieu + '\'' +
                 ", gia=" + gia +
                 ", moTa='" + moTa + '\'' +
-//                ", anhDaiDien=" + Arrays.toString(anhDaiDien) +
-//                ", listHinh=" + listHinh +
+                ", anhDaiDien=" + Arrays.toString(anhDaiDien) +
+                ", listHinh=" + listHinh +
                 ", chiTiets=" + chiTiets +
                 ", mauSacs=" + mauSacs +
                 ", theLoai=" + theLoai +
                 ", soLuongTon=" + soLuongTon +
                 '}';
+    }
+
+    public String getAnhDaiDienBase64() {
+        return Base64.getEncoder().encodeToString(this.getAnhDaiDien());
+    }
+
+    public String getGiaFormat() {
+        UtilClass utilClass = new UtilClass();
+        return utilClass.formatMoneyVnd(this.getGia());
+    }
+
+    public Set<String> getListHinhBase64() {
+        Set<String> hinhAnh = new HashSet<>();
+        this.getListHinh().forEach(bytes -> {
+            hinhAnh.add(Base64.getEncoder().encodeToString(bytes));
+        });
+        return hinhAnh;
     }
 }
