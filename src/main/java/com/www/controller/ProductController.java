@@ -1,5 +1,21 @@
 package com.www.controller;
 
+import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.view.RedirectView;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.www.entity.MauSac;
 import com.www.entity.SanPham;
@@ -19,6 +35,7 @@ import org.springframework.web.servlet.view.RedirectView;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.*;
+
 
 @Controller
 @RequestMapping("/product")
@@ -59,7 +76,7 @@ public class ProductController {
         for (MultipartFile multipartFile : anhMauSanPham) {
             listAnhMinhHoa.add(multipartFile.getBytes());
         }
-        AddSanPhamForm addSanPhamForm = objectMapper.readValue(jsonData, AddSanPhamForm.class);
+        AddSanPhamForm addSanPhamForm = (AddSanPhamForm) objectMapper.readValue(jsonData, AddSanPhamForm.class);
 
         System.out.println("log add san pham " + addSanPhamForm);
 
@@ -87,19 +104,19 @@ public class ProductController {
         addSanPhamForm.getMauSacs().forEach(s -> {
             MauSac mauSac = new MauSac();
             mauSac.setTen(s);
-            if (s.equalsIgnoreCase("Trắng"))
+            if (s.equalsIgnoreCase("Tráº¯ng"))
                 mauSac.setMaMau("#FFFFFF");
-            else if (s.equalsIgnoreCase("Đen"))
+            else if (s.equalsIgnoreCase("Ä�en"))
                 mauSac.setMaMau("#000000");
             else if (s.equalsIgnoreCase("Xanh"))
                 mauSac.setMaMau("#0000FF");
-            else if (s.equalsIgnoreCase("Đỏ"))
+            else if (s.equalsIgnoreCase("Ä�á»�"))
                 mauSac.setMaMau("#FF0000");
-            else if (s.equalsIgnoreCase("Tím"))
+            else if (s.equalsIgnoreCase("TÃ­m"))
                 mauSac.setMaMau("#800080");
-            else if (s.equalsIgnoreCase("Vàng"))
+            else if (s.equalsIgnoreCase("VÃ ng"))
                 mauSac.setMaMau("#FFFF00");
-            else if (s.equalsIgnoreCase("Nâu"))
+            else if (s.equalsIgnoreCase("NÃ¢u"))
                 mauSac.setMaMau("#660000");
             else
                 mauSac.setMaMau("#F4F4F4");

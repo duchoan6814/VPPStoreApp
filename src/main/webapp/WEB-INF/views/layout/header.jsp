@@ -15,7 +15,7 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/header_footer_style.css?v=1">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light header">
+<nav class="navbar navbar-expand-lg navbar-light  header">
 
     <c:url var="urlLogo" value="/images/logo.png"/>
     <c:url var="homePageUrl" value="/"/>
